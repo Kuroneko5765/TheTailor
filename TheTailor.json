@@ -1,0 +1,17 @@
+{
+  "id": "TheTailor",
+  "name": "TheTailor",
+  "author": "hex3",
+  "description": "Adds some new cards to the Necrobinder.",
+  "version": "1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "min_game_version": "0.107.0",
+  "dependencies": [
+    {
+      "id": "BaseLib",
+      "min_version": "v3.1.8"
+    }
+  ],
+  "affects_gameplay": true
+}

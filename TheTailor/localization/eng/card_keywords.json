@@ -1,0 +1,21 @@
+{
+    "THETAILOR-STITCH.title": "Stitch",
+    "THETAILOR-STITCH.description": "Link two non-[gold]Stitched[/gold] cards. When one is played, the other is played afterward for free.",
+    "THETAILOR-STITCHED.title": "Stitched",
+    "THETAILOR-STITCHED.description": "Linked to another card. When this card is played, the other is played afterward for free.",
+    "THETAILOR-DELICATE.title": "Delicate",
+    "THETAILOR-DELICATE.description": "When played, reduce this card's [gold]Delicate[/gold] by 1. [gold]Exhausts[/gold] when it reaches 0.",
+
+    "THETAILOR-LEATHERMINION.title": "Leather Minion",
+    "THETAILOR-LEATHERMINION.description": "Takes unblocked attack damage for you.",
+    "THETAILOR-LINENMINION.title": "Linen Minion",
+    "THETAILOR-LINENMINION.description": "Takes unblocked attack damage for you. When hit, applies 2 [gold]Vulnerable[/gold] to its attacker.",
+    "THETAILOR-COTTONMINION.title": "Cotton Minion",
+    "THETAILOR-COTTONMINION.description": "Takes unblocked attack damage for you. At the end of your turn, heals you for 2 HP.",
+    "THETAILOR-DENIMMINION.title": "Denim Minion",
+    "THETAILOR-DENIMMINION.description": "Takes unblocked attack damage for you. When hit, grants you 2 [gold]Strength[/gold] this turn.",
+    "THETAILOR-SILKMINION.title": "Silk Minion",
+    "THETAILOR-SILKMINION.description": "Takes unblocked attack damage for you. At the start of your turn, grants you 2 [gold]Dexterity[/gold] this turn.",
+    "THETAILOR-WOOLMINION.title": "Wool Minion",
+    "THETAILOR-WOOLMINION.description": "Takes unblocked attack damage for you. Your first 2 attacks each turn apply 1 [gold]Weaken[/gold]."
+}

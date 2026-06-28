@@ -1,0 +1,112 @@
+-- CARDS --
+
+STARTER
+- Strike (x4)
+- Defend (x4)
+- Sew
+    > Stitch provider
+- Craft
+    > High-cost
+    > Delicate
+    > Leather minion
+
+COMMON
+- Attacks (3)
+    > Needle Storm
+        = High-cost
+        = Multi-attack
+    > Pinprick
+        = Multi-attack
+        = Block
+    > Slick Strike
+        = Stitch target
+        = Delicate
+- Skills (3)
+    > Slippers
+        = Stitch target
+        = Block
+        = Draw
+    > Spare Material
+        = Delicate
+        = Leather minion
+    > Spool
+        = Delicate
+        = Block
+        = High-cost
+        = Stitch provider
+
+UNCOMMON
+- Attacks (3)
+    > Outfit
+        = Multi-attack
+        = Minion synergy
+    > Sturdy Strike
+        = Big attack
+        = High-cost
+        = Denim minion
+    > Swatch Strike
+        = High-cost
+        = Draw
+        = Patches
+- Skills (4)
+    > Back Pocket
+        = Stitch provider
+        = Discard pile
+        = Delicate
+    > Comfort
+        = Energy
+        = Wool minion
+        = 0-cost
+    > Peruse
+        = Draw
+        = Delicate
+    > Versatility
+        = Block
+        = Denim minion
+- Powers (3)
+    > Loom
+        = Minion synergy
+        = Vulnerable
+    > Steady Hand
+        = Delicate
+    > Thrifting
+        = Exhaust
+        = Draw
+
+RARE
+- Attacks (3)
+    > Strike A Pose
+        = Stitch target
+        = Strength down
+        = Multi-attack
+        = X-cost
+    > Magnum Opus
+        = Meta scaling
+        = Upgrades
+        = Big attack
+    > Ultimate Slap
+        = Big attack
+        = High-cost
+        = Stitch target
+- Skills (3)
+    > Front Pocket
+        = Stitch provider
+        = Draw pile
+        = Delicate
+    > Pincushion
+        = Draw
+        = Stitch target
+        = Delicate
+    > Luxury
+        = Silk minion
+        = Retain
+- Powers (3)
+    > Unravel
+        = Passive damage
+        = Stitch synergy
+    > Patchwork Form
+        = Stitch provider
+        = Discard pile
+        = Patches
+    > Production Line
+        = Linen minion

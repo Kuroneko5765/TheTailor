@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://da7lb7dk4dbec"]
+
+[ext_resource type="Script" uid="uid://b3co0axeaxa43" path="res://TheTailor/nodes/NCreatureVisualsCopy.cs" id="1_oyccw"]
+[ext_resource type="Texture2D" uid="uid://dur07pndlyk4x" path="res://TheTailor/images/minions/minionWool_placeholder.png" id="2_oyccw"]
+
+[node name="MinionWool" type="Node2D"]
+script = ExtResource("1_oyccw")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -68.0
+offset_top = -139.0
+offset_right = 68.0
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -44)
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -70.00001)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_oyccw")
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -160)

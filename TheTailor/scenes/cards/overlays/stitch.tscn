@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://din166674xpkc"]
+
+[ext_resource type="Texture2D" uid="uid://umj4kxerm4at" path="res://TheTailor/images/card_overlays/stitch.png" id="1_c0j8t"]
+
+[node name="Infection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VisualLayer2" type="Sprite2D" parent="."]
+position = Vector2(-0.499993, -7.50001)
+scale = Vector2(0.510736, 0.520501)
+texture = ExtResource("1_c0j8t")
