@@ -30,33 +30,33 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
             await Cmd.Wait(0.25f);
         }
-
-        protected override PileType GetResultPileTypeForCardPlay()
+        
+        protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay()
         {
-            PileType resultPileTypeForCardPlay = base.GetResultPileTypeForCardPlay();
-            if (resultPileTypeForCardPlay != PileType.Discard)
+            var (pileType, item) = base.GetResultPileTypeAndPositionForCardPlay();
+            if (pileType == PileType.Discard)
             {
-                return resultPileTypeForCardPlay;
+                return (PileType.Hand, CardPilePosition.Bottom);
             }
-            return PileType.Hand;
+            return (pileType, item);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(4m);
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

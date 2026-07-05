@@ -15,16 +15,18 @@ using TheTailor.Powers;
 
 namespace TheTailor.Minions
 {
-    public sealed class MinionCotton : MinionModel
+    public sealed class MinionCotton : TailorMinion
     {
         public override int MinInitialHp => 2;
         public override int MaxInitialHp => 2;
 
         protected override string VisualsPath => "res://TheTailor/scenes/minions/minionCotton.tscn";
 
-        public override async Task OnSummon(PlayerChoiceContext choiceContext, Player owner, MinionSummonOptions options)
+        public override async Task OnSummon(PlayerChoiceContext playerChoiceContext, Player owner, MinionSummonOptions options)
         {
-            await PowerCmd.Apply<TailorMadePower>(choiceContext, Creature, 1m, owner.Creature, options.Source);
+            await PowerCmd.Apply<TailorMadePower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
+            await PowerCmd.Apply<CottonPower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
+            await PowerCmd.Apply<TailorMinionOrderAction>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
         }
     }
 }

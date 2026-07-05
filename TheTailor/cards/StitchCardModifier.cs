@@ -77,12 +77,19 @@ namespace TheTailor.Cards
     }
 
     [HarmonyPatch]
-    internal static class StitchExhaustPatch // TODO what if it's removed from combat for some other reason?
+    internal static class StitchRemovePatch
     {
-        [HarmonyPatch(typeof(AbstractModel), "AfterCardExhausted")]
-        internal static async void Postfix(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal, CardModel __instance)
+        [HarmonyPatch(typeof(AbstractModel), "AfterCardPlayedLate")]
+        internal static async void Postfix(PlayerChoiceContext choiceContext, CardPlay cardPlay, AbstractModel __instance)
         {
-            await StitchCmd.UnstitchCard(card);
+            StitchCardModifier cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
+            if (cardStitch != null)
+            {
+                if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
+                {
+                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                }
+            }
         }
     }
 

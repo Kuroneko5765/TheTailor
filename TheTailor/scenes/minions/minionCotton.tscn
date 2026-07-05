@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://be7fph7d8fa85"]
 
-[ext_resource type="Script" uid="uid://b3co0axeaxa43" path="res://TheTailor/nodes/NCreatureVisualsCopy.cs" id="1_s1r7v"]
+[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_s1r7v"]
 [ext_resource type="Texture2D" uid="uid://cmtasrkjf3xjq" path="res://TheTailor/images/minions/minionCotton_placeholder.png" id="2_s1r7v"]
 
 [node name="MinionCotton" type="Node2D"]

@@ -40,10 +40,7 @@ namespace TheTailor.Cards.Rare
         {
             for (int i = 0; i < 2; i++)
             {
-                if (TailorMinionCmd.CanMinionBeAdded(Owner))
-                {
-                    await MinionCmd.AddMinion<MinionSilk>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-                }
+                await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
             }
         }
 

@@ -40,7 +40,7 @@ namespace TheTailor.Cards.Rare
             for (int i = 0; i < ResolveEnergyXValue(); i++)
             {
                 await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this)
+                    .FromCard(this, cardPlay)
                     .TargetingAllOpponents(CombatState)
                     .WithHitFx("vfx/vfx_attack_slash")
                     .Execute(choiceContext);

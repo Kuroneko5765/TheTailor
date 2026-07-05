@@ -21,15 +21,15 @@ using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
 
-namespace TheTailor.Cards.Common
+namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Spool() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class Spool() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(9, ValueProp.Move), new DynamicVar("Delicate", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

@@ -29,12 +29,12 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .TargetingAllOpponents(CombatState)
                 .WithHitCount(2)
                 .WithHitFx("vfx/vfx_attack_slash")

@@ -41,15 +41,17 @@ namespace TheTailor.Cards.Token
             await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            if (IsUpgraded)
-            {
-                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            }
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+        }
+
+        protected override void OnUpgrade()
+        {
+            base.DynamicVars.Cards.UpgradeValueBy(1m);
         }
 
         public static async Task<CardModel?> CreateInHand(Player owner, ICombatState combatState)

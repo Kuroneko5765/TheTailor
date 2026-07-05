@@ -15,16 +15,17 @@ using TheTailor.Powers;
 
 namespace TheTailor.Minions
 {
-    public sealed class MinionLeather : MinionModel
+    public sealed class MinionLeather : TailorMinion
     {
-        public override int MinInitialHp => 8;
-        public override int MaxInitialHp => 8;
+        public override int MinInitialHp => 6;
+        public override int MaxInitialHp => 6;
 
         protected override string VisualsPath => "res://TheTailor/scenes/minions/minionLeather.tscn";
 
-        public override async Task OnSummon(PlayerChoiceContext choiceContext, Player owner, MinionSummonOptions options)
+        public override async Task OnSummon(PlayerChoiceContext playerChoiceContext, Player owner, MinionSummonOptions options)
         {
-            await PowerCmd.Apply<TailorMadePower>(choiceContext, Creature, 1m, owner.Creature, options.Source);
+            await PowerCmd.Apply<TailorMadePower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
+            await PowerCmd.Apply<TailorMinionOrderAction>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
         }
     }
 }

@@ -11,7 +11,7 @@
     "THETAILOR-LINENMINION.title": "Linen Minion",
     "THETAILOR-LINENMINION.description": "Takes unblocked attack damage for you. When hit, applies 2 [gold]Vulnerable[/gold] to its attacker.",
     "THETAILOR-COTTONMINION.title": "Cotton Minion",
-    "THETAILOR-COTTONMINION.description": "Takes unblocked attack damage for you. At the end of your turn, heals you for 2 HP.",
+    "THETAILOR-COTTONMINION.description": "Takes unblocked attack damage for you. At the end of your turn, heals you for 1 HP.",
     "THETAILOR-DENIMMINION.title": "Denim Minion",
     "THETAILOR-DENIMMINION.description": "Takes unblocked attack damage for you. When hit, grants you 2 [gold]Strength[/gold] this turn.",
     "THETAILOR-SILKMINION.title": "Silk Minion",

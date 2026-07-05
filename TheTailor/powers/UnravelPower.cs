@@ -31,7 +31,7 @@ namespace TheTailor.Powers
             if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.GetModifier<StitchCardModifier>() != null)
             {
                 Flash();
-                await CreatureCmd.Damage(choiceContext, Owner.CombatState.HittableEnemies, Amount, ValueProp.Unpowered, Owner, null);
+                await CreatureCmd.Damage(choiceContext, Owner.CombatState.HittableEnemies, Amount, ValueProp.Unpowered, Owner, null, null);
             }
         }
     }

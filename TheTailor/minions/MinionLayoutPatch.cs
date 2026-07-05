@@ -37,7 +37,7 @@ namespace TheTailor.Minions
         internal static void Postfix(ref IReadOnlyList<Vector2> __result, DefaultMinionLayout __instance)
         {
             // TODO does not discriminate between The Tailor and other characters' minions if they're also using MinionLib
-            // I would sure love it if there were a property I could access to get the minions' monster type, but it doesn't exist
+            // I would love it if there were a property I could access to get the minions' monster type, but it doesn't exist
 
             List<Vector2> newList = new();
             foreach (var vector in __result)

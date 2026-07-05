@@ -2,7 +2,7 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bcntoll3emq6c"
+uid="uid://iahxpsb5kdf2"
 path="res://.godot/imported/kreon_bold.ttf-f2668589486a6ff8d3dc0ee5342eeb12.fontdata"
 
 [deps]
@@ -16,8 +16,8 @@ Rendering=null
 antialiasing=1
 generate_mipmaps=false
 disable_embedded_bitmaps=true
-multichannel_signed_distance_field=false
-msdf_pixel_range=8
+multichannel_signed_distance_field=true
+msdf_pixel_range=24
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false

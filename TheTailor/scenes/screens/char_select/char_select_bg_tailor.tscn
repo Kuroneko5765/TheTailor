@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1o27b8e5b78q"]
+
+[ext_resource type="Texture2D" uid="uid://dqgwdjee0dqsk" path="res://TheTailor/images/charui/tailor_char_select_bg_placeholder.png" id="1_kb2by"]
+
+[node name="CharSelectBgTailor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1408.0
+offset_bottom = 552.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1200.0
+texture = ExtResource("1_kb2by")
+expand_mode = 5

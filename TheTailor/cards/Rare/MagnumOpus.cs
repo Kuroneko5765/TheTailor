@@ -26,6 +26,12 @@ using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using TheTailor.Character;
+using MegaCrit.Sts2.Core.Logging;
+using MegaCrit.Sts2.Core.Context;
+using Godot;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using MegaCrit.Sts2.Core.Nodes;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace TheTailor.Cards.Rare
 {
@@ -40,24 +46,20 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            AbstractRoom currentRoom = CombatState.RunState.CurrentRoom;
-            if (currentRoom is CombatRoom combatRoom)
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
+            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
+            if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
             {
-                ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-                bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
-                AttackCommand attackCommand = await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                    .FromCard(this)
-                    .Targeting(cardPlay.Target)
-                    .WithHitFx("vfx/vfx_attack_slash")
-                    .Execute(choiceContext);
-                if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
+                if (DeckVersion != null)
                 {
-                    if (DeckVersion != null)
-                    {
-                        CardCmd.Upgrade(DeckVersion);
-                    }
-                    CardCmd.Upgrade(this);
+                    SafeUpgrade(DeckVersion);
                 }
+                CardCmd.Upgrade(this);
             }
         }
 
@@ -65,6 +67,78 @@ namespace TheTailor.Cards.Rare
         {
             DynamicVars.Damage.UpgradeValueBy(4m + (CurrentUpgradeLevel - 1));
             // DynamicVars["Delicate"].UpgradeValueBy(1m);
+        }
+
+        /// <summary>
+        ///     Modified copy of CardCmd.Upgrade as it doesn't normally allow upgrading while combat 'is ending'
+        /// </summary>
+        public static void SafeUpgrade(CardModel cardModel, CardPreviewStyle style = CardPreviewStyle.HorizontalLayout)
+        {
+            CardModel[] cards = [cardModel];
+
+            foreach (CardModel card in cards)
+            {
+                if (!card.IsUpgradable)
+                {
+                    continue;
+                }
+
+                CardPile pile = card.Pile;
+                if (pile != null && pile.Type == PileType.Deck)
+                {
+                    card.Owner.RunState.CurrentMapPointHistoryEntry?.GetEntry(card.Owner.NetId).UpgradedCards.Add(card.Id);
+                }
+
+                card.UpgradeInternal();
+                card.FinalizeUpgradeInternal();
+                if (!LocalContext.IsMine(card))
+                {
+                    continue;
+                }
+
+                pile = card.Pile;
+                if (pile != null && pile.Type == PileType.Deck)
+                {
+                    Control control;
+                    switch (style)
+                    {
+                        case CardPreviewStyle.EventLayout:
+                            control = NRun.Instance?.GlobalUi.EventCardPreviewContainer;
+                            break;
+                        case CardPreviewStyle.HorizontalLayout:
+                            control = NRun.Instance?.GlobalUi.CardPreviewContainer;
+                            break;
+                        case CardPreviewStyle.MessyLayout:
+                            control = NRun.Instance?.GlobalUi.MessyCardPreviewContainer;
+                            break;
+                        case CardPreviewStyle.GridLayout:
+                            control = NRun.Instance?.GlobalUi.GridCardPreviewContainer;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("style", $"Unexpected {"CardPreviewStyle"} {style}!");
+                        case CardPreviewStyle.None:
+                            continue;
+                    }
+
+                    AddChildSafely(control, NCardUpgradeVfx.Create(card));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Child
+        /// </summary>
+        public static void AddChildSafely(Node parent, Node? child)
+        {
+            if (child != null)
+            {
+                if (NGame.IsMainThread() && (parent.IsNodeReady() || !parent.IsInsideTree()))
+                {
+                    parent.AddChild(child, forceReadableName: false, Node.InternalMode.Disabled);
+                    return;
+                }
+                parent.CallDeferred(Node.MethodName.AddChild, child);
+            }
         }
     }
 }

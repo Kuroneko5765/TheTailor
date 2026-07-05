@@ -30,7 +30,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new BlockVar(3m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(2m, ValueProp.Move), new BlockVar(2m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -39,7 +39,7 @@ namespace TheTailor.Cards.Common
                 await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
                 ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
                 await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this)
+                    .FromCard(this, cardPlay)
                     .Targeting(cardPlay.Target)
                     .WithHitFx("vfx/vfx_attack_slash")
                     .Execute(choiceContext);

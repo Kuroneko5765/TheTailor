@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cq41bdhe2acli"]
 
-[ext_resource type="Script" uid="uid://b3co0axeaxa43" path="res://TheTailor/nodes/NCreatureVisualsCopy.cs" id="1_34ciy"]
+[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_34ciy"]
 [ext_resource type="Texture2D" uid="uid://xib3t3srxi7m" path="res://TheTailor/images/minions/minionLinen_placeholder.png" id="2_34ciy"]
 
 [node name="MinionLinen" type="Node2D"]

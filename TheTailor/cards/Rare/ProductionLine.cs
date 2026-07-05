@@ -44,10 +44,7 @@ namespace TheTailor.Cards.Rare
 
             if (IsUpgraded)
             {
-                if (TailorMinionCmd.CanMinionBeAdded(Owner))
-                {
-                    await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-                }
+                await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
             }
         }
     }

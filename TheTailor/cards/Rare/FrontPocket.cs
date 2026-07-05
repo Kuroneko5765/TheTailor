@@ -25,7 +25,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class FrontPocket() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public class FrontPocket() : CustomCardModel(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";

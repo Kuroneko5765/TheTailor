@@ -24,7 +24,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Starter
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Sew() : CustomCardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public class Sew() : CustomCardModel(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
@@ -37,7 +37,7 @@ namespace TheTailor.Cards.Starter
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

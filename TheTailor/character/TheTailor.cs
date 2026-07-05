@@ -31,6 +31,7 @@ namespace TheTailor.Character
             ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<StrikeTailor>(),
+            ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<DefendTailor>(),
             ModelDb.Card<DefendTailor>(),
             ModelDb.Card<DefendTailor>(),
@@ -48,7 +49,6 @@ namespace TheTailor.Character
         public override RelicPoolModel RelicPool => ModelDb.RelicPool<TheTailorRelicPool>();
         public override PotionPoolModel PotionPool => ModelDb.PotionPool<TheTailorPotionPool>();
 
-        /*
         public override Control CustomIcon
         {
             get
@@ -58,12 +58,15 @@ namespace TheTailor.Character
                 return icon;
             }
         }
-        */
 
         public override string CustomIconTexturePath => "res://TheTailor/images/charui/character_icon_tailor.png";
         public override string CustomIconOutlineTexturePath => "res://TheTailor/images/charui/character_icon_tailor_outline.png";
         public override string CustomCharacterSelectIconPath => "res://TheTailor/images/charui/char_select_tailor.png";
         public override string CustomCharacterSelectLockedIconPath => "res://TheTailor/images/charui/char_select_tailor_locked.png";
         public override string CustomMapMarkerPath => "res://TheTailor/images/charui/map_marker_tailor.png";
+        public override string CustomCharacterSelectTransitionPath => "res://TheTailor/materials/transitions/tailor_transition_mat.tres";
+
+        public override string CustomCharacterSelectBg => "res://TheTailor/scenes/screens/char_select/char_select_bg_tailor.tscn";
+        public override string CustomEnergyCounterPath => "res://TheTailor/scenes/combat/energy_counters/tailor_energy_counter.tscn";
     }
 }

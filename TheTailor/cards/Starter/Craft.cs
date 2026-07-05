@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Starter
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Craft() : CustomCardModel(2, CardType.Skill, CardRarity.Basic, TargetType.Self)
+    public class Craft() : CustomCardModel(3, CardType.Skill, CardRarity.Basic, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/craftBeta.png";
@@ -38,10 +38,7 @@ namespace TheTailor.Cards.Starter
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (TailorMinionCmd.CanMinionBeAdded(Owner))
-            {
-                await MinionCmd.AddMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-            }
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
         }
 
         protected override void OnUpgrade()

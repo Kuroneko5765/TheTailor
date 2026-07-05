@@ -1,7 +1,15 @@
+-- TODO --
+- Minion selection prompt should say "Replace a minion"
+- Afflictions + Stitched should appear simultaneously
+
+-- CURRENT ISSUES --
+- Linen Minions don't give vuln on death
+- If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
+
 -- CARDS --
 
 STARTER
-- Strike (x4)
+- Strike (x5)
 - Defend (x4)
 - Sew
     > Stitch provider
@@ -11,7 +19,7 @@ STARTER
     > Leather minion
 
 COMMON
-- Attacks (3)
+- Attacks (4)
     > Needle Storm
         = High-cost
         = Multi-attack
@@ -21,19 +29,21 @@ COMMON
     > Slick Strike
         = Stitch target
         = Delicate
-- Skills (3)
+    > Furious Slap
+        = Upgrade
+- Skills (4)
     > Slippers
         = Stitch target
-        = Block
         = Draw
     > Spare Material
         = Delicate
         = Leather minion
-    > Spool
-        = Delicate
+    > Mending
+        = Minions
+        = Minion healing
+    > Matching
+        = Stitch target
         = Block
-        = High-cost
-        = Stitch provider
 
 UNCOMMON
 - Attacks (3)
@@ -49,6 +59,11 @@ UNCOMMON
         = Draw
         = Patches
 - Skills (4)
+    > Spool
+        = Delicate
+        = Block
+        = High-cost
+        = Stitch provider
     > Back Pocket
         = Stitch provider
         = Discard pile
@@ -62,7 +77,7 @@ UNCOMMON
         = Delicate
     > Versatility
         = Block
-        = Denim minion
+        = Linen minion
 - Powers (3)
     > Loom
         = Minion synergy

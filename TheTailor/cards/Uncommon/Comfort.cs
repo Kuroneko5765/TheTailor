@@ -45,10 +45,7 @@ namespace TheTailor.Cards.Uncommon
                 await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
             }
 
-            if (TailorMinionCmd.CanMinionBeAdded(Owner))
-            {
-                await MinionCmd.AddMinion<MinionWool>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-            }
+            await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
         }
 
         protected override void OnUpgrade()

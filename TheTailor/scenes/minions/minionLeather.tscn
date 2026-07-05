@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dauqvntxfqafg"]
 
 [ext_resource type="Texture2D" uid="uid://csybjxygxlat" path="res://TheTailor/images/minions/minionLeather_placeholder.png" id="1_dcdqk"]
-[ext_resource type="Script" uid="uid://b3co0axeaxa43" path="res://TheTailor/nodes/NCreatureVisualsCopy.cs" id="1_rvpb4"]
+[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_rvpb4"]
 
 [node name="MinionLeather" type="Node2D"]
 script = ExtResource("1_rvpb4")

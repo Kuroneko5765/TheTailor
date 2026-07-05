@@ -30,22 +30,19 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/swatchStrikeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/swatchStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/swatchStrikeBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>(true)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new CardsVar(2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this)
+                .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            foreach (CardModel card in await Cards.Token.Patch.CreateInHand(Owner, DynamicVars.Cards.IntValue, CombatState))
-            {
-                CardCmd.Upgrade(card);
-            }
+            await Cards.Token.Patch.CreateInHand(Owner, DynamicVars.Cards.IntValue, CombatState);
         }
 
         protected override void OnUpgrade()
