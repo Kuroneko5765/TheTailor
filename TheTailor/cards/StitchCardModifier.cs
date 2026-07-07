@@ -76,6 +76,8 @@ namespace TheTailor.Cards
         }
     }
 
+    // TODO 'card moves pile' trigger to remove stitching?
+
     [HarmonyPatch]
     internal static class StitchRemovePatch
     {

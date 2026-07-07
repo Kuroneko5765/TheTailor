@@ -25,21 +25,11 @@ namespace TheTailor.Powers
         public override PowerStackType StackType => PowerStackType.Counter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
-        /*
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (target.HasPower<DenimPower>() && dealer != null && result.UnblockedDamage > 0 && target.IsPet)
+            if (dealer != null && Owner == target)
             {
-                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, target.PetOwner.Creature, Amount, Owner, null);
-            }
-        }
-        */
-
-        public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
-        {
-            if (target.HasPower<LinenPower>() && amount > 0 && dealer != null && target.IsPet)
-            {
-                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, target.PetOwner.Creature, Amount, Owner, null);
+                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2m, this.Owner, null);
             }
         }
     }

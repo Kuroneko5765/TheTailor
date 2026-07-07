@@ -24,7 +24,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Slippers() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self), IOnStitchEffect
+    public class Slippers() : CustomCardModel(0, CardType.Skill, CardRarity.Common, TargetType.Self), IOnStitchEffect
     {
         // public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";

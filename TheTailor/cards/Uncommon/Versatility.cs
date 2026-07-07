@@ -23,6 +23,7 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using HarmonyLib;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -34,8 +35,8 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new BlockVar(5m, ValueProp.Move)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -46,7 +47,8 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars["Delicate"].BaseValue = 2;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace TheTailor.Potions
 
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {
-            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.StitchSelectionPrompt, 2), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
+            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(TheTailor.Extensions.CardSelectorPrefsExtensions.StitchSelectionPrompt, 2), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
             if (cardModel != null && cardModel.Count() == 2)
             {
                 await StitchCmd.StitchCards(cardModel.ElementAt(0), cardModel.ElementAt(1));

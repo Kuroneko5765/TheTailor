@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <GodotPath>/home/hex3/Documents/modding/STS2/Godot_v4.5.1-stable_mono_linux.x86_64</GodotPath>
+        <GodotPath>/home/hex3/Documents/modding/STS2/MegaDot_v4.5.1-stable_mono_linux.x86_64</GodotPath>
         <Sts2Path>/home/hex3/.steam/steam/steamapps/common/Slay the Spire 2/</Sts2Path>
         <ModsPath>$(Sts2Path)/mods/</ModsPath>
         <Sts2DataDir>$(Sts2Path)/data_sts2_linuxbsd_x86_64</Sts2DataDir>
@@ -19,6 +19,10 @@
 
     <PropertyGroup>
         <NoWarn>$(NoWarn);MSB3270</NoWarn>
+        <NoWarn>$(NoWarn);CS8632</NoWarn>
+        <NoWarn>$(NoWarn);CS8602</NoWarn>
+        <NoWarn>$(NoWarn);CS8604</NoWarn>
+        <NoWarn>$(NoWarn);CS8764</NoWarn>
     </PropertyGroup>
 
     <ItemGroup Condition="Exists('$(Sts2DataDir)')">
@@ -48,10 +52,32 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Remove="images/**"/>
+        <Compile Remove="materials/**"/>
+        <Compile Remove="shaders/**"/>
+        <Compile Remove="localization/**"/>
+        <Compile Remove="scenes/**"/>
+        <Compile Remove="themes/**"/>
+        <Compile Remove="packages/**/*.uid"/>
+        <EmbeddedResource Remove="images/**"/>
+        <EmbeddedResource Remove="materials/**"/>
+        <EmbeddedResource Remove="shaders/**"/>
+        <EmbeddedResource Remove="localization/**"/>
+        <EmbeddedResource Remove="scenes/**"/>
+        <EmbeddedResource Remove="themes/**"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include=".gitignore" />
         <None Include="TheTailor.json" />
         <None Include="project.godot" />
         <None Include="TheTailor/**" />
+        <None Include="images/**"/>
+        <None Include="materials/**"/>
+        <None Include="shaders/**"/>
+        <None Include="localization/**"/>
+        <None Include="scenes/**"/>
+        <None Include="themes/**"/>
     </ItemGroup>
     
     <Target Name="CheckDependencyPaths">

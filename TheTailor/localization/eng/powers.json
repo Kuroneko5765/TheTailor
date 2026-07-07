@@ -21,6 +21,14 @@
     "THETAILOR-COTTON_POWER.description": "At the end of each turn, Heals its owner.",
     "THETAILOR-COTTON_POWER.smartDescription": "At the end of each turn, Heals its owner for {Amount} HP.",
 
+    "THETAILOR-ATELIER_POWER.title": "Atelier",
+    "THETAILOR-ATELIER_POWER.description": "At the end of combat, [gold]Upgrade[/gold] a random card.",
+    "THETAILOR-ATELIER_POWER.smartDescription": "At the end of combat, [gold]Upgrade[/gold] {Amount} random {Amount:plural:cards|card}.",
+
+    "THETAILOR-REFINED_POWER.title": "Refined",
+    "THETAILOR-REFINED_POWER.description": "The next time you [gold]Exhaust[/gold] a card, gain Energy.",
+    "THETAILOR-REFINED_POWER.smartDescription": "The next {Amount:plural:card|{Amount} cards} you [gold]Exhaust[/gold], gain {Energy:energyIcons()}.",
+
     "THETAILOR-STEADY_HAND_POWER.title": "Steady Hand",
     "THETAILOR-STEADY_HAND_POWER.description": "[gold]Delicate[/gold] cards may be played additional times before [gold]Exhausting[/gold].",
     "THETAILOR-STEADY_HAND_POWER.smartDescription": "[gold]Delicate[/gold] cards may be played {Amount} additional {Amount:plural:time|times} before [gold]Exhausting[/gold].",
@@ -30,6 +38,9 @@
     "THETAILOR-THRIFTING_POWER.title": "Thrifting",
     "THETAILOR-THRIFTING_POWER.description": "The first cards you [gold]Exhaust[/gold] each turn, Draw 1 card.",
     "THETAILOR-THRIFTING_POWER.smartDescription": "The first {Amount:plural:|{Amount} }{Amount:plural:card|cards} you [gold]Exhaust[/gold] each turn, Draw 1 card.",
+    "THETAILOR-FINERY_POWER.title": "Finery",
+    "THETAILOR-FINERY_POWER.description": "When you play an [gold]Upgraded[/gold] card, gain [gold]Block[/gold].",
+    "THETAILOR-FINERY_POWER.smartDescription": "When you play an [gold]Upgraded[/gold] card, gain {Amount} [gold]Block[/gold].",
 
     "THETAILOR-UNRAVEL_POWER.title": "Unravel",
     "THETAILOR-UNRAVEL_POWER.description": "Whenever you play a [gold]Stitched[/gold] card, deal damage to ALL enemies.",
@@ -43,6 +54,9 @@
     "THETAILOR-PRODUCTION_LINE_POWER.title": "Production Line",
     "THETAILOR-PRODUCTION_LINE_POWER.description": "If you have fewer than 3 minions at the start of your turn, create a [gold]Linen Minion[/gold].",
     "THETAILOR-PRODUCTION_LINE_POWER.smartDescription": "If you have fewer than 3 minions at the start of your turn, create a [gold]Linen Minion[/gold].",
+    "THETAILOR-QUALITY_POWER.title": "Quality",
+    "THETAILOR-QUALITY_POWER.description": "When you play an [gold]Upgraded[/gold] card, [gold]Upgrade[/gold] a random card in your Hand.",
+    "THETAILOR-QUALITY_POWER.smartDescription": "When you play an [gold]Upgraded[/gold] card, [gold]Upgrade[/gold] {Amount} random {Amount:plural:card|cards} in your Hand.",
 
     "THETAILOR-DENIM_STRENGTH_POWER.title": "Denim Strength",
     "THETAILOR-DENIM_STRENGTH_POWER.description": "Gain [gold]Strength[/gold] until the end of this turn.",
@@ -50,6 +64,9 @@
     "THETAILOR-SILK_DEXTERITY_POWER.title": "Silk Dexterity",
     "THETAILOR-SILK_DEXTERITY_POWER.description": "Gain [gold]Dexterity[/gold] until the end of this turn.",
     "THETAILOR-SILK_DEXTERITY_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Dexterity[/gold] until the end of this turn.",
+    "THETAILOR-DISARMING_SLAP_STRENGTH_POWER.title": "Disarming Slap",
+    "THETAILOR-DISARMING_SLAP_STRENGTH_POWER.description": "Lose [gold]Strength[/gold] until the end of this turn.",
+    "THETAILOR-DISARMING_SLAP_STRENGTH_POWER.smartDescription": "Lose [blue]{Amount}[/blue] [gold]Strength[/gold] until the end of this turn.",
 
     "TAILOR_MINION_ORDER_ACTION.title": "Minion Reorder Action",
     "TAILOR_MINION_ORDER_ACTION.description": "",

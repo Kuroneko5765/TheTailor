@@ -31,13 +31,13 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new DynamicVar("DelicatePluralize", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
-            IEnumerable<CardModel> cardModel2 = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefs.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, pile: PileType.Draw.GetPile(Owner));
+            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
+            IEnumerable<CardModel> cardModel2 = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, pile: PileType.Draw.GetPile(Owner));
             if (cardModel != null && cardModel2 != null && cardModel.Count() == 1 && cardModel2.Count() == 1)
             {
                 await StitchCmd.StitchCards(cardModel.ElementAt(0), cardModel2.ElementAt(0));
@@ -49,6 +49,7 @@ namespace TheTailor.Cards.Rare
             RemoveKeyword(CardKeyword.Exhaust);
             DynamicVars["Delicate"].BaseValue = 2;
             DynamicVars["DelicatePluralize"].BaseValue = 2;
+            HoverTips.AddItem(HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate));
         }
     }
 }

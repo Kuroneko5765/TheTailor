@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h7is1fgocyet"
-path="res://.godot/imported/weaversWineOutlined.png-dfc27e98b04b8abb9e8b55fa69f48d2b.ctex"
+uid="uid://43ko6w6tvqn6"
+path="res://.godot/imported/repurposeBeta.png-99c2133c273c276a650e6e331870654d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheTailor/images/potions/weaversWineOutlined.png"
-dest_files=["res://.godot/imported/weaversWineOutlined.png-dfc27e98b04b8abb9e8b55fa69f48d2b.ctex"]
+source_file="res://TheTailor/images/card_portraits/repurposeBeta.png"
+dest_files=["res://.godot/imported/repurposeBeta.png-99c2133c273c276a650e6e331870654d.ctex"]
 
 [params]
 

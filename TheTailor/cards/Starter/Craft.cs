@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Starter
     public class Craft() : CustomCardModel(3, CardType.Skill, CardRarity.Basic, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/craftBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/craftBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/craft.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/craft.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/craftBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion)];

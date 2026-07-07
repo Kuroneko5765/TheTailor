@@ -1,9 +1,16 @@
 -- TODO --
+>>> Should Stitched cards be un-Stitched after being played?
+    > Would prevent issues with scaling and give more leeway to lower energy options
+    > However, it would also make Delicate/Exhaust more redundant
+> Make Sew Delicate 2 on upgrade?
 - Minion selection prompt should say "Replace a minion"
 - Afflictions + Stitched should appear simultaneously
+- Epochs/unlocks?
 
 -- CURRENT ISSUES --
-- Linen Minions don't give vuln on death
+- Minions still don't transfer overkill damage
+- Stitched cards with exhaust sometimes don't respect exhaust rules
+    >>> BOTH of these are likely due to the Baselib issue
 - If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
 
 -- CARDS --
@@ -18,8 +25,12 @@ STARTER
     > Delicate
     > Leather minion
 
+ANCIENT (2)
+- Weave
+- Atelier
+
 COMMON
-- Attacks (4)
+- Attacks (6)
     > Needle Storm
         = High-cost
         = Multi-attack
@@ -31,7 +42,12 @@ COMMON
         = Delicate
     > Furious Slap
         = Upgrade
-- Skills (4)
+    > Scrap
+        = Patches
+    > Scarf Swipe
+        = AOE
+        = 0-cost
+- Skills (6)
     > Slippers
         = Stitch target
         = Draw
@@ -44,9 +60,18 @@ COMMON
     > Matching
         = Stitch target
         = Block
+        = Upgrade
+    > Repurpose
+        = Energy
+        = Exhaust
+        = Stitching
+    > Wardrobe
+        = High-cost
+        = Upgrades
+        = Block
 
 UNCOMMON
-- Attacks (3)
+- Attacks (5)
     > Outfit
         = Multi-attack
         = Minion synergy
@@ -58,7 +83,14 @@ UNCOMMON
         = High-cost
         = Draw
         = Patches
-- Skills (4)
+    > Disarming Slap
+        = High-cost
+        = Strength down
+        = Delicate
+    > Refined
+        = 'Next attack'
+        = Energy
+- Skills (6)
     > Spool
         = Delicate
         = Block
@@ -78,7 +110,10 @@ UNCOMMON
     > Versatility
         = Block
         = Linen minion
-- Powers (3)
+    > Sewing Circle
+        = Minion healing
+        = Energy
+- Powers (4)
     > Loom
         = Minion synergy
         = Vulnerable
@@ -87,9 +122,12 @@ UNCOMMON
     > Thrifting
         = Exhaust
         = Draw
+    > Finery
+        = Block
+        = Upgrade
 
 RARE
-- Attacks (3)
+- Attacks (5)
     > Strike A Pose
         = Stitch target
         = Strength down
@@ -103,7 +141,14 @@ RARE
         = Big attack
         = High-cost
         = Stitch target
-- Skills (3)
+    > Sortie
+        = Big attack
+        = Multi-attack
+        = High-cost
+    > Needlework
+        = 0-cost
+        = Minion healing
+- Skills (5)
     > Front Pocket
         = Stitch provider
         = Draw pile
@@ -115,7 +160,13 @@ RARE
     > Luxury
         = Silk minion
         = Retain
-- Powers (3)
+    > Great Expectations
+        = Minions
+        = Retain
+    > Blanket
+        = Minions
+        = Minion healing
+- Powers (4)
     > Unravel
         = Passive damage
         = Stitch synergy
@@ -125,3 +176,5 @@ RARE
         = Patches
     > Production Line
         = Linen minion
+    > Quality
+        = Upgrades

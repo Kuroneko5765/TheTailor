@@ -31,13 +31,15 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/strikeAPoseBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/strikeAPoseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/strikeAPoseBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < ResolveEnergyXValue(); i++)
+            int xCost = ResolveEnergyXValue();
+
+            for (int i = 0; i < xCost; i++)
             {
                 await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                     .FromCard(this, cardPlay)
@@ -47,7 +49,7 @@ namespace TheTailor.Cards.Rare
             }
 
             var targets = CombatState.HittableEnemies.ToList();
-            await PowerCmd.Apply<StrengthPower>(choiceContext, targets, -ResolveEnergyXValue(), Owner.Creature, null);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, targets, -xCost, Owner.Creature, null);
         }
 
         protected override void OnUpgrade()

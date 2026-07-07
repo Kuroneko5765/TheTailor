@@ -20,29 +20,31 @@ using TheTailor;
 using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
+using TheTailor.Cards.Ancient;
 
 namespace TheTailor.Cards.Starter
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Sew() : CustomCardModel(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
+    public class Sew() : CustomCardModel(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy), ITranscendenceCard
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new DynamicVar("Delicate", -999), new DynamicVar("DelicatePluralize", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public CardModel GetTranscendenceTransformedCard() => ModelDb.Card<Weave>();
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.StitchSelectionPrompt, 2), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
+            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 2), context: choiceContext, player: Owner, filter: StitchCmd.CanBeStitched, source: this);
             if (cardModel != null && cardModel.Count() == 2)
             {
                 await StitchCmd.StitchCards(cardModel.ElementAt(0), cardModel.ElementAt(1));
@@ -51,7 +53,9 @@ namespace TheTailor.Cards.Starter
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Damage.UpgradeValueBy(3m);
+            RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars["Delicate"].BaseValue = 2;
+            DynamicVars["DelicatePluralize"].BaseValue = 2;
         }
     }
 }

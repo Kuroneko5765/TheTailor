@@ -35,7 +35,7 @@ namespace TheTailor.Powers
             {
                 foreach (CardModel card in await Cards.Token.Patch.CreateInHand(player, Amount, CombatState))
                 {
-                    IEnumerable<CardModel> cardModel = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefs.StitchSelectionPrompt, 1), context: choiceContext, player: Owner.Player, filter: StitchCmd.CanBeStitched, pile: PileType.Discard.GetPile(Owner.Player));
+                    IEnumerable<CardModel> cardModel = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(TheTailor.Extensions.CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: Owner.Player, filter: StitchCmd.CanBeStitched, pile: PileType.Discard.GetPile(Owner.Player));
                     if (cardModel != null && cardModel.Count() == 1)
                     {
                         await StitchCmd.StitchCards(card, cardModel.ElementAt(0));

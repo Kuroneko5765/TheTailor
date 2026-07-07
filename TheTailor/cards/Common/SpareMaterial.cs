@@ -23,6 +23,7 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using HarmonyLib;
 
 namespace TheTailor.Cards.Common
 {
@@ -34,7 +35,7 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/spareMaterialBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/spareMaterialBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new DynamicVar("DelicatePluralize", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

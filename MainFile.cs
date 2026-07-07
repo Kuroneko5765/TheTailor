@@ -18,7 +18,8 @@ public partial class MainFile : Node
         ModConfigRegistry.Register(ModId, new TheTailorConfig());
         Harmony harmony = new(ModId);
         harmony.PatchAll();
-        
-        Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
+
+        var assembly = Assembly.GetExecutingAssembly();
+        Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(assembly);
     }
 }

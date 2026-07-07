@@ -47,12 +47,14 @@ namespace TheTailor.Cards.Rare
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
+            // bool shouldTriggerFatal = cardPlay.Target.Powers.All((PowerModel p) => p.ShouldOwnerDeathTriggerFatal());
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
+
+            /*
             if (shouldTriggerFatal && attackCommand.Results.SelectMany((List<DamageResult> r) => r).Any((DamageResult r) => r.WasTargetKilled))
             {
                 if (DeckVersion != null)
@@ -61,6 +63,7 @@ namespace TheTailor.Cards.Rare
                 }
                 CardCmd.Upgrade(this);
             }
+            */
         }
 
         protected override void OnUpgrade()
@@ -69,6 +72,7 @@ namespace TheTailor.Cards.Rare
             // DynamicVars["Delicate"].UpgradeValueBy(1m);
         }
 
+        /*
         /// <summary>
         ///     Modified copy of CardCmd.Upgrade as it doesn't normally allow upgrading while combat 'is ending'
         /// </summary>
@@ -140,5 +144,6 @@ namespace TheTailor.Cards.Rare
                 parent.CallDeferred(Node.MethodName.AddChild, child);
             }
         }
+        */
     }
 }

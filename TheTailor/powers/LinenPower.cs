@@ -27,20 +27,10 @@ namespace TheTailor.Powers
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (dealer != null && result.Receiver == Owner&& result.UnblockedDamage > 0)
+            if (dealer != null && Owner == target)
             {
-                await PowerCmd.Apply<VulnerablePower>(choiceContext, dealer, 2m, this.Owner, null);
+                await PowerCmd.Apply<VulnerablePower>(choiceContext, dealer, 2, this.Owner, null);
             }
         }
-
-        /*
-        public override async Task BeforeDamageReceived(PlayerChoiceContext choiceContext, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
-        {
-            if (target.HasPower<LinenPower>() && amount > 0 && dealer != null)
-            {
-                await PowerCmd.Apply<VulnerablePower>(new ThrowingPlayerChoiceContext(), dealer, 2m, Owner, null);
-            }
-        }
-        */
     }
 }

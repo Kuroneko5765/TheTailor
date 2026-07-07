@@ -13,6 +13,8 @@ using TheTailor;
 using TheTailor.Minions;
 using MinionLib.Minion;
 using TheTailor.Character;
+using MegaCrit.Sts2.Core.Models;
+using TheTailor.Relics.Ancient;
 
 namespace TheTailor.Relics.Starter
 {
@@ -25,6 +27,7 @@ namespace TheTailor.Relics.Starter
         public override string PackedIconPath => "res://TheTailor/images/relics/craftKit.png";
         protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/craftKitOutline.png";
         protected override string BigIconPath => "res://TheTailor/images/relics/craftKitBig.png";
+        public override RelicModel GetUpgradeReplacement() => ModelDb.Relic<MastersToolset>();
         public override async Task BeforeCombatStart()
         {
             await MinionCmd.AddMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));

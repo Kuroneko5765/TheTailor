@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Starter
     public class DefendTailor() : CustomCardModel(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Defend };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/defendTailorBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/defendTailorBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/defendTailor.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/defendTailor.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/defendTailorBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
 

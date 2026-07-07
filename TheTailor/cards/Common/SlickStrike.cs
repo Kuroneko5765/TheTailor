@@ -31,7 +31,7 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Delicate", 2)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

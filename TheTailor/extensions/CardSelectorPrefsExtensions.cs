@@ -8,9 +8,6 @@ namespace TheTailor.Extensions
 {
     public static class CardSelectorPrefsExtensions
     {
-        extension(CardSelectorPrefs cardSelectorPrefs)
-        {
-            public static LocString StitchSelectionPrompt => new LocString("card_selection", "TO_STITCH");
-        }
+        public static LocString StitchSelectionPrompt => new LocString("card_selection", "TO_STITCH");
     }
 }
