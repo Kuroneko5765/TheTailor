@@ -26,8 +26,8 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class ScarfSwipe() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scarfSwipeBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/scarfSwipeBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scarfSwipe.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/scarfSwipe.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/scarfSwipeBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new DynamicVar("Delicate", 2)];
 

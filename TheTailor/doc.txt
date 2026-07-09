@@ -2,7 +2,7 @@
 >>> Should Stitched cards be un-Stitched after being played?
     > Would prevent issues with scaling and give more leeway to lower energy options
     > However, it would also make Delicate/Exhaust more redundant
-> Make Sew Delicate 2 on upgrade?
+- Rework Luxury?
 - Minion selection prompt should say "Replace a minion"
 - Afflictions + Stitched should appear simultaneously
 - Epochs/unlocks?
@@ -47,7 +47,7 @@ COMMON
     > Scarf Swipe
         = AOE
         = 0-cost
-- Skills (6)
+- Skills (7)
     > Slippers
         = Stitch target
         = Draw
@@ -68,6 +68,9 @@ COMMON
     > Wardrobe
         = High-cost
         = Upgrades
+        = Block
+    > Try On
+        = Discard pile
         = Block
 
 UNCOMMON
@@ -90,7 +93,7 @@ UNCOMMON
     > Refined
         = 'Next attack'
         = Energy
-- Skills (6)
+- Skills (7)
     > Spool
         = Delicate
         = Block
@@ -113,7 +116,10 @@ UNCOMMON
     > Sewing Circle
         = Minion healing
         = Energy
-- Powers (4)
+    > Inspiration
+        = Patches
+        = Replay
+- Powers (5)
     > Loom
         = Minion synergy
         = Vulnerable
@@ -125,6 +131,8 @@ UNCOMMON
     > Finery
         = Block
         = Upgrade
+    > Light Touch
+        = Delicate
 
 RARE
 - Attacks (5)
@@ -148,7 +156,7 @@ RARE
     > Needlework
         = 0-cost
         = Minion healing
-- Skills (5)
+- Skills (6)
     > Front Pocket
         = Stitch provider
         = Draw pile
@@ -166,7 +174,10 @@ RARE
     > Blanket
         = Minions
         = Minion healing
-- Powers (4)
+    > Jacket Pocket
+        = Patches
+        = Delicate
+- Powers (5)
     > Unravel
         = Passive damage
         = Stitch synergy
@@ -178,3 +189,5 @@ RARE
         = Linen minion
     > Quality
         = Upgrades
+    > Powder Keg
+        = Minions

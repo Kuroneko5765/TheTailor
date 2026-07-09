@@ -27,10 +27,10 @@ namespace TheTailor.Cards.Common
     public class SlickStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slickStrike.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/slickStrike.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/slickStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8m, ValueProp.Move), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -56,7 +56,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(3m);
+            DynamicVars.Damage.UpgradeValueBy(4m);
         }
     }
 }
