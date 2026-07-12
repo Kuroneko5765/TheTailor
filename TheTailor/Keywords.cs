@@ -17,6 +17,10 @@ namespace TheTailor
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword Delicate;
 
+        [CustomEnum("Convert")]
+        [KeywordProperties(AutoKeywordPosition.Before)]
+        public static CardKeyword Convert;
+
         [CustomEnum("LeatherMinion")]
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword LeatherMinion;

@@ -29,24 +29,28 @@ namespace TheTailor.Cards.Rare
     [Pool(typeof(TheTailorCardPool))]
     public class Luxury() : CustomCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
+        public override int MaxUpgradeLevel => 99999;
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/luxuryBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/luxuryBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/luxuryBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(0)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < 2; i++)
+            await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
+
+            if (IsUpgraded)
             {
-                await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
+                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
             }
         }
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
+            DynamicVars.Cards.UpgradeValueBy(1);
+            // DynamicVars["Delicate"].UpgradeValueBy(1m);
         }
     }
 }

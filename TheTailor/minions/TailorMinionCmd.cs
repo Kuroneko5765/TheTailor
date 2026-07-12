@@ -8,10 +8,12 @@ using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using MinionLib.Utilities;
 using TheTailor.Cards.Token;
+using TheTailor.Powers;
 
 namespace TheTailor.Minions
 {
@@ -57,16 +59,8 @@ namespace TheTailor.Minions
                     return false;
                 }
 
-                PetsOrderAccessor accessor = new PetsOrderAccessor(owner);
-                if (accessor != null && accessor.Pets != null)
+                if (await ReplaceMinion<T>(playerChoiceContext, owner, replaceIndex))
                 {
-                    await CreatureCmd.Kill(accessor.Pets[replaceIndex], true);
-                    var newMinion = await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
-                    accessor.Pets.Remove(newMinion);
-                    accessor.Pets.Insert(replaceIndex, newMinion);
-                    _ = MinionAnimCmd.Rearrange(duration: 0.5f);
-                    accessor.SetManualRearranged();
-                    PetOrderSnapshotManager.TakeSnapshot(owner);
                     return true;
                 }
             }
@@ -76,6 +70,35 @@ namespace TheTailor.Minions
                 return true;
             }
 
+            return false;
+        }
+
+        /// <summary>
+        ///     Replaces a minion in their current position. Set convert to true to retain its max HP for the new minion
+        /// </summary>
+        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false) where T : MinionModel
+        {
+            PetsOrderAccessor accessor = new PetsOrderAccessor(owner);
+            if (accessor != null && accessor.Pets != null)
+            {
+                int oldMinionMaxHp = accessor.Pets[replaceIndex].MaxHp;
+
+                await CreatureCmd.Kill(accessor.Pets[replaceIndex], true);
+                var newMinion = await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
+                accessor.Pets.Remove(newMinion);
+                accessor.Pets.Insert(replaceIndex, newMinion);
+                _ = MinionAnimCmd.Rearrange(duration: 0.5f);
+                accessor.SetManualRearranged();
+                PetOrderSnapshotManager.TakeSnapshot(owner);
+
+                if (convert)
+                {
+                    await CreatureCmd.SetMaxHp(newMinion, oldMinionMaxHp);
+                    await CreatureCmd.SetCurrentHp(newMinion, oldMinionMaxHp);
+                }
+
+                return true;
+            }
             return false;
         }
 
@@ -151,6 +174,43 @@ namespace TheTailor.Minions
             else
             {
                 return cardModel.DynamicVars["ChoiceIndex"].IntValue;
+            }
+        }
+
+        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, int minionIndex)
+        {
+            PetsOrderAccessor accessor = new PetsOrderAccessor(player);
+            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0 && accessor.Pets[minionIndex] != null)
+            {
+                if (accessor.Pets[minionIndex].Monster is MinionLinen)
+                {
+                    Creature creature = player.RunState.Rng.CombatTargets.NextItem(player.Creature.CombatState?.HittableEnemies ?? Array.Empty<Creature>());
+                    if (creature != null)
+                    {
+                        await PowerCmd.Apply<VulnerablePower>(choiceContext, creature, 2, accessor.Pets[0], null);
+                        await Cmd.Wait(0.2f);
+                    }
+                }
+                else if (accessor.Pets[minionIndex].Monster is MinionCotton)
+                {
+                    await CreatureCmd.Heal(player.Creature, accessor.Pets[minionIndex].GetPowerAmount<CottonPower>());
+                    await Cmd.Wait(0.2f);
+                }
+                else if (accessor.Pets[minionIndex].Monster is MinionDenim)
+                {
+                    await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, accessor.Pets[minionIndex], null);
+                    await Cmd.Wait(0.2f);
+                }
+                else if (accessor.Pets[minionIndex].Monster is MinionWool)
+                {
+                    await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, accessor.Pets[minionIndex], null);
+                    await Cmd.Wait(0.2f);
+                }
+                else if (accessor.Pets[minionIndex].Monster is MinionSilk)
+                {
+                    await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, accessor.Pets[minionIndex], null);
+                    await Cmd.Wait(0.2f);
+                }
             }
         }
     }

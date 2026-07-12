@@ -32,7 +32,7 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/strikeAPoseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/strikeAPoseBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -54,7 +54,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2m);
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

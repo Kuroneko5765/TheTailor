@@ -36,12 +36,20 @@ namespace TheTailor.Cards
 {
     public static class StitchCmd
     {
+        public static List<CardType> UnstitchableTypes = new List<CardType> { CardType.Status, CardType.Curse, CardType.Quest, CardType.None };
+
         public static async Task StitchCards(CardModel card1, CardModel card2)
         {
+            if (UnstitchableTypes.Contains(card1.Type) || UnstitchableTypes.Contains(card2.Type))
+            {
+                Log.Error("Attempted to stitch 2 unstitchable cards; these should be filtered by StitchCmd.CanBeStitched!");
+                return;
+            }
+
             CardModifier.AddModifier<StitchCardModifier>(card1);
             CardModifier.AddModifier<StitchCardModifier>(card2);
-            StitchCardModifier card1Stitch = card1.GetModifier<StitchCardModifier>();
-            StitchCardModifier card2Stitch = card2.GetModifier<StitchCardModifier>();
+            StitchCardModifier? card1Stitch = card1.GetModifier<StitchCardModifier>();
+            StitchCardModifier? card2Stitch = card2.GetModifier<StitchCardModifier>();
             card1Stitch.StitchedCard = card2;
             card2Stitch.StitchedCard = card1;
             if (card1 is IOnStitchEffect) { (card1 as IOnStitchEffect).OnStitch(); }
@@ -52,7 +60,7 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchCard(CardModel card1)
         {
-            StitchCardModifier cardStitch1 = card1.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch1 = card1.GetModifier<StitchCardModifier>();
             if (cardStitch1 != null)
             {
                 card1.RemoveKeyword(Keywords.Stitched);
@@ -64,13 +72,13 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchRelatedCard(CardModel card1)
         {
-            StitchCardModifier cardStitch1 = card1.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch1 = card1.GetModifier<StitchCardModifier>();
             if (cardStitch1 != null)
             {
                 CardModel card2 = cardStitch1.StitchedCard;
                 if (card2 != null)
                 {
-                    StitchCardModifier cardStitch2 = card2.GetModifier<StitchCardModifier>();
+                    StitchCardModifier? cardStitch2 = card2.GetModifier<StitchCardModifier>();
                     if (cardStitch2 != null)
                     {
                         card2.RemoveKeyword(Keywords.Stitched);
@@ -91,7 +99,9 @@ namespace TheTailor.Cards
         public static bool CanBeStitched(CardModel cardModel)
         {
             bool ret = cardModel.GetModifier<StitchCardModifier>() == null
-            && !cardModel.Keywords.Contains(CardKeyword.Unplayable);
+            && !cardModel.Keywords.Contains(CardKeyword.Unplayable)
+            && !UnstitchableTypes.Contains(cardModel.Type)
+            && cardModel.IsMutable;
 
             return ret;
         }

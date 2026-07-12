@@ -29,7 +29,6 @@ namespace TheTailor.Relics.Ancient
         {
             await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
             await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-            await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TheTailor.Cards
         [HarmonyPatch(typeof(CardModel), "HoverTips", MethodType.Getter)]
         internal static IEnumerable<IHoverTip> Postfix(IEnumerable<IHoverTip> __result, CardModel __instance)
         {
-            StitchCardModifier cardStitch = __instance.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
             if (cardStitch != null && cardStitch.StitchedCard != null)
             {
                 return [.. __result, .. new IHoverTip[1] { new CardHoverTip(cardStitch.StitchedCard) }];
@@ -76,20 +76,22 @@ namespace TheTailor.Cards
         }
     }
 
-    // TODO 'card moves pile' trigger to remove stitching?
-
     [HarmonyPatch]
     internal static class StitchRemovePatch
     {
-        [HarmonyPatch(typeof(AbstractModel), "AfterCardPlayedLate")]
-        internal static async void Postfix(PlayerChoiceContext choiceContext, CardPlay cardPlay, AbstractModel __instance)
+        [HarmonyPatch(typeof(AbstractModel), "AfterCardChangedPiles")]
+        internal static async void Postfix(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
         {
-            StitchCardModifier cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch = card.GetModifier<StitchCardModifier>();
             if (cardStitch != null)
             {
                 if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                    await StitchCmd.UnstitchCard(card);
+                }
+                else if (card == null || !card.IsInCombat || card.Pile == null || card.Pile.Type == PileType.Exhaust)
+                {
+                    await StitchCmd.UnstitchCard(card);
                 }
             }
         }
@@ -101,7 +103,7 @@ namespace TheTailor.Cards
         [HarmonyPatch(typeof(CardModel), "OverlayPath", MethodType.Getter)]
         internal static string Postfix(string __result, CardModel __instance)
         {
-            StitchCardModifier cardStitch = __instance.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
             if (__instance.Affliction == null && cardStitch != null)
             {
                 __result = "res://TheTailor/scenes/cards/overlays/stitch.tscn";
@@ -113,7 +115,7 @@ namespace TheTailor.Cards
         [HarmonyPatch(typeof(CardModel), "HasBuiltInOverlay", MethodType.Getter)]
         internal static bool Postfix(bool __result, CardModel __instance)
         {
-            StitchCardModifier cardStitch = __instance.GetModifier<StitchCardModifier>();
+            StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
             if (cardStitch != null)
             {
                 __result = true;

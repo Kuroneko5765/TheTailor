@@ -24,31 +24,41 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 using HarmonyLib;
+using MinionLib.Utilities;
 
-namespace TheTailor.Cards.Uncommon
+namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Versatility() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class Versatility() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new BlockVar(5m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
+            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
+
+            if (accessor != null && accessor.Pets != null)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (accessor.Pets[i] != null && accessor.Pets[i].Monster is MinionLeather)
+                    {
+                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, 0, true);
+                        break;
+                    }
+                }
+            }
         }
 
         protected override void OnUpgrade()
         {
-            RemoveKeyword(CardKeyword.Exhaust);
-            DynamicVars["Delicate"].BaseValue = 2;
+            
         }
     }
 }

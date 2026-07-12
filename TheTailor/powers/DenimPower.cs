@@ -16,6 +16,10 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace TheTailor.Powers
 {
+    /// <summary>
+    ///     Applies temp. strength to the owner when hit
+    ///     Also applies temp. strength on death because AfterDamageReceived doesn't work properly with killing blows on minions
+    /// </summary>
     public sealed class DenimPower : CustomPowerModel
     {
         public override string? CustomPackedIconPath => "res://TheTailor/images/powers/denimSmall.png";
@@ -27,9 +31,17 @@ namespace TheTailor.Powers
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (dealer != null && Owner == target)
+            if (dealer != null && (Owner == target || Owner.PetOwner.Creature == target) && result.UnblockedDamage > 0)
             {
-                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2m, this.Owner, null);
+                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);
+            }
+        }
+
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        {
+            if (Owner == creature && !wasRemovalPrevented)
+            {
+                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);
             }
         }
     }

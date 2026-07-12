@@ -24,8 +24,8 @@ namespace TheTailor.Minions
         public override async Task OnSummon(PlayerChoiceContext playerChoiceContext, Player owner, MinionSummonOptions options)
         {
             await PowerCmd.Apply<TailorMadePower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
-            await PowerCmd.Apply<WoolPower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
-            await PowerCmd.Apply<WoolWeakPower>(playerChoiceContext, owner.Creature, 1, Creature, null);
+            await PowerCmd.Apply<WoolPower>(playerChoiceContext, Creature, 2m, owner.Creature, options.Source);
+            // await PowerCmd.Apply<WoolWeakPower>(playerChoiceContext, owner.Creature, 1, Creature, null);
             await PowerCmd.Apply<TailorMinionOrderAction>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
         }
     }

@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Starter
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Craft() : CustomCardModel(3, CardType.Skill, CardRarity.Basic, TargetType.Self)
+    public class Craft() : CustomCardModel(2, CardType.Skill, CardRarity.Basic, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/craft.png";

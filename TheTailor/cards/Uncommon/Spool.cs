@@ -29,14 +29,14 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move), new DynamicVar("Delicate", 3)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 2), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
+            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 2), context: choiceContext, player: Owner, filter: StitchCmd.CanBeStitched, source: this);
             if (cardModel != null && cardModel.Count() == 2)
             {
                 await StitchCmd.StitchCards(cardModel.ElementAt(0), cardModel.ElementAt(1));
@@ -45,7 +45,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Block.UpgradeValueBy(3m);
+            DynamicVars.Block.UpgradeValueBy(3m);
         }
     }
 }

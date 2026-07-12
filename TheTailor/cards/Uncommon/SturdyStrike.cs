@@ -34,9 +34,8 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new DamageVar(12m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 3), new DamageVar(12m, ValueProp.Move)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -52,8 +51,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            RemoveKeyword(CardKeyword.Exhaust);
-            DynamicVars["Delicate"].BaseValue = 2;
+            DynamicVars.Damage.UpgradeValueBy(8);
         }
     }
 }

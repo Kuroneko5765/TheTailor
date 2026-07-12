@@ -20,9 +20,9 @@ namespace TheTailor.Powers
 {
     public sealed class WoolWeakPower : CustomPowerModel
     {
-        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/woolSmall.png";
-        public override string? CustomBigIconPath => "res://TheTailor/images/powers/wool.png";
-        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/wool.png";
+        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/woolWeakenSmall.png";
+        public override string? CustomBigIconPath => "res://TheTailor/images/powers/woolWeaken.png";
+        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/woolWeaken.png";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];

@@ -1,16 +1,13 @@
 -- TODO --
->>> Should Stitched cards be un-Stitched after being played?
-    > Would prevent issues with scaling and give more leeway to lower energy options
-    > However, it would also make Delicate/Exhaust more redundant
-- Rework Luxury?
 - Minion selection prompt should say "Replace a minion"
 - Afflictions + Stitched should appear simultaneously
 - Epochs/unlocks?
+- Sleight Of Flesh & other debuff appliers won't work from Minions
+    > Must change this over to the PetOwner being the applier
 
 -- CURRENT ISSUES --
-- Minions still don't transfer overkill damage
-- Stitched cards with exhaust sometimes don't respect exhaust rules
-    >>> BOTH of these are likely due to the Baselib issue
+! Osty prevents overkill damage to tailor minions entirely
+    > Give Osty a hidden power that gives overkill?
 - If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
 
 -- CARDS --
@@ -47,10 +44,7 @@ COMMON
     > Scarf Swipe
         = AOE
         = 0-cost
-- Skills (7)
-    > Slippers
-        = Stitch target
-        = Draw
+- Skills (8)
     > Spare Material
         = Delicate
         = Leather minion
@@ -72,9 +66,14 @@ COMMON
     > Try On
         = Discard pile
         = Block
+    > Procure
+        = Block
+        = Stitching
+    > Versatility
+        = Minion
 
 UNCOMMON
-- Attacks (5)
+- Attacks (6)
     > Outfit
         = Multi-attack
         = Minion synergy
@@ -93,7 +92,10 @@ UNCOMMON
     > Refined
         = 'Next attack'
         = Energy
-- Skills (7)
+    > Single Slap
+        = Upgrades
+        = Multi-hit
+- Skills (10)
     > Spool
         = Delicate
         = Block
@@ -110,7 +112,7 @@ UNCOMMON
     > Peruse
         = Draw
         = Delicate
-    > Versatility
+    > Padding
         = Block
         = Linen minion
     > Sewing Circle
@@ -119,7 +121,15 @@ UNCOMMON
     > Inspiration
         = Patches
         = Replay
-- Powers (5)
+    > Slippers
+        = Stitch target
+        = Draw
+    > Get Creative
+        = Minions
+        = Delicate
+    > What's Inside
+        = Minion
+- Powers (7)
     > Loom
         = Minion synergy
         = Vulnerable
@@ -133,9 +143,13 @@ UNCOMMON
         = Upgrade
     > Light Touch
         = Delicate
+    > Motivation
+        = Minions
+    > Discerning Eye
+        = Upgrades
 
 RARE
-- Attacks (5)
+- Attacks (6)
     > Strike A Pose
         = Stitch target
         = Strength down
@@ -156,6 +170,8 @@ RARE
     > Needlework
         = 0-cost
         = Minion healing
+    > Tag Team
+        = Minions
 - Skills (6)
     > Front Pocket
         = Stitch provider
@@ -167,7 +183,7 @@ RARE
         = Delicate
     > Luxury
         = Silk minion
-        = Retain
+        = Draw
     > Great Expectations
         = Minions
         = Retain

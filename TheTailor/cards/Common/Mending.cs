@@ -39,12 +39,13 @@ namespace TheTailor.Cards.Common
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null)
+            if (accessor != null && accessor.Pets != null && accessor.Pets[0] != null)
             {
                 await CreatureCmd.GainMaxHp(accessor.Pets[0], DynamicVars.Heal.BaseValue);
             }
         }
 
+        /*
         public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
         {
             if (card.Owner != Owner || card is not Mending)
@@ -59,6 +60,7 @@ namespace TheTailor.Cards.Common
 
             return true;
         }
+        */
 
         protected override void OnUpgrade()
         {

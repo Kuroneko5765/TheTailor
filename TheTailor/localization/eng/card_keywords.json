@@ -5,6 +5,8 @@
     "THETAILOR-STITCHED.description": "Linked to another card. When this card is played, the other is played afterward for free.",
     "THETAILOR-DELICATE.title": "Delicate",
     "THETAILOR-DELICATE.description": "When played, reduce this card's [gold]Delicate[/gold] by 1. [gold]Exhausts[/gold] when it reaches 0.",
+    "THETAILOR-CONVERT.title": "Convert",
+    "THETAILOR-CONVERT.description": "Replaces a Minion while keeping its max HP.",
 
     "THETAILOR-LEATHERMINION.title": "Leather Minion",
     "THETAILOR-LEATHERMINION.description": "Takes unblocked attack damage for you.",

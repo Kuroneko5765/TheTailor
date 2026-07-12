@@ -37,6 +37,7 @@ namespace TheTailor.Powers
             }
         }
 
+        /*
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
         {
             if (side == CombatSide.Player)
@@ -50,5 +51,6 @@ namespace TheTailor.Powers
                 }
             }
         }
+        */
     }
 }

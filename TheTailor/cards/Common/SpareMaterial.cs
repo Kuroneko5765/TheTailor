@@ -28,7 +28,7 @@ using HarmonyLib;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class SpareMaterial() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class SpareMaterial() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/spareMaterialBeta.png";

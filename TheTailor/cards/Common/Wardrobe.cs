@@ -27,6 +27,7 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class Wardrobe() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";

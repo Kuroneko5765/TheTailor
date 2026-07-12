@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "TheTailor",
   "name": "TheTailor",
   "author": "hex3",
@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "id": "BaseLib",
-      "min_version": "v3.1.8"
+      "min_version": "3.3.5"
     },
     {
       "id": "MinionLib",

@@ -42,7 +42,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new DynamicVar("StrengthDown", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -53,12 +53,12 @@ namespace TheTailor.Cards.Common
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            CardCmd.Upgrade(this);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, cardPlay.Target, -DynamicVars["StrengthDown"].BaseValue, Owner.Creature, null);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(3m + (CurrentUpgradeLevel - 1));
+            DynamicVars["StrengthDown"].UpgradeValueBy(1);
         }
     }
 }
