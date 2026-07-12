@@ -6,8 +6,9 @@
     > Must change this over to the PetOwner being the applier
 
 -- CURRENT ISSUES --
-! Osty prevents overkill damage to tailor minions entirely
+!!! Osty prevents overkill damage to tailor minions
     > Give Osty a hidden power that gives overkill?
+- Sortie doesn't kill all minions
 - If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
 
 -- CARDS --
@@ -27,7 +28,7 @@ ANCIENT (2)
 - Atelier
 
 COMMON
-- Attacks (6)
+- Attacks (7)
     > Needle Storm
         = High-cost
         = Multi-attack
@@ -39,11 +40,14 @@ COMMON
         = Delicate
     > Furious Slap
         = Upgrade
+        = Exhaust
     > Scrap
         = Patches
     > Scarf Swipe
         = AOE
         = 0-cost
+    > True Knit
+        = Upgrades
 - Skills (8)
     > Spare Material
         = Delicate
@@ -73,7 +77,7 @@ COMMON
         = Minion
 
 UNCOMMON
-- Attacks (6)
+- Attacks (7)
     > Outfit
         = Multi-attack
         = Minion synergy
@@ -95,7 +99,11 @@ UNCOMMON
     > Single Slap
         = Upgrades
         = Multi-hit
-- Skills (10)
+    > Whirling Silk
+        = Silk minion
+        = AOE
+        = Multi-hit
+- Skills (13)
     > Spool
         = Delicate
         = Block
@@ -129,6 +137,12 @@ UNCOMMON
         = Delicate
     > What's Inside
         = Minion
+    > Wall of Denim
+        = Denim minions
+        = High-cost
+    > Rapid Assembly
+        = Leather minions
+    > Workshop of War
 - Powers (7)
     > Loom
         = Minion synergy
@@ -149,7 +163,7 @@ UNCOMMON
         = Upgrades
 
 RARE
-- Attacks (6)
+- Attacks (7)
     > Strike A Pose
         = Stitch target
         = Strength down
@@ -172,7 +186,9 @@ RARE
         = Minion healing
     > Tag Team
         = Minions
-- Skills (6)
+    > Clearance
+        = Copies
+- Skills (8)
     > Front Pocket
         = Stitch provider
         = Draw pile
@@ -193,7 +209,13 @@ RARE
     > Jacket Pocket
         = Patches
         = Delicate
-- Powers (5)
+    > Bandage Up
+        = Cotton minion
+        = Healing
+    > Sommelier
+        = Potion
+        = Stitching
+- Powers (6)
     > Unravel
         = Passive damage
         = Stitch synergy
@@ -207,3 +229,6 @@ RARE
         = Upgrades
     > Powder Keg
         = Minions
+    > Resourcefulness
+        = Exhaust
+        = Minion healing

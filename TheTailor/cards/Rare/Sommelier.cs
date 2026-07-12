@@ -23,31 +23,28 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using MegaCrit.Sts2.Core.Factories;
+using TheTailor.Potions;
 
-namespace TheTailor.Cards.Uncommon
+namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class UltimateSlap() : CustomCardModel(9, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class Sommelier() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sommelierBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/sommelierBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sommelierBeta.png";
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPotion<WeaversWine>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this, cardPlay)
-                .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            await PotionCmd.TryToProcure(ModelDb.Potion<WeaversWine>(), Owner);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(16m);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

@@ -32,18 +32,17 @@ using Godot;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using MegaCrit.Sts2.Core.Models.Cards;
+using TheTailor.Cards.Token;
 
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class FuriousSlap() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public class TrueKnit() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override int MaxUpgradeLevel => 99999;
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move), new CardsVar(1)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -54,17 +53,26 @@ namespace TheTailor.Cards.Common
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)
+            if (IsUpgraded)
             {
-                CardModel card = CombatState.CreateCard<Dazed>(Owner);
-                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
+                CardModel? cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner, this);
+                if (cardModel != null)
+                {
+                    CardCmd.Upgrade(cardModel);
+                }
+                return;
+            }
+            CardPile pile = PileType.Hand.GetPile(Owner);
+            CardModel cardModel2 = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.IsUpgradable));
+            if (cardModel2 != null)
+            {
+                CardCmd.Upgrade(cardModel2);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(8);
-            DynamicVars.Cards.UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(2);
         }
     }
 }

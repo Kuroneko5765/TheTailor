@@ -22,6 +22,8 @@ using TheTailor.Cards;
 using TheTailor.Character;
 using TheTailor.Minions;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MinionLib.Utilities;
+using MinionLib.Commands;
 
 namespace TheTailor.Cards.Rare
 {
@@ -35,10 +37,21 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            foreach (Creature minion in Owner.Creature.Pets.Where(mn => mn.Monster is TailorMinion))
+            PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
+            if (accessor != null && accessor.Pets != null)
             {
-                await CreatureCmd.Kill(minion, true);
+                for (int i = 0; i < accessor.Pets.Count; i++)
+                {
+                    if (accessor.Pets[i].Monster is TailorMinion)
+                    {
+                        await CreatureCmd.Kill(accessor.Pets[i], true);
+                    }
+                }
             }
+
+            _ = MinionAnimCmd.Rearrange(duration: 0.5f);
+            accessor.SetManualRearranged();
+            PetOrderSnapshotManager.TakeSnapshot(Owner);
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)

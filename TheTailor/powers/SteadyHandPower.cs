@@ -22,9 +22,9 @@ namespace TheTailor.Powers
 {
     public sealed class SteadyHandPower : CustomPowerModel
     {
-        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/lightTouchSmall.png";
-        public override string? CustomBigIconPath => "res://TheTailor/images/powers/lightTouch.png";
-        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/lightTouch.png";
+        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/steadyHandSmall.png";
+        public override string? CustomBigIconPath => "res://TheTailor/images/powers/steadyHand.png";
+        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/steadyHand.png";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 

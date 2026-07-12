@@ -24,15 +24,15 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 
-namespace TheTailor.Cards.Uncommon
+namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class UltimateSlap() : CustomCardModel(9, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class Clearance() : CustomCardModel(0, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/clearanceBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/clearanceBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/clearanceBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -43,11 +43,18 @@ namespace TheTailor.Cards.Uncommon
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
+
+            for (int i = 0; i < 2; i++)
+            {
+                CardModel card = CreateClone();
+                card.EnergyCost.SetThisCombat(EnergyCost.GetResolved());
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(16m);
+            DynamicVars.Damage.UpgradeValueBy(6);
         }
     }
 }

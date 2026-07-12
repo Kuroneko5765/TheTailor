@@ -27,27 +27,24 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class UltimateSlap() : CustomCardModel(9, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class RapidAssembly() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move)];
+        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this, cardPlay)
-                .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
-        }
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
 
-        protected override void OnUpgrade()
-        {
-            DynamicVars.Damage.UpgradeValueBy(16m);
+            if (IsUpgraded)
+            {
+                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            }
         }
     }
 }

@@ -23,31 +23,33 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using HarmonyLib;
 
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class UltimateSlap() : CustomCardModel(9, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class WallOfDenim() : CustomCardModel(9, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(60m, ValueProp.Move)];
+        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/wallOfDenimBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/wallOfDenimBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/wallOfDenimBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                .FromCard(this, cardPlay)
-                .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            for (int i = 0; i < 2; i++)
+            {
+                await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(16m);
+            RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars["Delicate"].BaseValue = 2;
         }
     }
 }

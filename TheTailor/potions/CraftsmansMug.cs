@@ -47,7 +47,7 @@ namespace TheTailor.Potions
             {
                 if (TailorMinionCmd.CanMinionBeAdded(target.Player))
                 {
-                    await MinionCmd.AddMinion<MinionLinen>(choiceContext, target.Player, new MinionSummonOptions(Position: MinionPosition.Front));
+                    await MinionCmd.AddMinion<MinionLeather>(choiceContext, target.Player, new MinionSummonOptions(Position: MinionPosition.Front));
                 }
             }
         }
