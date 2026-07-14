@@ -1,8 +1,8 @@
 {
-    "MINION_LEATHER.name": "Leather Minion",
-    "MINION_LINEN.name": "Linen Minion",
-    "MINION_DENIM.name": "Denim Minion",
-    "MINION_WOOL.name": "Wool Minion",
-    "MINION_SILK.name": "Silk Minion",
-    "MINION_COTTON.name": "Cotton Minion"
+    "THETAILOR-MINION_LEATHER.name": "Leather Minion",
+    "THETAILOR-MINION_LINEN.name": "Linen Minion",
+    "THETAILOR-MINION_DENIM.name": "Denim Minion",
+    "THETAILOR-MINION_WOOL.name": "Wool Minion",
+    "THETAILOR-MINION_SILK.name": "Silk Minion",
+    "THETAILOR-MINION_COTTON.name": "Cotton Minion"
 }

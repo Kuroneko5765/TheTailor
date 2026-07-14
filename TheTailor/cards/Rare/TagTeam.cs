@@ -36,7 +36,7 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, 0);
+            await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
 
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

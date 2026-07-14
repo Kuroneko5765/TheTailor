@@ -30,6 +30,7 @@ public sealed class TailorMinionOrderAction : ActionModel
             accessor.Pets.Remove(Owner);
             accessor.Pets.Insert(0, Owner);
             _ = MinionAnimCmd.Rearrange(duration: 0.5f);
+            await CreatureCmd.TriggerAnim(Owner, "cast", 0f);
             accessor.SetManualRearranged();
             PetOrderSnapshotManager.TakeSnapshot(Owner.PetOwner);
         }

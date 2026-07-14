@@ -36,21 +36,28 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
+            int toConvert = DynamicVars["Triggers"].IntValue;
 
+            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
             if (accessor != null && accessor.Pets != null)
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < accessor.Pets.Count; i++)
                 {
                     if (accessor.Pets[i] != null && accessor.Pets[i].Monster is MinionLeather)
                     {
-                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, 0, true);
-                        break;
+                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i, true);
+                        toConvert--;
+
+                        if (toConvert <= 0)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -58,7 +65,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            
+            DynamicVars["Triggers"].UpgradeValueBy(1);
         }
     }
 }

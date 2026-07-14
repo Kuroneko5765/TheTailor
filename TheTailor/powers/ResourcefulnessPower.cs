@@ -34,17 +34,7 @@ namespace TheTailor.Powers
         {
             if (card.Owner.Creature == Owner && Owner.IsPlayer)
             {
-                PetsOrderAccessor accessor = new PetsOrderAccessor(Owner.Player);
-                if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
-                {
-                    foreach (Creature creature in accessor.Pets)
-                    {
-                        if (creature.Monster is TailorMinion)
-                        {
-                            await CreatureCmd.GainMaxHp(creature, Amount);
-                        }
-                    }
-                }
+                await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, Owner.Player, Amount, TailorMinionCmd.MinionTriggerType.All);
             }
         }
     }

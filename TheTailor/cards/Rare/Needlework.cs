@@ -55,11 +55,7 @@ namespace TheTailor.Cards.Rare
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null)
-            {
-                await CreatureCmd.GainMaxHp(accessor.Pets[0], DynamicVars.Heal.BaseValue);
-            }
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue, TailorMinionCmd.MinionTriggerType.First);
         }
 
         public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)

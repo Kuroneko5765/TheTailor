@@ -19,6 +19,12 @@ namespace TheTailor.Minions
 {
     public static class TailorMinionCmd
     {
+        public enum MinionTriggerType
+        {
+            First,
+            All
+        }
+
         public static bool CanMinionBeAdded(Player owner)
         {   
             if (GetMinionCount<TailorMinion>(owner) >= 3)
@@ -76,12 +82,26 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Replaces a minion in their current position. Set convert to true to retain its max HP for the new minion
         /// </summary>
-        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false) where T : MinionModel
+        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false, bool first = false) where T : MinionModel
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(owner);
-            if (accessor != null && accessor.Pets != null)
+
+            if (first)
+            {
+                foreach (Creature creature in accessor.Pets)
+                {
+                    if (creature.Monster is T)
+                    {
+                        replaceIndex = accessor.Pets.IndexOf(creature);
+                    }
+                }
+            }
+
+            if (accessor != null && accessor.Pets != null && accessor.Pets[replaceIndex] != null && accessor.Pets[replaceIndex].Monster is TailorMinion)
             {
                 int oldMinionMaxHp = accessor.Pets[replaceIndex].MaxHp;
+
+                accessor.Pets[replaceIndex].RemoveAllPowersInternalExcept();
 
                 await CreatureCmd.Kill(accessor.Pets[replaceIndex], true);
                 var newMinion = await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
@@ -177,39 +197,63 @@ namespace TheTailor.Minions
             }
         }
 
-        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, int minionIndex)
+        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, MinionTriggerType minionTriggerType)
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(player);
-            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0 && accessor.Pets[minionIndex] != null)
+            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
             {
-                if (accessor.Pets[minionIndex].Monster is MinionLinen)
+                foreach (Creature creature in accessor.Pets)
                 {
-                    Creature creature = player.RunState.Rng.CombatTargets.NextItem(player.Creature.CombatState?.HittableEnemies ?? Array.Empty<Creature>());
-                    if (creature != null)
+                    if (creature.Monster is MinionLinen)
                     {
-                        await PowerCmd.Apply<VulnerablePower>(choiceContext, creature, 2, accessor.Pets[0], null);
+                        Creature creature1 = player.RunState.Rng.CombatTargets.NextItem(player.Creature.CombatState?.HittableEnemies ?? Array.Empty<Creature>());
+                        if (creature1 != null)
+                        {
+                            await PowerCmd.Apply<VulnerablePower>(choiceContext, creature1, 2, player.Creature, null);
+                            await Cmd.Wait(0.2f);
+                            if (minionTriggerType == MinionTriggerType.First) { break; }
+                        }
+                    }
+                    else if (creature.Monster is MinionCotton)
+                    {
+                        await CreatureCmd.Heal(player.Creature, creature.GetPowerAmount<CottonPower>());
                         await Cmd.Wait(0.2f);
+                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                    }
+                    else if (creature.Monster is MinionDenim)
+                    {
+                        await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await Cmd.Wait(0.2f);
+                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                    }
+                    else if (creature.Monster is MinionWool)
+                    {
+                        await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, creature, null);
+                        await Cmd.Wait(0.2f);
+                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                    }
+                    else if (creature.Monster is MinionSilk)
+                    {
+                        await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await Cmd.Wait(0.2f);
+                        if (minionTriggerType == MinionTriggerType.First) { break; }
                     }
                 }
-                else if (accessor.Pets[minionIndex].Monster is MinionCotton)
+            }
+        }
+
+        public static async Task GiveMinionHealth<T>(PlayerChoiceContext choiceContext, Player player, int amount, MinionTriggerType minionTriggerType)
+        {
+            PetsOrderAccessor accessor = new PetsOrderAccessor(player);
+            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
+            {
+                foreach (Creature creature in accessor.Pets)
                 {
-                    await CreatureCmd.Heal(player.Creature, accessor.Pets[minionIndex].GetPowerAmount<CottonPower>());
-                    await Cmd.Wait(0.2f);
-                }
-                else if (accessor.Pets[minionIndex].Monster is MinionDenim)
-                {
-                    await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, accessor.Pets[minionIndex], null);
-                    await Cmd.Wait(0.2f);
-                }
-                else if (accessor.Pets[minionIndex].Monster is MinionWool)
-                {
-                    await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, accessor.Pets[minionIndex], null);
-                    await Cmd.Wait(0.2f);
-                }
-                else if (accessor.Pets[minionIndex].Monster is MinionSilk)
-                {
-                    await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, accessor.Pets[minionIndex], null);
-                    await Cmd.Wait(0.2f);
+                    if (creature.Monster is T)
+                    {
+                        await CreatureCmd.GainMaxHp(creature, amount);
+                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                    }
                 }
             }
         }

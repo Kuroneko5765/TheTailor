@@ -38,29 +38,8 @@ namespace TheTailor.Cards.Common
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null && accessor.Pets[0] != null)
-            {
-                await CreatureCmd.GainMaxHp(accessor.Pets[0], DynamicVars.Heal.BaseValue);
-            }
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue, TailorMinionCmd.MinionTriggerType.First);
         }
-
-        /*
-        public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
-        {
-            if (card.Owner != Owner || card is not Mending)
-            {
-                return true;
-            }
-
-            if (TailorMinionCmd.GetMinionCount<TailorMinion>(card.Owner) <= 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        */
 
         protected override void OnUpgrade()
         {

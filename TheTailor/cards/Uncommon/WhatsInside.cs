@@ -45,10 +45,10 @@ namespace TheTailor.Cards.Uncommon
             {
                 for (int i = 0; i < DynamicVars["Triggers"].BaseValue; i++)
                 {
-                    await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, 0);
+                    await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
                 }
 
-                await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0);
+                await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0, false, true);
             }
         }
 

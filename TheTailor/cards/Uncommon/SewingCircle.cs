@@ -40,17 +40,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
-            {
-                foreach (Creature creature in accessor.Pets)
-                {
-                    if (creature.Monster is TailorMinion)
-                    {
-                        await CreatureCmd.GainMaxHp(creature, ResolveEnergyXValue() * DynamicVars.Heal.BaseValue);
-                    }
-                }
-            }
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue * ResolveEnergyXValue(), TailorMinionCmd.MinionTriggerType.All);
 
             if (IsUpgraded)
             {

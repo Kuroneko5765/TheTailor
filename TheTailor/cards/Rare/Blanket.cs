@@ -47,17 +47,7 @@ namespace TheTailor.Cards.Uncommon
                 await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
             }
 
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
-            {
-                foreach (Creature creature in accessor.Pets)
-                {
-                    if (creature.Monster is TailorMinion)
-                    {
-                        await CreatureCmd.GainMaxHp(creature, DynamicVars.Heal.BaseValue);
-                    }
-                }
-            }
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue, TailorMinionCmd.MinionTriggerType.All);
         }
 
         protected override void OnUpgrade()

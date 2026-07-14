@@ -37,6 +37,8 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            List<Creature> petsToKill = new();
+
             PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
             if (accessor != null && accessor.Pets != null)
             {
@@ -44,9 +46,15 @@ namespace TheTailor.Cards.Rare
                 {
                     if (accessor.Pets[i].Monster is TailorMinion)
                     {
-                        await CreatureCmd.Kill(accessor.Pets[i], true);
+                        petsToKill.Add(accessor.Pets[i]);
                     }
                 }
+            }
+
+            foreach (Creature creature in petsToKill)
+            {
+                creature.RemoveAllPowersInternalExcept();
+                await CreatureCmd.Kill(creature, true);
             }
 
             _ = MinionAnimCmd.Rearrange(duration: 0.5f);

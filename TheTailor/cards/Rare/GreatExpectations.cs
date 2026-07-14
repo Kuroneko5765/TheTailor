@@ -40,23 +40,39 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
+            List<Creature> petsToKill = new();
+
+            PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
+            if (accessor != null && accessor.Pets != null)
             {
                 for (int i = 0; i < accessor.Pets.Count; i++)
                 {
                     if (accessor.Pets[i].Monster is MinionLeather)
                     {
-                        await CreatureCmd.Kill(accessor.Pets[i], true);
-                        var newMinion = await MinionCmd.AddMinion<MinionDenim>(choiceContext, cardPlay.Card.Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-                        accessor.Pets.Remove(newMinion);
-                        accessor.Pets.Insert(i, newMinion);
-                        _ = MinionAnimCmd.Rearrange(duration: 0.5f);
-                        accessor.SetManualRearranged();
-                        PetOrderSnapshotManager.TakeSnapshot(cardPlay.Card.Owner);
+                        petsToKill.Add(accessor.Pets[i]);
                     }
                 }
             }
+
+            int replaceAmount = petsToKill.Count;
+
+            foreach (Creature creature in petsToKill)
+            {
+                creature.RemoveAllPowersInternalExcept();
+                await CreatureCmd.Kill(creature, true);
+            }
+
+            for (int i = 0; i < replaceAmount; i++)
+            {
+                if (TailorMinionCmd.CanMinionBeAdded(Owner))
+                {
+                    await MinionCmd.AddMinion<MinionDenim>(choiceContext, Owner, new MinionSummonOptions(Position: MinionPosition.Front));
+                }
+            }
+
+            _ = MinionAnimCmd.Rearrange(duration: 0.5f);
+            accessor.SetManualRearranged();
+            PetOrderSnapshotManager.TakeSnapshot(Owner);
         }
 
         protected override void OnUpgrade()
