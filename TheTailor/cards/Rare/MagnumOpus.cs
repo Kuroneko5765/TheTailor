@@ -43,6 +43,7 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/magnumOpusBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/magnumOpusBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12m, ValueProp.Move)/*, new DynamicVar("Delicate", 2)*/];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

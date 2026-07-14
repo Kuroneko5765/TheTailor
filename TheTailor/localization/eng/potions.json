@@ -2,5 +2,8 @@
     "THETAILOR-WEAVERS_WINE.title": "Weaver's Wine",
     "THETAILOR-WEAVERS_WINE.description": "[gold]Stitch[/gold] two cards in your hand.",
     "THETAILOR-CRAFTSMANS_BREW.title": "Craftsmans's Brew",
-    "THETAILOR-CRAFTSMANS_BREW.description": "Fill all of your empty Minion slots with [gold]Leather Minions[/gold]."
+    "THETAILOR-CRAFTSMANS_BREW.description": "Fill all of your empty Minion slots with [gold]Leather Minions[/gold].",
+    "THETAILOR-CHAMPAGNE_COUTURE.title": "Champagne Couture",
+    "THETAILOR-CHAMPAGNE_COUTURE.description": "[gold]Upgrade[/gold] a card in your deck."
+    
 }

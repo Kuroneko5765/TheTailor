@@ -210,6 +210,7 @@ namespace TheTailor.Minions
                         if (creature1 != null)
                         {
                             await PowerCmd.Apply<VulnerablePower>(choiceContext, creature1, 2, player.Creature, null);
+                            await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                             await Cmd.Wait(0.2f);
                             if (minionTriggerType == MinionTriggerType.First) { break; }
                         }
@@ -217,24 +218,28 @@ namespace TheTailor.Minions
                     else if (creature.Monster is MinionCotton)
                     {
                         await CreatureCmd.Heal(player.Creature, creature.GetPowerAmount<CottonPower>());
+                        await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType == MinionTriggerType.First) { break; }
                     }
                     else if (creature.Monster is MinionDenim)
                     {
                         await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType == MinionTriggerType.First) { break; }
                     }
                     else if (creature.Monster is MinionWool)
                     {
                         await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, creature, null);
+                        await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType == MinionTriggerType.First) { break; }
                     }
                     else if (creature.Monster is MinionSilk)
                     {
                         await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType == MinionTriggerType.First) { break; }
                     }

@@ -25,7 +25,7 @@ namespace TheTailor.Character
         public override CharacterGender Gender => CharacterGender.Masculine;
         public override int StartingHp => 60;
 
-        // public override string CustomVisualPath => "res://TheTailor/scenes/minions/minionLeather.tscn";
+        public override string CustomVisualPath => "res://TheTailor/scenes/char/tailor.tscn";
 
         public override IEnumerable<CardModel> StartingDeck =>
         [

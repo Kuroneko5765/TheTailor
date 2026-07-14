@@ -25,39 +25,32 @@ using BaseLib.Extensions;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Matching() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self), IOnStitchEffect
+    public class Matching() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitched)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
+
+            IEnumerable<CardModel> enumerable = cardPlay.Card.Owner.PlayerCombatState.AllCards.Where((CardModel cm) => cm is Matching && cm.IsUpgradable);
+            foreach (CardModel cardModel in enumerable)
+            {
+                CardCmd.Upgrade(cardModel);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(3m);
-        }
-
-        public void OnStitch()
-        {
-            CardCmd.Upgrade(this);
-            
-            StitchCardModifier cardStitch = this.GetModifier<StitchCardModifier>();
-            if (cardStitch != null)
-            {
-                CardCmd.Upgrade(cardStitch.StitchedCard);
-            }
-        }
-
-        public void OnUnstitch()
-        {
-            
+            DynamicVars.Damage.UpgradeValueBy(4m);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace TheTailor.Cards.Rare
         {
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
             // await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
-            if (!base.Keywords.Contains(CardKeyword.Exhaust) && !base.ExhaustOnNextPlay)
+            if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
             {
                 await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Random);
             }
@@ -44,7 +44,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars["Delicate"].UpgradeValueBy(1m);
+            DynamicVars["Delicate"].UpgradeValueBy(1m);
         }
     }
 }

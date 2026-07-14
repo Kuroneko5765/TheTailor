@@ -29,7 +29,7 @@ using MinionLib.Utilities;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Versatility() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class Versatility() : CustomCardModel(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override bool GainsBlock => true;

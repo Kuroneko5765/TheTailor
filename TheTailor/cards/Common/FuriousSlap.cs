@@ -44,6 +44,7 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/furiousSlapBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

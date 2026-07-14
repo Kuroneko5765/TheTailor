@@ -39,7 +39,7 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PotionCmd.TryToProcure(ModelDb.Potion<WeaversWine>(), Owner);
+            await PotionCmd.TryToProcure(ModelDb.Potion<WeaversWine>().ToMutable(), Owner);
         }
 
         protected override void OnUpgrade()

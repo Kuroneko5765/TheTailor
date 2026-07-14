@@ -27,8 +27,32 @@ namespace TheTailor.Relics.Ancient
         protected override string BigIconPath => "res://TheTailor/images/relics/craftKitBig.png";
         public override async Task BeforeCombatStart()
         {
-            await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
-            await MinionCmd.AddMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
+            for (int i = 0; i < 2; i++)
+            {
+                int random = Owner.RunState.Rng.CombatCardGeneration.NextInt(6);
+
+                switch (random)
+                {
+                    case 0:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                    case 1:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                    case 2:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                    case 3:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                    case 4:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionCotton>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                    case 5:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        break;
+                }
+            }
         }
     }
 }

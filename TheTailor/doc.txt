@@ -8,8 +8,12 @@
 -- CURRENT ISSUES --
 !!! Osty prevents overkill damage to tailor minions
     > Give Osty a hidden power that gives overkill?
+!!! Replay allows Exhausted cards to be played twice if Stitched
 - Sortie doesn't kill all minions
 - If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
+- Scroll Of Biting doesn't seem to reduce max HP
+- Procure doesn't always stitch a card
+- Inspiration OP
 
 -- CARDS --
 
@@ -28,7 +32,7 @@ ANCIENT (2)
 - Atelier
 
 COMMON
-- Attacks (7)
+- Attacks (8)
     > Needle Storm
         = High-cost
         = Multi-attack
@@ -48,6 +52,9 @@ COMMON
         = 0-cost
     > True Knit
         = Upgrades
+    > Matching
+        = 0-cost
+        = Upgrade
 - Skills (8)
     > Spare Material
         = Delicate
@@ -55,10 +62,6 @@ COMMON
     > Mending
         = Minions
         = Minion healing
-    > Matching
-        = Stitch target
-        = Block
-        = Upgrade
     > Repurpose
         = Energy
         = Exhaust
@@ -75,6 +78,9 @@ COMMON
         = Stitching
     > Versatility
         = Minion
+    > Retreat
+        = No minions
+        = Block
 
 UNCOMMON
 - Attacks (7)
@@ -142,7 +148,6 @@ UNCOMMON
         = High-cost
     > Rapid Assembly
         = Leather minions
-    > Workshop of War
 - Powers (7)
     > Loom
         = Minion synergy
@@ -188,7 +193,7 @@ RARE
         = Minions
     > Clearance
         = Copies
-- Skills (8)
+- Skills (10)
     > Front Pocket
         = Stitch provider
         = Draw pile
@@ -215,6 +220,13 @@ RARE
     > Sommelier
         = Potion
         = Stitching
+    > Entourage
+        = Denim minion
+        = Innate
+    > Only The Finest
+        = Upgrades
+        = Exhaust
+        = Block
 - Powers (6)
     > Unravel
         = Passive damage

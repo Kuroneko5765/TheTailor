@@ -7,6 +7,8 @@
     "THETAILOR-DELICATE.description": "When played, reduce this card's [gold]Delicate[/gold] by 1. [gold]Exhausts[/gold] when it reaches 0.",
     "THETAILOR-CONVERT.title": "Convert",
     "THETAILOR-CONVERT.description": "Replaces a Minion while keeping its max HP.",
+    "THETAILOR-PREMIUM.title": "Premium",
+    "THETAILOR-PREMIUM.description": "Can be [gold]Upgraded[/gold] any number of times.",
 
     "THETAILOR-LEATHERMINION.title": "Leather Minion",
     "THETAILOR-LEATHERMINION.description": "Takes unblocked attack damage for you.",

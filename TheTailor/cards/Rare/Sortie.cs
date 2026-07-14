@@ -24,6 +24,7 @@ using TheTailor.Minions;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MinionLib.Utilities;
 using MinionLib.Commands;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
 
 namespace TheTailor.Cards.Rare
 {
@@ -64,7 +65,7 @@ namespace TheTailor.Cards.Rare
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .TargetingAllOpponents(CombatState)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .WithAttackerFx(() => NMinionDiveBombVfx.Create(Owner.Creature, cardPlay.Target))
                 .Execute(choiceContext);
         }
 
