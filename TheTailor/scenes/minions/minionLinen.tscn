@@ -1,10 +1,76 @@
 [gd_scene load_steps=3 format=3 uid="uid://cq41bdhe2acli"]
 
-[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_34ciy"]
-[ext_resource type="Texture2D" uid="uid://xib3t3srxi7m" path="res://TheTailor/images/minions/minionLinen_placeholder.png" id="2_34ciy"]
+[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_qlwjj"]
+[ext_resource type="PackedScene" uid="uid://bof12uutx1pra" path="res://TheTailor/scenes/minions/minionLinen/minion_linen_anim_view.tscn" id="2_qlwjj"]
 
-[node name="MinionLinen" type="Node2D"]
-script = ExtResource("1_34ciy")
+[node name="Root" type="Node2D"]
+script = ExtResource("1_qlwjj")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CharBox" type="Control" parent="Visuals"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -68.0
+offset_top = -139.0
+offset_right = 68.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Visuals/CharBox"]
+y_sort_enabled = true
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -24.0
+offset_right = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Visuals/CharBox/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+scaling_3d_scale = 2.0
+size = Vector2i(288, 163)
+render_target_update_mode = 4
+
+[node name="MinionLinenAnimView" parent="Visuals/CharBox/SubViewportContainer/SubViewport" instance=ExtResource("2_qlwjj")]
+
+[node name="Skeleton3D" parent="Visuals/CharBox/SubViewportContainer/SubViewport/MinionLinenAnimView/minionLinenAnim/Armature" index="1"]
+bones/0/rotation = Quaternion(0, 0, -0.001341674, 0.9999991)
+bones/1/rotation = Quaternion(0, 0, -0.001969367, 0.9999981)
+bones/1/scale = Vector3(1.0000004, 1.000054, 1)
+bones/2/rotation = Quaternion(-2.6641366e-08, 2.6743724e-08, 0.70708114, 0.7071324)
+bones/2/scale = Vector3(1.0000001, 1.1019158, 1)
+bones/3/rotation = Quaternion(-1.0050756e-08, 5.490298e-14, 0.030859314, 0.99952376)
+bones/3/scale = Vector3(0.9996601, 0.9078858, 1)
+bones/4/rotation = Quaternion(2.0820861e-08, -6.9188237e-09, -0.4030712, 0.9151686)
+bones/5/rotation = Quaternion(-2.6617016e-08, -2.677043e-08, -0.7070666, 0.70714706)
+bones/5/scale = Vector3(1.0000001, 1.1019158, 1)
+bones/6/rotation = Quaternion(-8.185434e-09, -2.4487602e-14, -0.025130834, 0.99968415)
+bones/6/scale = Vector3(0.9997746, 0.9077599, 1)
+bones/7/rotation = Quaternion(2.5779418e-08, -3.6536836e-08, 0.35517833, 0.93479866)
+bones/8/rotation = Quaternion(-2.6615776e-08, -2.676931e-08, -0.7070666, 0.70714694)
+bones/8/scale = Vector3(1, 0.9815742, 1)
+bones/9/rotation = Quaternion(-2.8423897e-09, 7.3639096e-16, -0.0003356851, 1)
+bones/9/scale = Vector3(1, 1.0187767, 1)
+bones/10/rotation = Quaternion(2.9051835e-08, -4.6889146e-09, 0.3825223, 0.9239464)
+bones/11/rotation = Quaternion(-2.6692543e-08, 2.6692543e-08, 0.7071068, 0.7071068)
+bones/11/scale = Vector3(1, 0.9815742, 1)
+bones/12/rotation = Quaternion(-4.3417794e-09, -3.846274e-17, 0.0005127674, 0.9999999)
+bones/12/scale = Vector3(1, 1.018772, 1)
+bones/13/rotation = Quaternion(2.7258833e-08, -8.9321155e-09, -0.43303585, 0.9013767)
+bones/14/rotation = Quaternion(0.49998808, -0.5000119, -0.49998808, -0.5000119)
+bones/16/rotation = Quaternion(-0.00029204102, 0, 0, 1)
+bones/17/rotation = Quaternion(0.43302575, 8.530692e-08, 2.8900972e-08, 0.9013816)
+bones/18/position = Vector3(0, 0, 0)
+bones/18/rotation = Quaternion(0.49997166, 0.50002843, 0.49997166, -0.50002843)
+bones/20/rotation = Quaternion(-0.00021429939, 0, 0, 1)
+bones/21/rotation = Quaternion(0.38249058, -1.0199038e-07, -2.6343736e-08, 0.92395943)
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
@@ -18,12 +84,9 @@ offset_right = 68.0
 unique_name_in_owner = true
 position = Vector2(0, -44)
 
-[node name="Visuals" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -70.00001)
-scale = Vector2(0.7, 0.7)
-texture = ExtResource("2_34ciy")
-
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, -160)
+
+[editable path="Visuals/CharBox/SubViewportContainer/SubViewport/MinionLinenAnimView"]
+[editable path="Visuals/CharBox/SubViewportContainer/SubViewport/MinionLinenAnimView/minionLinenAnim"]

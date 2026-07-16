@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=3 uid="uid://bof12uutx1pra"]
+
+[ext_resource type="PackedScene" uid="uid://dp62bqy3nfctp" path="res://TheTailor/scenes/minions/minionLinen/minion_linen_anim_imported.tscn" id="1_bskte"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_doee8"]
+animation = &"cast"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iiv7b"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ny76i"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sn00j"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_doee8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_js4tn"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hanyp"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8oygv"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sn00j"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iiv7b"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0q68d"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ny76i"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i6a77"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v07yj"]
+states/End/position = Vector2(1046, 156)
+states/Start/position = Vector2(350, 156)
+states/cast/node = SubResource("AnimationNodeAnimation_doee8")
+states/cast/position = Vector2(825, 261)
+states/die/node = SubResource("AnimationNodeAnimation_iiv7b")
+states/die/position = Vector2(825, 156)
+states/hurt/node = SubResource("AnimationNodeAnimation_ny76i")
+states/hurt/position = Vector2(825, 52)
+states/idle/node = SubResource("AnimationNodeAnimation_sn00j")
+states/idle/position = Vector2(587, 156)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_doee8"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_js4tn"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_hanyp"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_8oygv"), "die", "idle", SubResource("AnimationNodeStateMachineTransition_sn00j"), "hurt", "die", SubResource("AnimationNodeStateMachineTransition_iiv7b"), "cast", "die", SubResource("AnimationNodeStateMachineTransition_0q68d"), "idle", "cast", SubResource("AnimationNodeStateMachineTransition_ny76i"), "cast", "idle", SubResource("AnimationNodeStateMachineTransition_i6a77")]
+
+[node name="MinionLinenAnimView" type="Node3D"]
+
+[node name="minionLinenAnim" parent="." instance=ExtResource("1_bskte")]
+
+[node name="Skeleton3D" parent="minionLinenAnim/Armature" index="1"]
+bones/0/rotation = Quaternion(0, 0, -0.038610846, 0.9992544)
+bones/1/rotation = Quaternion(0, 0, -0.053007983, 0.99859416)
+bones/1/scale = Vector3(1.0000129, 1.0019426, 1)
+bones/2/rotation = Quaternion(-2.5865805e-08, 2.7521915e-08, 0.7060615, 0.7081506)
+bones/2/scale = Vector3(0.9999976, 0.9888633, 1)
+bones/3/rotation = Quaternion(-6.1609056e-09, -3.1530378e-10, 0.09172261, 0.99578464)
+bones/3/scale = Vector3(1.0003827, 1.0108986, 1)
+bones/4/rotation = Quaternion(2.574792e-08, -1.1616974e-08, -0.3538808, 0.9352906)
+bones/5/rotation = Quaternion(-2.7886252e-08, -2.5526285e-08, -0.70752156, 0.70669186)
+bones/5/scale = Vector3(0.9999976, 0.9888633, 1)
+bones/6/rotation = Quaternion(-3.9214516e-09, 2.8163744e-10, -0.072883636, 0.9973405)
+bones/6/scale = Vector3(1.0002444, 1.0110109, 1)
+bones/7/rotation = Quaternion(3.9779483e-08, -2.810246e-08, 0.30967116, 0.9508437)
+bones/8/rotation = Quaternion(-2.787229e-08, -2.5512783e-08, -0.7075218, 0.7066915)
+bones/8/scale = Vector3(1, 0.97226375, 1)
+bones/9/rotation = Quaternion(-5.7430873e-09, 8.6639294e-16, -0.0057154177, 0.99998367)
+bones/9/scale = Vector3(1.0000662, 1.0284975, 1)
+bones/10/rotation = Quaternion(1.7545114e-08, -9.094535e-09, 0.3710028, 0.9286318)
+bones/11/rotation = Quaternion(-2.5870895e-08, 2.7514135e-08, 0.70615524, 0.708057)
+bones/11/scale = Vector3(1, 0.97226375, 1)
+bones/12/rotation = Quaternion(-7.833682e-09, -1.6859234e-16, 0.007793418, 0.9999697)
+bones/12/scale = Vector3(1.0001303, 1.0284551, 1)
+bones/13/rotation = Quaternion(2.0194106e-08, -5.9244085e-09, -0.42232624, 0.9064439)
+bones/14/rotation = Quaternion(0.49998802, -0.500012, -0.49998802, -0.500012)
+bones/15/rotation = Quaternion(-0.7071068, 2.6692543e-08, -2.6692543e-08, 0.7071068)
+bones/16/rotation = Quaternion(-0.00033163538, 0, 0, 1)
+bones/17/rotation = Quaternion(0.43303406, 8.5800146e-08, 2.7874776e-08, 0.9013776)
+bones/18/position = Vector3(0.0004957402, 3.17998e-05, 0)
+bones/18/rotation = Quaternion(0.49936098, 0.5006382, 0.49936098, -0.5006382)
+bones/19/rotation = Quaternion(-0.7071068, -2.6692543e-08, 2.6692543e-08, 0.7071068)
+bones/20/rotation = Quaternion(-5.964627e-05, 0, 0, 1)
+bones/21/rotation = Quaternion(0.38252485, -1.017455e-07, -2.693492e-08, 0.92394525)
+
+[node name="AnimationTree" type="AnimationTree" parent="minionLinenAnim"]
+tree_root = SubResource("AnimationNodeStateMachine_v07yj")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5513842, 5.791873)
+projection = 1
+size = 6.2
+
+[editable path="minionLinenAnim"]

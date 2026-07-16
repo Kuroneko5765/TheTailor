@@ -27,6 +27,7 @@ namespace TheTailor.Minions
             await PowerCmd.Apply<TailorMadePower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
             await PowerCmd.Apply<LinenPower>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
             await PowerCmd.Apply<TailorMinionOrderAction>(playerChoiceContext, Creature, 1m, owner.Creature, options.Source);
+            await CreatureCmd.TriggerAnim(Creature, "cast", 0f);
         }
     }
 }

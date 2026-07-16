@@ -18,6 +18,7 @@ using TheTailor.Minions;
 using MegaCrit.Sts2.Core.Rooms;
 using BaseLib.Common.Rewards;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace TheTailor.Powers
 {
@@ -26,63 +27,20 @@ namespace TheTailor.Powers
         public override string? CustomPackedIconPath => "res://TheTailor/images/powers/inspirationSmall.png";
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/inspiration.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/inspiration.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>(), HoverTipFactory.Static(StaticHoverTip.ReplayStatic)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>(), HoverTipFactory.FromEnchantment<Sharp>(3).First()];
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier, CardModel? cardSource)
-        {
-            if (!(power is InspirationPower))
-            {
-                return Task.CompletedTask;
-            }
-            if (power.Owner != Owner)
-            {
-                return Task.CompletedTask;
-            }
-            IEnumerable<CardModel> enumerable = Owner.Player?.PlayerCombatState?.AllCards ?? Array.Empty<CardModel>();
-            foreach (CardModel item in enumerable)
-            {
-                TryAddReplays(item, (int)amount);
-            }
-            return Task.CompletedTask;
-        }
-
         public override Task AfterCardEnteredCombat(CardModel card)
         {
-            if (card.IsClone)
+            if (card.IsClone || card is not Cards.Token.Patch)
             {
                 return Task.CompletedTask;
             }
-            TryAddReplays(card, Amount);
-            return Task.CompletedTask;
-        }
 
-        public override Task AfterRemoved(Creature oldOwner)
-        {
-            IEnumerable<CardModel> enumerable = oldOwner.Player?.PlayerCombatState?.AllCards ?? Array.Empty<CardModel>();
-            foreach (CardModel item in enumerable)
-            {
-                if (item is Cards.Token.Patch patch)
-                {
-                    patch.BaseReplayCount -= Amount;
-                }
-            }
-            return Task.CompletedTask;
-        }
+            CardCmd.Enchant<Sharp>(card, Amount);
 
-        private bool TryAddReplays(CardModel card, int amount)
-        {
-            if (card.Owner != Owner.Player)
-            {
-                return false;
-            }
-            if (!(card is Cards.Token.Patch patch))
-            {
-                return false;
-            }
-            patch.BaseReplayCount += amount;
-            return true;
+            return Task.CompletedTask;
         }
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)

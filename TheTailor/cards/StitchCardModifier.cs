@@ -95,6 +95,23 @@ namespace TheTailor.Cards
                 }
             }
         }
+
+        [HarmonyPatch(typeof(AbstractModel), "AfterCardPlayed")]
+        internal static async void Postfix(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            StitchCardModifier? cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
+            if (cardStitch != null)
+            {
+                if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
+                {
+                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                }
+                else if (cardPlay.Card == null || !cardPlay.Card.IsInCombat || cardPlay.Card.Pile == null || cardPlay.Card.Pile.Type == PileType.Exhaust)
+                {
+                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                }
+            }
+        }
     }
 
     [HarmonyPatch]

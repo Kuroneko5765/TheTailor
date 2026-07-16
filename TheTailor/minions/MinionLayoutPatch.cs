@@ -44,7 +44,7 @@ namespace TheTailor.Minions
             {
                 // Log.Warn("X = " + vector.X);
                 // Log.Warn("Y = " + vector.Y);
-                newList.Add(new Vector2((vector.X * 2.0f) + 0f, 0f));
+                newList.Add(new Vector2((vector.X * 2.0f) - 0.1f, 0f));
             }
 
             __result = newList;

@@ -32,17 +32,23 @@ namespace TheTailor.Cards.Common
     public class Versatility() : CustomCardModel(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
+        // public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            int toConvert = DynamicVars["Triggers"].IntValue;
+            if (TailorMinionCmd.GetMinionCount<MinionLeather>(cardPlay.Card.Owner) <= 0)
+            {
+                if (IsUpgraded)
+                {
+                    await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, cardPlay.Card.Owner, true);
+                }
+
+                return;
+            }
 
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
             if (accessor != null && accessor.Pets != null)
@@ -52,20 +58,9 @@ namespace TheTailor.Cards.Common
                     if (accessor.Pets[i] != null && accessor.Pets[i].Monster is MinionLeather)
                     {
                         await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i, true);
-                        toConvert--;
-
-                        if (toConvert <= 0)
-                        {
-                            break;
-                        }
                     }
                 }
             }
-        }
-
-        protected override void OnUpgrade()
-        {
-            DynamicVars["Triggers"].UpgradeValueBy(1);
         }
     }
 }

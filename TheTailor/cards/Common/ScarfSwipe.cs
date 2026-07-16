@@ -29,7 +29,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scarfSwipe.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/scarfSwipe.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/scarfSwipeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move), new DynamicVar("Delicate", 3)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -42,7 +42,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2m);
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

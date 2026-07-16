@@ -39,10 +39,15 @@ namespace TheTailor.Cards
                 int extraDelicacies = 0;
                 extraDelicacies += cardPlay.Card.Owner.Creature.GetPowerAmount<SteadyHandPower>();
 
-                cardPlay.Card.DynamicVars["Delicate"].BaseValue -= 1; // TODO replay should be handled before the card is played?
+                cardPlay.Card.DynamicVars["Delicate"].BaseValue -= 1;
                 if (cardPlay.Card.DynamicVars["Delicate"].IntValue + extraDelicacies <= 1)
                 {
                     cardPlay.Card.AddKeyword(CardKeyword.Exhaust);
+                }
+
+                if (cardPlay.Card.DynamicVars["Delicate"].BaseValue <= 0)
+                {
+                    await CardCmd.Exhaust(choiceContext, cardPlay.Card);
                 }
             }
         }

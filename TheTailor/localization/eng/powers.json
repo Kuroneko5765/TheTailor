@@ -52,6 +52,9 @@
     "THETAILOR-DISCERNING_EYE_POWER.title": "Discerning Eye",
     "THETAILOR-DISCERNING_EYE_POWER.description": "At the start of your turn, [gold]Upgrade[/gold] a card in your [gold]Hand[/gold].",
     "THETAILOR-DISCERNING_EYE_POWER.smartDescription": "At the start of your turn, [gold]Upgrade[/gold] {Amount:plural:a card|{Amount} cards} in your [gold]Hand[/gold].",
+    "THETAILOR-PARTING_GIFT_POWER.title": "Parting Gift",
+    "THETAILOR-PARTING_GIFT_POWER.description": "Whenever your last Minion dies, gain [gold]Block[/gold].",
+    "THETAILOR-PARTING_GIFT_POWER.smartDescription": "Whenever your last Minion dies, gain {Amount} [gold]Block[/gold].",
 
     "THETAILOR-UNRAVEL_POWER.title": "Unravel",
     "THETAILOR-UNRAVEL_POWER.description": "Whenever you play a [gold]Stitched[/gold] card, deal damage to ALL enemies.",
@@ -74,6 +77,9 @@
     "THETAILOR-RESOURCEFULNESS_POWER.title": "Resourcefulness",
     "THETAILOR-RESOURCEFULNESS_POWER.description": "Whenever a card is [gold]Exhausted[/gold], ALL of your Minions gain max HP.",
     "THETAILOR-RESOURCEFULNESS_POWER.smartDescription": "Whenever a card is [gold]Exhausted[/gold], ALL of your Minions gain {Amount} max HP.",
+    "THETAILOR-SILK_TOUCH_POWER.title": "Silk Touch",
+    "THETAILOR-SILK_TOUCH_POWER.description": "After playing enough attacks, create a [gold]Silk Minion[/gold].",
+    "THETAILOR-SILK_TOUCH_POWER.smartDescription": "Every {Amount} attacks you play, create a [gold]Silk Minion[/gold].",
 
     "THETAILOR-DENIM_STRENGTH_POWER.title": "Denim Strength",
     "THETAILOR-DENIM_STRENGTH_POWER.description": "Gain [gold]Strength[/gold] until the end of this turn.",

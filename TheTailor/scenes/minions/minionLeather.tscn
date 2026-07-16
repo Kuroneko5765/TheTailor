@@ -33,6 +33,7 @@ stretch = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
+scaling_3d_scale = 2.0
 size = Vector2i(250, 139)
 render_target_update_mode = 4
 
@@ -40,16 +41,16 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.012222e-05, 0.0034223795, -0.0011179447)
 
 [node name="Skeleton3D" parent="Visuals/CharBox/SubViewportContainer/SubViewport/Node3D/minionLeatherAnim/Armature" index="0"]
-bones/0/position = Vector3(-1.4911273, -0.68590426, 2.9999998)
-bones/0/rotation = Quaternion(0.00022947919, -7.094895e-05, -0.609826, 0.79253525)
-bones/0/scale = Vector3(1.0034419, 1.0034423, 0.99999994)
-bones/1/rotation = Quaternion(0.000102203, 8.246753e-05, 0.031970147, 0.99948883)
-bones/2/rotation = Quaternion(-5.9249964e-05, 4.464019e-05, -0.76302195, 0.6463726)
-bones/3/rotation = Quaternion(-0.00016570307, -1.4976609e-05, 0.13115025, 0.9913625)
-bones/4/position = Vector3(-1.5033792, -0.6859045, 3)
-bones/4/rotation = Quaternion(0.9381521, 0.34622365, 1.993773e-08, 1.0366714e-07)
-bones/5/rotation = Quaternion(-1.6312607e-07, -2.0499867e-08, 0.62191385, 0.7830857)
-bones/8/position = Vector3(1.0849442, -1.1874777, 3.0050642)
+bones/0/position = Vector3(-1.4855891, -0.68590426, 2.9999998)
+bones/0/rotation = Quaternion(0.00022111305, -6.948761e-05, -0.6131666, 0.7899537)
+bones/0/scale = Vector3(1.0086898, 1.0086899, 1.0000001)
+bones/1/rotation = Quaternion(9.1852475e-05, 8.2088045e-05, 0.045449436, 0.99896663)
+bones/2/rotation = Quaternion(-5.26704e-05, 3.6860223e-05, -0.77262366, 0.63486445)
+bones/3/rotation = Quaternion(-0.00016803804, -1.5064444e-05, 0.13254257, 0.9911774)
+bones/4/position = Vector3(-1.5008478, -0.68590444, 3)
+bones/4/rotation = Quaternion(0.93815035, 0.34622818, 1.9939547e-08, 1.03667766e-07)
+bones/5/rotation = Quaternion(-1.631394e-07, -2.0504746e-08, 0.6219653, 0.7830449)
+bones/8/position = Vector3(1.0661144, -1.1874777, 3.0050642)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 y_sort_enabled = true

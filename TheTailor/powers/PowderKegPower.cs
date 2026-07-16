@@ -20,6 +20,7 @@ using BaseLib.Common.Rewards;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace TheTailor.Powers
 {
@@ -43,7 +44,7 @@ namespace TheTailor.Powers
                     NCombatRoom.Instance?.CombatVfxContainer.AddChildSafely(NFireSmokePuffVfx.Create(hittableEnemy));
                 }
                 await Cmd.CustomScaledWait(0.2f, 0.4f);
-                await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, DynamicVars.Damage, Owner);
+                await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, new DamageVar(Amount, ValueProp.Unpowered), Owner);
 
                 await PowerCmd.Remove(this);
             }

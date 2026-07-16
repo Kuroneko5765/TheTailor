@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Quality() : CustomCardModel(1, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public class Quality() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/qualityBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/qualityBeta.png";

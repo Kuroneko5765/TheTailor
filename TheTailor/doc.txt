@@ -8,12 +8,9 @@
 -- CURRENT ISSUES --
 !!! Osty prevents overkill damage to tailor minions
     > Give Osty a hidden power that gives overkill?
-!!! Replay allows Exhausted cards to be played twice if Stitched
+! Seapunk is kill
 - Sortie doesn't kill all minions
-- If a Delicate Slick Strike gets Replay, it can go to 'Delicate 0'
 - Scroll Of Biting doesn't seem to reduce max HP
-- Procure doesn't always stitch a card
-- Inspiration OP
 
 -- CARDS --
 
@@ -32,7 +29,7 @@ ANCIENT (2)
 - Atelier
 
 COMMON
-- Attacks (8)
+- Attacks (9)
     > Needle Storm
         = High-cost
         = Multi-attack
@@ -55,7 +52,10 @@ COMMON
     > Matching
         = 0-cost
         = Upgrade
-- Skills (8)
+    > Reflex Strike
+        = Draw
+        = 0-cost
+- Skills (10)
     > Spare Material
         = Delicate
         = Leather minion
@@ -81,9 +81,16 @@ COMMON
     > Retreat
         = No minions
         = Block
+    > Improvise
+        = Stitching
+        = Discard/draw pile
+    > Lost and Found
+        = Draw
+        = Upgrades
+        = Block
 
 UNCOMMON
-- Attacks (7)
+- Attacks (8)
     > Outfit
         = Multi-attack
         = Minion synergy
@@ -109,7 +116,9 @@ UNCOMMON
         = Silk minion
         = AOE
         = Multi-hit
-- Skills (13)
+    > Coup de Grâce
+        = Attacks
+- Skills (14)
     > Spool
         = Delicate
         = Block
@@ -148,7 +157,10 @@ UNCOMMON
         = High-cost
     > Rapid Assembly
         = Leather minions
-- Powers (7)
+    > Workbench
+        = Upgrades
+        = Retain
+- Powers (8)
     > Loom
         = Minion synergy
         = Vulnerable
@@ -166,8 +178,10 @@ UNCOMMON
         = Minions
     > Discerning Eye
         = Upgrades
+    > Parting Gift
+        = Block
 
-RARE
+RARE (SINGLEPLAYER COMPLETE)
 - Attacks (7)
     > Strike A Pose
         = Stitch target
@@ -193,7 +207,7 @@ RARE
         = Minions
     > Clearance
         = Copies
-- Skills (10)
+- Skills (11)
     > Front Pocket
         = Stitch provider
         = Draw pile
@@ -227,7 +241,10 @@ RARE
         = Upgrades
         = Exhaust
         = Block
-- Powers (6)
+    > Cheeseboard
+        = Upgrades
+        = Retain
+- Powers (7)
     > Unravel
         = Passive damage
         = Stitch synergy
@@ -244,3 +261,6 @@ RARE
     > Resourcefulness
         = Exhaust
         = Minion healing
+    > Silk Touch
+        = Silk minion
+        = Attacks

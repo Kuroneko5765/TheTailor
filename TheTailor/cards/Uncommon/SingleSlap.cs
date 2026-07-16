@@ -55,7 +55,6 @@ namespace TheTailor.Cards.Uncommon
         {
             for (int i = 0; i < DynamicVars["Slaps"].BaseValue; i++)
             {
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
                 ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
                 await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                     .FromCard(this, cardPlay)

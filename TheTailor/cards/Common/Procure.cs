@@ -39,8 +39,8 @@ namespace TheTailor.Cards.Common
         {
             if (StitchCmd.CanBeStitched(this))
             {
-                IEnumerable<CardModel> enumerable = PileType.Draw.GetPile(Owner).Cards.TakeRandom(1, Owner.RunState.Rng.CombatCardSelection).Where(cm => StitchCmd.CanBeStitched(cm) == true);
-                if (enumerable.Count() > 0)
+                IEnumerable<CardModel> enumerable = PileType.Draw.GetPile(Owner).Cards.Where(cm => StitchCmd.CanBeStitched(cm) == true).TakeRandom(1, Owner.RunState.Rng.CombatCardSelection);
+                if (enumerable.Any())
                 {
                     await StitchCmd.StitchCards(this, enumerable.First());
                 }

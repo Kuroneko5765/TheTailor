@@ -25,7 +25,7 @@ using TheTailor.Cards.Ancient;
 namespace TheTailor.Cards.Starter
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Sew() : CustomCardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy), ITranscendenceCard
+    public class Sew() : CustomCardModel(2, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy), ITranscendenceCard
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewBeta.png";

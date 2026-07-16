@@ -22,6 +22,10 @@ namespace TheTailor.Minions
 {
     public abstract class TailorMinion : CustomMinionModel
     {
-        
+        public override string? HurtSfx => "res://TheTailor/audio/clothHit1.ogg";
+        public override string CustomDeathSfx => "res://TheTailor/audio/clothRip1.ogg";
+        public override string DeathSfx => "res://TheTailor/audio/clothRip1.ogg";
+        public override bool HasDeathSfx => true;
+        public override float DeathAnimLengthOverride => 0.8f;
     }
 }

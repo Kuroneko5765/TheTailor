@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp62bqy3nfctp"]
+
+[ext_resource type="PackedScene" uid="uid://dqexetn8ripjs" path="res://TheTailor/scenes/minions/minionLinen/minionLinenAnim.glb" id="1_5clx2"]
+
+[node name="minionLinenAnim" instance=ExtResource("1_5clx2")]
+
+[node name="shadow" parent="Armature" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 4.371139e-08, 0, -4.371139e-08, 1, 0, 1.5000001, -8)

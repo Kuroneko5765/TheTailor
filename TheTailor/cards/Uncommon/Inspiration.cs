@@ -22,6 +22,7 @@ using TheTailor.Cards;
 using TheTailor.Character;
 using TheTailor.Cards.Token;
 using TheTailor.Powers;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -31,13 +32,13 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Replay", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>(), HoverTipFactory.Static(StaticHoverTip.ReplayStatic)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Sharp", 3)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>(), HoverTipFactory.FromEnchantment<Sharp>(DynamicVars["Sharp"].IntValue).First()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PowerCmd.Apply<InspirationPower>(choiceContext, cardPlay.Card.Owner.Creature, DynamicVars["Replay"].BaseValue, cardPlay.Card.Owner.Creature, cardPlay.Card);
+            await PowerCmd.Apply<InspirationPower>(choiceContext, cardPlay.Card.Owner.Creature, DynamicVars["Sharp"].BaseValue, cardPlay.Card.Owner.Creature, cardPlay.Card);
 
             for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)
             {
@@ -48,7 +49,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars["Sharp"].UpgradeValueBy(1);
         }
     }
 }

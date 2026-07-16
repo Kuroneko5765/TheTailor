@@ -24,7 +24,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Ancient
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Weave() : CustomCardModel(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
+    public class Weave() : CustomCardModel(2, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/weaveBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/weaveBeta.png";

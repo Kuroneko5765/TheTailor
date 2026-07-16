@@ -32,7 +32,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/ultimateSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(52m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(42, ValueProp.Move)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
