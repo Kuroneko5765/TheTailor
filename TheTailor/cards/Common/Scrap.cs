@@ -47,7 +47,6 @@ namespace TheTailor.Cards.Common
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)

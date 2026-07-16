@@ -32,35 +32,32 @@ using Godot;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
-using TheTailor.Cards.Token;
+using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Combat.History.Entries;
+using BaseLib.Extensions;
 
-namespace TheTailor.Cards.Uncommon
+namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class CoupDeGrace() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public class Riposte() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/coupDeGraceBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/coupDeGraceBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coupDeGraceBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [
-            new CalculationBaseVar(8m),
-            new ExtraDamageVar(4m),
-            new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => CombatManager.Instance.History.CardPlaysFinished.Count((CardPlayFinishedEntry e) => e.HappenedThisTurn(card.CombatState) && e.CardPlay.Card.Type == CardType.Attack && e.CardPlay.Card.Owner == card.Owner))
-        ];
+        public override bool GainsBlock => true;
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new DynamicVar("Vigor", 3)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VigorPower>()];
+
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.CalculatedDamage)
-                .FromCard(this, cardPlay)
-                .WithHitFx("vfx/vfx_attack_slash")
-                .Execute(choiceContext);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            await PowerCmd.Apply<VigorPower>(choiceContext, Owner.Creature, DynamicVars["Vigor"].IntValue, Owner.Creature, this);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.ExtraDamage.UpgradeValueBy(2);
+            DynamicVars.Block.UpgradeValueBy(2);
+            DynamicVars["Vigor"].UpgradeValueBy(1);
         }
     }
 }

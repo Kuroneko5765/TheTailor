@@ -38,7 +38,7 @@ namespace TheTailor.Cards.Common
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            CardModel? cardModel = (await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: null, source: this)).FirstOrDefault();
+            CardModel? cardModel = (await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 1), context: choiceContext, player: base.Owner, filter: null, source: this)).FirstOrDefault();
             if (cardModel != null)
             {
                 StitchCardModifier cardStitch = cardModel.GetModifier<StitchCardModifier>();

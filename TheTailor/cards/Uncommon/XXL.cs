@@ -23,29 +23,29 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using HarmonyLib;
 
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Comfort() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class XXL() : CustomCardModel(3, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/xxlBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/xxlBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/xxlBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(16)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
-            await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true, maxHpOverride: DynamicVars.Heal.IntValue);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Energy.UpgradeValueBy(1);
+            DynamicVars.Heal.UpgradeValueBy(4);
         }
     }
 }

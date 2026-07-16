@@ -54,7 +54,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Adds a minion. If too many exist, prompts the player to select one for replacing. Returns true if the minion was added
         /// </summary>
-        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip) where T : MinionModel
+        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0) where T : MinionModel
         {
             if (!CanMinionBeAdded(owner))
             {
@@ -65,14 +65,19 @@ namespace TheTailor.Minions
                     return false;
                 }
 
-                if (await ReplaceMinion<T>(playerChoiceContext, owner, replaceIndex))
+                if (await ReplaceMinion<T>(playerChoiceContext, owner, replaceIndex, maxHpOverride: maxHpOverride))
                 {
                     return true;
                 }
             }
             else
             {
-                await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
+                var result = await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
+                if (maxHpOverride > 0 && result != null)
+                {
+                    await CreatureCmd.SetMaxAndCurrentHp(result, maxHpOverride);
+                }
+
                 return true;
             }
 
@@ -82,7 +87,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Replaces a minion in their current position. Set convert to true to retain its max HP for the new minion
         /// </summary>
-        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false, bool first = false) where T : MinionModel
+        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false, bool first = false, int maxHpOverride = 0) where T : MinionModel
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(owner);
 
@@ -115,6 +120,10 @@ namespace TheTailor.Minions
                 {
                     await CreatureCmd.SetMaxHp(newMinion, oldMinionMaxHp);
                     await CreatureCmd.SetCurrentHp(newMinion, oldMinionMaxHp);
+                }
+                if (maxHpOverride > 0 && newMinion != null)
+                {
+                    await CreatureCmd.SetMaxAndCurrentHp(newMinion, maxHpOverride);
                 }
 
                 return true;

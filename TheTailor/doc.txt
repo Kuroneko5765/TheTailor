@@ -28,7 +28,7 @@ ANCIENT (2)
 - Weave
 - Atelier
 
-COMMON
+COMMON (COMPLETE)
 - Attacks (9)
     > Needle Storm
         = High-cost
@@ -55,7 +55,7 @@ COMMON
     > Reflex Strike
         = Draw
         = 0-cost
-- Skills (10)
+- Skills (11)
     > Spare Material
         = Delicate
         = Leather minion
@@ -88,9 +88,13 @@ COMMON
         = Draw
         = Upgrades
         = Block
+    > Riposte
+        = High-cost
+        = Vigor
+        = Block
 
-UNCOMMON
-- Attacks (8)
+UNCOMMON (COMPLETE)
+- Attacks (10)
     > Outfit
         = Multi-attack
         = Minion synergy
@@ -118,7 +122,12 @@ UNCOMMON
         = Multi-hit
     > Coup de Grâce
         = Attacks
-- Skills (14)
+    > Again!
+        = Stitch provider
+        = Discard pile
+    > Soft Strike
+        = Wool minion
+- Skills (15)
     > Spool
         = Delicate
         = Block
@@ -160,6 +169,17 @@ UNCOMMON
     > Workbench
         = Upgrades
         = Retain
+    > Trim
+        = Exhaust
+        = Block
+    > The Chest
+        = Silk minion
+        = Exhaust
+    > Extra Large
+        = Linen minion
+    > Medical Kit
+        = Patches
+        = Statuses
 - Powers (8)
     > Loom
         = Minion synergy
@@ -181,7 +201,7 @@ UNCOMMON
     > Parting Gift
         = Block
 
-RARE (SINGLEPLAYER COMPLETE)
+RARE (COMPLETE)
 - Attacks (7)
     > Strike A Pose
         = Stitch target

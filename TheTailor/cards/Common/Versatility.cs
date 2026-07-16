@@ -42,11 +42,7 @@ namespace TheTailor.Cards.Common
         {
             if (TailorMinionCmd.GetMinionCount<MinionLeather>(cardPlay.Card.Owner) <= 0)
             {
-                if (IsUpgraded)
-                {
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, cardPlay.Card.Owner, true);
-                }
-
+                await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, cardPlay.Card.Owner, true);
                 return;
             }
 
@@ -57,7 +53,7 @@ namespace TheTailor.Cards.Common
                 {
                     if (accessor.Pets[i] != null && accessor.Pets[i].Monster is MinionLeather)
                     {
-                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i, true);
+                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i, IsUpgraded);
                     }
                 }
             }

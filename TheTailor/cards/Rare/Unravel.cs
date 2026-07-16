@@ -27,13 +27,13 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Unravel() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public class Unravel() : CustomCardModel(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/unravelBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/unravelBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/unravelBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitched)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Unpowered)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Unpowered)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -43,7 +43,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars.Damage.UpgradeValueBy(1);
         }
     }
 }

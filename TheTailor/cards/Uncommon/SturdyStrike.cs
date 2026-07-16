@@ -28,7 +28,7 @@ using HarmonyLib;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class SturdyStrike() : CustomCardModel(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public class SturdyStrike() : CustomCardModel(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike, CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";

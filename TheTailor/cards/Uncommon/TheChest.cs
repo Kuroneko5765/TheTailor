@@ -27,25 +27,29 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Comfort() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class TheChest() : CustomCardModel(9, CardType.Skill, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
-            await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
+            if (card == this && card.Owner == Owner)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
+                }
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Energy.UpgradeValueBy(1);
+            EnergyCost.UpgradeBy(-6);
         }
     }
 }
