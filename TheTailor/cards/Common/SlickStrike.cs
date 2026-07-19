@@ -43,15 +43,15 @@ namespace TheTailor.Cards.Common
                 .Execute(choiceContext);
             await Cmd.Wait(0.25f);
         }
-        
-        protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay()
+
+        protected override CardLocation GetResultLocationForCardPlay()
         {
-            var (pileType, item) = base.GetResultPileTypeAndPositionForCardPlay();
-            if (pileType == PileType.Discard)
+            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
+            if (resultLocationForCardPlay.pileType == PileType.Discard)
             {
-                return (PileType.Hand, CardPilePosition.Bottom);
+                resultLocationForCardPlay.pileType = PileType.Hand;
             }
-            return (pileType, item);
+            return resultLocationForCardPlay;
         }
 
         protected override void OnUpgrade()

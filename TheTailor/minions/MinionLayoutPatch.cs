@@ -37,14 +37,12 @@ namespace TheTailor.Minions
         internal static void Postfix(ref IReadOnlyList<Vector2> __result, DefaultMinionLayout __instance)
         {
             // TODO does not discriminate between The Tailor and other characters' minions if they're also using MinionLib
-            // I would love it if there were a property I could access to get the minions' monster type, but it doesn't exist
+            // - May have to request this as a feature to MinionLib, or create a separate patch/singleton
 
             List<Vector2> newList = new();
             foreach (var vector in __result)
             {
-                // Log.Warn("X = " + vector.X);
-                // Log.Warn("Y = " + vector.Y);
-                newList.Add(new Vector2((vector.X * 2.0f) - 0.1f, 0f));
+                newList.Add(new Vector2((vector.X * 2.0f) - 0f, 0f));
             }
 
             __result = newList;

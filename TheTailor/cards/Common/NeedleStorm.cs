@@ -26,10 +26,10 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class NeedleStorm() : CustomCardModel(2, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/needleStorm.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleStorm.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/needleStormBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

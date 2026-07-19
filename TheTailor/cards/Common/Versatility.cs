@@ -32,8 +32,8 @@ namespace TheTailor.Cards.Common
     public class Versatility() : CustomCardModel(0, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatility.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatility.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
         // public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

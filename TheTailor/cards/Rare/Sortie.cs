@@ -69,6 +69,7 @@ namespace TheTailor.Cards.Rare
                 .Execute(choiceContext);
         }
 
+        /*
         public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
         {
             if (card.Owner != Owner || card is not Sortie)
@@ -83,6 +84,7 @@ namespace TheTailor.Cards.Rare
 
             return true;
         }
+        */
 
         protected override void OnUpgrade()
         {

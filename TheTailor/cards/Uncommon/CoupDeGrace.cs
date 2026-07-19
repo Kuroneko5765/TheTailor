@@ -53,6 +53,7 @@ namespace TheTailor.Cards.Uncommon
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.CalculatedDamage)
+                .Targeting(cardPlay.Target)
                 .FromCard(this, cardPlay)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);

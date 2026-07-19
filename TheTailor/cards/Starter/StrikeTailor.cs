@@ -30,15 +30,15 @@ namespace TheTailor.Cards.Starter
     public class StrikeTailor() : CustomCardModel(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/strikeTailorBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/strikeTailorBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/strikeTailor.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/strikeTailor.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/strikeTailorBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this, cardPlay).Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
         }

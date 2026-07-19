@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Token
     [Pool(typeof(TokenCardPool))]
     public class LeatherMinionToken() : CustomCardModel(-1, CardType.Status, CardRarity.Token, TargetType.None)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/leatherMinionTokenBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/leatherMinionTokenBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/leatherMinionToken.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/leatherMinionToken.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/leatherMinionTokenBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("ChoiceIndex", -1)];
 

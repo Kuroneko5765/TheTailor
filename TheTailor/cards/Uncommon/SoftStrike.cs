@@ -38,6 +38,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/softStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/softStrikeBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

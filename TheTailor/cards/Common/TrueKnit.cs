@@ -39,16 +39,15 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class TrueKnit() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override int MaxUpgradeLevel => 99999;
+        // public override int MaxUpgradeLevel => 99999;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new DynamicVar("Upgrades", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move)/*, new DynamicVar("Upgrades", 1)*/];
+        // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
@@ -58,23 +57,17 @@ namespace TheTailor.Cards.Common
             CardModel? cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner, this);
             if (cardModel != null)
             {
-                for (int i = 0; i < DynamicVars["Upgrades"].IntValue; i++)
+                if (cardModel.IsUpgradable)
                 {
-                    if (cardModel.IsUpgradable)
-                    {
-                        CardCmd.Upgrade(cardModel);
-                    }
+                    CardCmd.Upgrade(cardModel);
                 }
             }
         }
 
         protected override void OnUpgrade()
         {
-            if (CurrentUpgradeLevel == 0)
-            {
-                DynamicVars.Damage.UpgradeValueBy(2);
-            }
-            DynamicVars["Upgrades"].UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(3);
+            // DynamicVars["Upgrades"].UpgradeValueBy(1);
         }
     }
 }

@@ -33,6 +33,7 @@ using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using MegaCrit.Sts2.Core.Nodes;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using TheTailor.Cards.Token;
+using BaseLib.Extensions;
 
 namespace TheTailor.Cards.Common
 {
@@ -49,6 +50,7 @@ namespace TheTailor.Cards.Common
         {
             AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
+                .TargetingRandomOpponents(CombatState)
                 .WithHitCount(DynamicVars["Hits"].IntValue)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
@@ -60,6 +62,10 @@ namespace TheTailor.Cards.Common
         {
             if (card == this && card is ReflexStrike && card.Pile == PileType.Hand.GetPile(Owner))
             {
+                if (Owner.HasPower<HellraiserPower>() && oldPileType == PileType.Draw)
+                {
+                    return;
+                }
                 await CardCmd.AutoPlay(new ThrowingPlayerChoiceContext(), card, null, AutoPlayType.Default);
             }
         }

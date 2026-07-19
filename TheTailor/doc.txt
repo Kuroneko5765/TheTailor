@@ -9,7 +9,7 @@
 !!! Osty prevents overkill damage to tailor minions
     > Give Osty a hidden power that gives overkill?
 ! Seapunk is kill
-- Sortie doesn't kill all minions
+- Improvise should preview the cards
 - Scroll Of Biting doesn't seem to reduce max HP
 
 -- CARDS --

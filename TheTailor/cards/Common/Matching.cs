@@ -27,8 +27,8 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class Matching() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/matching.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/matching.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
 

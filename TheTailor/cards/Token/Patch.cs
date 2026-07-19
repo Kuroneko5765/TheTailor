@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Token
     [Pool(typeof(TokenCardPool))]
     public class Patch() : CustomCardModel(0, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/patchBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/patchBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/patch.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/patch.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/patchBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, ValueProp.Move), new DamageVar(2m, ValueProp.Move), new CardsVar(1)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];

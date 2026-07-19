@@ -20,40 +20,33 @@ using TheTailor;
 using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
+using BaseLib.Extensions;
 
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Slippers() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self), IOnStitchEffect
+    public class Slippers() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        // public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new BlockVar(4m ,ValueProp.Move), new DynamicVar("ReplayPluralize", 1), new DynamicVar("Replay", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new EnergyVar(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitched)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            // await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            
+            StitchCardModifier? cardStitch = this.GetModifier<StitchCardModifier>();
+            if (cardStitch != null)
+            {
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(1m);
-        }
-
-        public void OnStitch()
-        {
-            BaseReplayCount += 1;
-            DynamicVars["ReplayPluralize"].BaseValue = 2;
-        }
-
-        public void OnUnstitch()
-        {
-            BaseReplayCount -= 1;
-            DynamicVars["ReplayPluralize"].BaseValue = 1;
+            DynamicVars.Energy.UpgradeValueBy(1m);
         }
     }
 }

@@ -29,22 +29,29 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Delicate", 2), new EnergyVar(1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            // await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
-            if (!Keywords.Contains(CardKeyword.Exhaust) && !ExhaustOnNextPlay)
+        }
+
+        protected override CardLocation GetResultLocationForCardPlay()
+        {
+            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
+            if (resultLocationForCardPlay.pileType == PileType.Discard)
             {
-                await CardPileCmd.Add(this, PileType.Draw, CardPilePosition.Random);
+                resultLocationForCardPlay.pileType = PileType.Draw;
+                resultLocationForCardPlay.position = CardPilePosition.Random;
             }
+            return resultLocationForCardPlay;
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Delicate"].UpgradeValueBy(1m);
+            DynamicVars["Delicate"].UpgradeValueBy(1);
         }
     }
 }

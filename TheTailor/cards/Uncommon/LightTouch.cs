@@ -33,17 +33,17 @@ namespace TheTailor.Cards.Uncommon
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/lightTouchBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/lightTouchBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("DamageBlock", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<LightTouchPower>(choiceContext, Owner.Creature, DynamicVars["DamageBlock"].IntValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<LightTouchPower>(choiceContext, Owner.Creature, DynamicVars.Energy.IntValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["DamageBlock"].UpgradeValueBy(2);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

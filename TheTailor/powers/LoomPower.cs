@@ -25,7 +25,7 @@ namespace TheTailor.Powers
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/loom.png";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>(), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromKeyword(Keywords.LinenMinion)];
 
         public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
         {
@@ -35,7 +35,7 @@ namespace TheTailor.Powers
                 if (minions > 0)
                 {
                     var targets = CombatState.HittableEnemies.ToList();
-                    await PowerCmd.Apply<VulnerablePower>(choiceContext, targets, minions * Amount, Owner, null);
+                    await PowerCmd.Apply<WeakPower>(choiceContext, targets, minions * Amount, Owner, null);
                 }
             }
         }

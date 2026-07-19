@@ -37,7 +37,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "PowerUp", base.Owner.Character.PowerUpAnimDelay);
+            await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
             await PowerCmd.Apply<ThriftingPower>(choiceContext, Owner.Creature, DynamicVars.Cards.IntValue, Owner.Creature, this, false);
         }
 

@@ -32,18 +32,18 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromPower<VulnerablePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Vulnerable", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromPower<WeakPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Weak", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.TriggerAnim(base.Owner.Creature, "PowerUp", base.Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<LoomPower>(choiceContext, new List<Creature>() { this.Owner.Creature }, DynamicVars["Vulnerable"].IntValue, this.Owner.Creature, this, false);
+            await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
+            await PowerCmd.Apply<LoomPower>(choiceContext, new List<Creature>() { Owner.Creature }, DynamicVars["Vulnerable"].IntValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Vulnerable"].UpgradeValueBy(1m);
+            DynamicVars["Weak"].UpgradeValueBy(1m);
         }
     }
 }

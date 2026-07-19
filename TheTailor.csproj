@@ -40,45 +40,43 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.3.5" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.3.6" PrivateAssets="All" />
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="*" />
         <AdditionalFiles Include="TheTailor/localization/**/*.json" />
         <PackageReference Include="Krafs.Publicizer" Version="2.3.0">
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="FuYnAloft.Sts2.MinionLib" Version="0.6.0" />
+        <PackageReference Include="FuYnAloft.Sts2.MinionLib" Version="0.6.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="images/**"/>
-        <Compile Remove="materials/**"/>
-        <Compile Remove="shaders/**"/>
-        <Compile Remove="localization/**"/>
-        <Compile Remove="scenes/**"/>
-        <Compile Remove="themes/**"/>
-        <Compile Remove="packages/**/*.uid"/>
-        <EmbeddedResource Remove="images/**"/>
-        <EmbeddedResource Remove="materials/**"/>
-        <EmbeddedResource Remove="shaders/**"/>
-        <EmbeddedResource Remove="localization/**"/>
-        <EmbeddedResource Remove="scenes/**"/>
-        <EmbeddedResource Remove="themes/**"/>
+        <Compile Remove="images/**" />
+        <Compile Remove="materials/**" />
+        <Compile Remove="shaders/**" />
+        <Compile Remove="localization/**" />
+        <Compile Remove="scenes/**" />
+        <Compile Remove="themes/**" />
+        <Compile Remove="packages/**/*.uid" />
+        <EmbeddedResource Remove="images/**" />
+        <EmbeddedResource Remove="materials/**" />
+        <EmbeddedResource Remove="shaders/**" />
+        <EmbeddedResource Remove="localization/**" />
+        <EmbeddedResource Remove="scenes/**" />
+        <EmbeddedResource Remove="themes/**" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <None Condition="Exists('Directory.Build.props')" Include="Directory.Build.props"/>
+        <None Condition="Exists('Directory.Build.props')" Include="Directory.Build.props" />
         <None Include=".gitignore" />
         <None Include="TheTailor.json" />
-        <None Include="project.godot"/>
+        <None Include="project.godot" />
         <None Include="TheTailor/**" />
     </ItemGroup>
     
-    <Target Name="CheckDependencyPaths" >
-        <Error
-                Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'"
-                Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
+    <Target Name="CheckDependencyPaths">
+        <Error Text=" Slay the Spire 2 data not found at path '$(Sts2DataDir)'" Condition="'$(Sts2DataDir)' == '' or !Exists('$(Sts2DataDir)')" />
     </Target>
 
     <Target Name="UpdateDependencyVersions" BeforeTargets="BeforeBuild" Condition="Exists('.godot/mono/temp/obj/project.assets.json')">
@@ -93,16 +91,9 @@
             <NewContent>$([System.Text.RegularExpressions.Regex]::Replace($(OldContent), '("id":\s*"BaseLib",\s*"min_version":\s*")[^"]*', '${1}$(ActiveBaseLibVersion)'))</NewContent>
         </PropertyGroup>
 
-        <WriteLinesToFile
-                Condition="'$(OldContent)' != '$(NewContent)'"
-                File="$(ManifestPath)"
-                Lines="$(NewContent)"
-                Overwrite="true"
-                Encoding="UTF-8" />
+        <WriteLinesToFile Condition="'$(OldContent)' != '$(NewContent)'" File="$(ManifestPath)" Lines="$(NewContent)" Overwrite="true" Encoding="UTF-8" />
 
-        <Message Condition="'$(OldContent)' != '$(NewContent)'"
-                 Text="Updated BaseLib dependency version in mod manifest json to version $(BaseLibVersion)"
-                 Importance="high" />
+        <Message Condition="'$(OldContent)' != '$(NewContent)'" Text="Updated BaseLib dependency version in mod manifest json to version $(BaseLibVersion)" Importance="high" />
     </Target>
     
     <Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
@@ -113,20 +104,16 @@
     </Target>
 
     <Target Name="CopyQuickPck" AfterTargets="PackPck" Condition="Exists('$(PckPackerOutputPath)') And '$(PckPackerSkipped)' != 'true'">
-        <Message Text="Copying quick .pck to mods folder." Importance="high"/>
-        <Copy SourceFiles="$(PckPackerOutputPath)"
-              DestinationFolder="$(ModsPath)/$(MSBuildProjectName)" />
+        <Message Text="Copying quick .pck to mods folder." Importance="high" />
+        <Copy SourceFiles="$(PckPackerOutputPath)" DestinationFolder="$(ModsPath)/$(MSBuildProjectName)" />
     </Target>
     
     <Target Name="NeedGodotForPublish" BeforeTargets="Publish">
-        <Error Text=" Godot path must be set up before publishing; Godot not found at path '$(GodotPath)'. Check Directory.Build.props file."
-               Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')"/>
+        <Error Text=" Godot path must be set up before publishing; Godot not found at path '$(GodotPath)'. Check Directory.Build.props file." Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')" />
     </Target>
     
     <Target Name="GodotPublish" AfterTargets="Publish" Condition="'$(GodotPath)' != '' and Exists('$(GodotPath)') and '$(IsInnerGodotExport)' != 'true'">
-        <Message Text="Exporting Godot .pck to mods folder" Importance="high"/>
-        <Exec Command="&quot;$(GodotPath)&quot; --headless --export-pack &quot;BasicExport&quot; &quot;$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;"
-              EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1"
-              ContinueOnError="WarnAndContinue"/>
+        <Message Text="Exporting Godot .pck to mods folder" Importance="high" />
+        <Exec Command="&quot;$(GodotPath)&quot; --headless --export-pack &quot;BasicExport&quot; &quot;$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;" EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1" ContinueOnError="WarnAndContinue" />
     </Target>
 </Project>

@@ -1,8 +1,8 @@
 {
     "THETAILOR-CRAFT_KIT.title": "Craft Kit",
     "THETAILOR-CRAFT_KIT.description": "At the start of combat, create a [gold]Leather Minion[/gold].",
-    "THETAILOR-CRAFT_KIT.flavor": "",
+    "THETAILOR-CRAFT_KIT.flavor": "The leather, as if guided by its former soul, takes on a bovine form.",
     "THETAILOR-MASTERS_TOOLSET.title": "Master's Toolset",
     "THETAILOR-MASTERS_TOOLSET.description": "At the start of combat, create 2 random Minions.",
-    "THETAILOR-MASTERS_TOOLSET.flavor": ""
+    "THETAILOR-MASTERS_TOOLSET.flavor": "Innovation thrives in the most restricted paradigm."
 }

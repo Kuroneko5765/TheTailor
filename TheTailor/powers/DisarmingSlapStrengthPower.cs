@@ -28,5 +28,6 @@ namespace TheTailor.Powers
         protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc => PowerCmd.Apply<StrengthPower>;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
         protected override bool InvertInternalPowerAmount => true;
+        public override PowerType Type => PowerType.Debuff;
     }
 }

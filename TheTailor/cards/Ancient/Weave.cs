@@ -48,14 +48,15 @@ namespace TheTailor.Cards.Ancient
             }
         }
 
-        protected override (PileType, CardPilePosition) GetResultPileTypeAndPositionForCardPlay()
+        protected override CardLocation GetResultLocationForCardPlay()
         {
-            var (pileType, item) = base.GetResultPileTypeAndPositionForCardPlay();
-            if (pileType == PileType.Discard)
+            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
+            if (resultLocationForCardPlay.pileType == PileType.Discard)
             {
-                return (PileType.Draw, CardPilePosition.Top);
+                resultLocationForCardPlay.pileType = PileType.Draw;
+                resultLocationForCardPlay.position = CardPilePosition.Top;
             }
-            return (pileType, item);
+            return resultLocationForCardPlay;
         }
 
         protected override void OnUpgrade()

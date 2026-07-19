@@ -29,7 +29,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class ProductionLine() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public class ProductionLine() : CustomCardModel(1, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/productionLineBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/productionLineBeta.png";

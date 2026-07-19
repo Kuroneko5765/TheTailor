@@ -33,9 +33,8 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/bandageUpBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/bandageUpBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/bandageUpBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.CottonMinion)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2), new HealVar(2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.CottonMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -46,6 +45,7 @@ namespace TheTailor.Cards.Rare
         protected override void OnUpgrade()
         {
             DynamicVars.Heal.UpgradeValueBy(2);
+            DynamicVars["Delicate"].UpgradeValueBy(1);
         }
     }
 }

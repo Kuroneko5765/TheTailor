@@ -33,7 +33,8 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion),];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
@@ -45,11 +46,13 @@ namespace TheTailor.Cards.Uncommon
                     await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
                 }
             }
+
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-6);
+            DynamicVars.Energy.UpgradeValueBy(1);
         }
     }
 }
