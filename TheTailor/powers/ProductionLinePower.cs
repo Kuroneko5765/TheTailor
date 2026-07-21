@@ -34,6 +34,7 @@ namespace TheTailor.Powers
             {
                 if (TailorMinionCmd.CanMinionBeAdded(player))
                 {
+                    Flash();
                     await MinionCmd.AddMinion<MinionLinen>(choiceContext, player, new MinionSummonOptions(Position: MinionPosition.Front));
                 }
             }

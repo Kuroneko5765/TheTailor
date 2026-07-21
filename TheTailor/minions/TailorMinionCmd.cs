@@ -206,13 +206,54 @@ namespace TheTailor.Minions
             }
         }
 
-        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, MinionTriggerType minionTriggerType)
+        /// <summary>
+        ///     Allows the player to select from cards representing random minions, returning the token picked
+        /// </summary>
+        public static async Task<CardModel> SelectionPromptFromRandomMinions(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip)
+        {
+            List<CardModel> choices = new()
+            {
+                ModelDb.Card<LeatherMinionToken>().ToMutable(),
+                ModelDb.Card<CottonMinionToken>().ToMutable(),
+                ModelDb.Card<DenimMinionToken>().ToMutable(),
+                ModelDb.Card<LinenMinionToken>().ToMutable(),
+                ModelDb.Card<SilkMinionToken>().ToMutable(),
+                ModelDb.Card<WoolMinionToken>().ToMutable()
+            };
+            List<CardModel> randomChoices = new();
+
+            choices = choices.StableShuffle(owner.PlayerRng.Transformations);
+
+            for (int i = 0; i < 3; i++)
+            {
+                choices[i].Owner = owner;
+                randomChoices.Add(choices[i]);
+            }
+
+            CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(playerChoiceContext, randomChoices, owner, canSkip);
+
+            if (cardModel == null)
+            {
+                return null;
+            }
+            else
+            {
+                return cardModel;
+            }
+        }
+
+        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, MinionTriggerType minionTriggerType, TailorMinion? specificMinion = null)
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(player);
             if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
             {
                 foreach (Creature creature in accessor.Pets)
                 {
+                    if (specificMinion != null && creature.Monster != specificMinion)
+                    {
+                        continue;
+                    }
+
                     if (creature.Monster is MinionLinen)
                     {
                         Creature creature1 = player.RunState.Rng.CombatTargets.NextItem(player.Creature.CombatState?.HittableEnemies ?? Array.Empty<Creature>());

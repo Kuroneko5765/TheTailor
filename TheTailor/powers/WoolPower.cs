@@ -33,6 +33,7 @@ namespace TheTailor.Powers
         {
             if (Owner.IsPet && Owner.PetOwner == player)
             {
+                Flash();
                 await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, Amount, Owner, null);
             }
         }

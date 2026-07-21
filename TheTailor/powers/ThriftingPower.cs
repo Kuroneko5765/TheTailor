@@ -40,11 +40,12 @@ namespace TheTailor.Powers
 
         public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
         {
-            if (card.Owner.Creature == base.Owner)
+            if (card.Owner.Creature == Owner)
             {
                 Data data = GetInternalData<Data>();
                 if (data.exhaustsThisTurn < Amount)
                 {
+                    Flash();
                     if (causedByEthereal)
                     {
                         GetInternalData<Data>().etherealCount++;
@@ -60,7 +61,7 @@ namespace TheTailor.Powers
 
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
         {
-            if (participants.Contains(base.Owner))
+            if (participants.Contains(Owner))
             {
                 Data data = GetInternalData<Data>();
                 await CardPileCmd.Draw(choiceContext, data.etherealCount, Owner.Player);

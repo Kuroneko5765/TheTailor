@@ -31,6 +31,7 @@ namespace TheTailor.Powers
         {
             if (cardPlay.Card.Owner.Creature == Owner && cardPlay != null && cardPlay.Card.IsUpgraded)
             {
+                Flash();
                 for (int i = 0; i < Amount; i++)
                 {
                     CardPile pile = PileType.Hand.GetPile(Owner.Player);

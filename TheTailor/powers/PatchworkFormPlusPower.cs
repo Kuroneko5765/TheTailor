@@ -33,6 +33,7 @@ namespace TheTailor.Powers
         {
             if (Owner == player.Creature)
             {
+                Flash();
                 foreach (CardModel card in await Cards.Token.Patch.CreateInHand(player, Amount, CombatState))
                 {
                     CardCmd.Upgrade(card);

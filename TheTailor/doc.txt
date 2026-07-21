@@ -9,12 +9,42 @@
 !!! Osty prevents overkill damage to tailor minions
     > Give Osty a hidden power that gives overkill?
 ! Seapunk is kill
-- Improvise should preview the cards
 - Scroll Of Biting doesn't seem to reduce max HP
+
+-- RELICS --
+
+STARTER (COMPLETE)
+- Craft Kit
+
+ANCIENT
+- Master's Toolset
+A Yummy Cookie
+
+COMMON
+- Heavy Duty
+    > Minions spawn with 1 additional max HP
+
+UNCOMMON
+A Striped Scarf
+    > At the end of your first turn, deal 4 damage to ALL enemies for each Minion you have.
+A Satin Glove
+    > When a Delicate card is Exhausted, gain 1 Strength.
+
+RARE
+A Living Needle
+    > At the start of combat, Stitch two cards in your hand.
+A Patient Patch
+    > Patches gain Retain. The first 3 times you Exhaust a card each combat, add a Patch to your hand.
+A Life Essence
+    > Whenever a Minion is created, trigger their ability.
+
+SHOP
+x Minion Critic
+    > At the start of your turn, draw 1 card and destroy a random Minion.
 
 -- CARDS --
 
-STARTER
+STARTER (COMPLETE)
 - Strike (x5)
 - Defend (x4)
 - Sew
@@ -24,7 +54,7 @@ STARTER
     > Delicate
     > Leather minion
 
-ANCIENT (2)
+ANCIENT (COMPLETE)
 - Weave
 - Atelier
 

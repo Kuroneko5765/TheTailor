@@ -38,6 +38,7 @@ namespace TheTailor.Powers
                 return Task.CompletedTask;
             }
 
+            Flash();
             CardCmd.Enchant<Sharp>(card, Amount);
 
             return Task.CompletedTask;

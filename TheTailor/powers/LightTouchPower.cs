@@ -47,7 +47,22 @@ namespace TheTailor.Powers
         {
             if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.DynamicVars.ContainsKey("Delicate"))
             {
-                
+                Data internalData = GetInternalData<Data>();
+                if (internalData.thisTurn == false)
+                {
+                    Flash();
+                    await PlayerCmd.GainEnergy(Amount, Owner.Player);
+                    internalData.thisTurn = true;
+                }
+            }
+        }
+
+        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+        {
+            if (participants.Contains(Owner))
+            {
+                Data data = GetInternalData<Data>();
+                data.thisTurn = false;
             }
         }
     }

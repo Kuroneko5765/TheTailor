@@ -36,6 +36,7 @@ namespace TheTailor.Powers
                 {
                     if (Owner.IsPet && Owner.PetOwner == creature.Player)
                     {
+                        Flash();
                         await CreatureCmd.Heal(Owner.PetOwner.Creature, Amount);
                     }
                 }

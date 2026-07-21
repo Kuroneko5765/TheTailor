@@ -16,15 +16,14 @@ using TheTailor.Character;
 
 namespace TheTailor.Relics.Ancient
 {
-    [Pool(typeof(TheTailorRelicPool))]
+    [Pool(typeof(SharedRelicPool))]
     public class MastersToolset : CustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Ancient;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(Keywords.LinenMinion)];
         public override bool SpawnsPets => true;
-        public override string PackedIconPath => "res://TheTailor/images/relics/craftKit.png";
-        protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/craftKitOutline.png";
-        protected override string BigIconPath => "res://TheTailor/images/relics/craftKitBig.png";
+        public override string PackedIconPath => "res://TheTailor/images/relics/mastersToolkit.png";
+        protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/mastersToolkitOutline.png";
+        protected override string BigIconPath => "res://TheTailor/images/relics/mastersToolkitBig.png";
         public override async Task BeforeCombatStart()
         {
             for (int i = 0; i < 2; i++)

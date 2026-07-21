@@ -31,6 +31,7 @@ namespace TheTailor.Powers
         {
             if (creature.Monster is TailorMinion && creature.IsPet && creature.PetOwner == Owner.Player && TailorMinionCmd.GetMinionCount<TailorMinion>(Owner.Player) <= 0)
             {
+                Flash();
                 await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
             }
         }

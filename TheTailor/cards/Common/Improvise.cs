@@ -25,6 +25,8 @@ using MinionLib.Minion;
 using TheTailor.Character;
 using MinionLib.Utilities;
 using MegaCrit.Sts2.Core.Extensions;
+using MegaCrit.Sts2.Core.Nodes.CommonUi;
+using System.Collections.Immutable;
 
 namespace TheTailor.Cards.Common
 {
@@ -54,6 +56,11 @@ namespace TheTailor.Cards.Common
                     if (cm1.IsUpgradable) { CardCmd.Upgrade(cm1); }
                     if (cm2.IsUpgradable) { CardCmd.Upgrade(cm2); }
                 }
+
+                IReadOnlyList<CardModel> list = enumerable.Concat(enumerable2).ToImmutableArray();
+
+                CardCmd.Preview(list, 0.75f);
+                await Cmd.Wait(0.75f);
             }
         }
     }

@@ -31,6 +31,7 @@ namespace TheTailor.Powers
         {
             if (cardPlay.Card.Owner.Creature == Owner && cardPlay != null && cardPlay.Card.IsUpgraded)
             {
+                Flash();
                 await CreatureCmd.GainBlock(cardPlay.Card.Owner.Creature, Amount, ValueProp.Unpowered, null);
             }
         }

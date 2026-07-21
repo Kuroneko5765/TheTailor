@@ -34,6 +34,7 @@ namespace TheTailor.Powers
         {
             if (card.Owner.Creature == Owner && Owner.IsPlayer)
             {
+                Flash();
                 await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, Owner.Player, Amount, TailorMinionCmd.MinionTriggerType.All);
             }
         }

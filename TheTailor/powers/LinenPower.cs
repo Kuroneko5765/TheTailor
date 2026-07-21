@@ -33,6 +33,7 @@ namespace TheTailor.Powers
         {
             if (dealer != null && (Owner == target || Owner.PetOwner.Creature == target) && result.UnblockedDamage > 0 && props != ValueProp.Unblockable)
             {
+                Flash();
                 await PowerCmd.Apply<VulnerablePower>(choiceContext, dealer, 2, Owner, null);
             }
         }

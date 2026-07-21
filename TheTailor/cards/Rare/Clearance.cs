@@ -47,7 +47,7 @@ namespace TheTailor.Cards.Rare
             for (int i = 0; i < 2; i++)
             {
                 CardModel card = CreateClone();
-                card.EnergyCost.SetThisCombat(EnergyCost.GetResolved());
+                card.EnergyCost.SetThisCombat(EnergyCost.GetResolved() + 1);
                 CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
             }
         }

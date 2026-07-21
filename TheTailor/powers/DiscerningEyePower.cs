@@ -33,6 +33,7 @@ namespace TheTailor.Powers
         {
             if (Owner == player.Creature && Owner.IsPlayer)
             {
+                Flash();
                 for (int i = 0; i < Amount; i++)
                 {
                     CardModel? cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner.Player, this);

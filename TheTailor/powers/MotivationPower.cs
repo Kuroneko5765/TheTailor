@@ -34,6 +34,7 @@ namespace TheTailor.Powers
                 return;
             }
 
+            Flash();
             await TailorMinionCmd.TriggerMinionAbility(choiceContext, player, TailorMinionCmd.MinionTriggerType.First);
         }
     }

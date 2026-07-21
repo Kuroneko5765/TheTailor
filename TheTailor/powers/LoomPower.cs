@@ -34,6 +34,7 @@ namespace TheTailor.Powers
                 int minions = TailorMinionCmd.GetMinionCount<MinionLinen>(player);
                 if (minions > 0)
                 {
+                    Flash();
                     var targets = CombatState.HittableEnemies.ToList();
                     await PowerCmd.Apply<WeakPower>(choiceContext, targets, minions * Amount, Owner, null);
                 }
