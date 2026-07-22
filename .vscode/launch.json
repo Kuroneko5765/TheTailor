@@ -2,6 +2,17 @@
     "version": "2.0.0",
     "configurations": [
         {
+            "name": ".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "",
+            "program": "/home/hex3/.steam/steam/steamapps/common/Slay the Spire 2/SlayTheSpire2",
+            "args": [],
+            "cwd": "/home/hex3/.steam/steam/steamapps/common/Slay the Spire 2/",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
             "name": "Play in Editor",
             "type": "godot-mono",
             "mode": "playInEditor",

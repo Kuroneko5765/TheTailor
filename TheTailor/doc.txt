@@ -4,6 +4,7 @@
 - Epochs/unlocks?
 - Sleight Of Flesh & other debuff appliers won't work from Minions
     > Must change this over to the PetOwner being the applier
+- Stock attack vfx
 
 -- CURRENT ISSUES --
 !!! Osty prevents overkill damage to tailor minions
@@ -25,7 +26,7 @@ COMMON
     > Minions spawn with 1 additional max HP
 
 UNCOMMON
-A Striped Scarf
+- Striped Scarf
     > At the end of your first turn, deal 4 damage to ALL enemies for each Minion you have.
 A Satin Glove
     > When a Delicate card is Exhausted, gain 1 Strength.
@@ -39,7 +40,7 @@ A Life Essence
     > Whenever a Minion is created, trigger their ability.
 
 SHOP
-x Minion Critic
+- Minion Critic
     > At the start of your turn, draw 1 card and destroy a random Minion.
 
 -- CARDS --

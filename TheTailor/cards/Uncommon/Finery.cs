@@ -42,7 +42,8 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(1m);
+            // DynamicVars.Block.UpgradeValueBy(1m);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

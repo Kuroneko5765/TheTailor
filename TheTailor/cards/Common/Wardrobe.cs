@@ -31,7 +31,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(12, ValueProp.Move), new CardsVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(10, ValueProp.Move), new CardsVar(2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -50,7 +50,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(3);
+            DynamicVars.Block.UpgradeValueBy(2);
             DynamicVars.Cards.UpgradeValueBy(1);
         }
     }

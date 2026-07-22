@@ -22,7 +22,8 @@ namespace TheTailor.Minions
         public enum MinionTriggerType
         {
             First,
-            All
+            All,
+            Random
         }
 
         public static bool CanMinionBeAdded(Player owner)
@@ -247,7 +248,14 @@ namespace TheTailor.Minions
             PetsOrderAccessor accessor = new PetsOrderAccessor(player);
             if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
             {
-                foreach (Creature creature in accessor.Pets)
+                List<Creature> minionList = new(accessor.Pets);
+
+                if (minionTriggerType == MinionTriggerType.Random)
+                {
+                    minionList.UnstableShuffle(player.PlayerRng.Transformations);
+                }
+
+                foreach (Creature creature in minionList)
                 {
                     if (specificMinion != null && creature.Monster != specificMinion)
                     {
@@ -262,7 +270,7 @@ namespace TheTailor.Minions
                             await PowerCmd.Apply<VulnerablePower>(choiceContext, creature1, 2, player.Creature, null);
                             await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                             await Cmd.Wait(0.2f);
-                            if (minionTriggerType == MinionTriggerType.First) { break; }
+                            if (minionTriggerType != MinionTriggerType.All) { break; }
                         }
                     }
                     else if (creature.Monster is MinionCotton)
@@ -270,28 +278,28 @@ namespace TheTailor.Minions
                         await CreatureCmd.Heal(player.Creature, creature.GetPowerAmount<CottonPower>());
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
-                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                     else if (creature.Monster is MinionDenim)
                     {
                         await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
-                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                     else if (creature.Monster is MinionWool)
                     {
                         await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
-                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                     else if (creature.Monster is MinionSilk)
                     {
                         await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
-                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                 }
             }
@@ -302,12 +310,19 @@ namespace TheTailor.Minions
             PetsOrderAccessor accessor = new PetsOrderAccessor(player);
             if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
             {
-                foreach (Creature creature in accessor.Pets)
+                List<Creature> minionList = new(accessor.Pets);
+
+                if (minionTriggerType == MinionTriggerType.Random)
+                {
+                    minionList.UnstableShuffle(player.PlayerRng.Transformations);
+                }
+
+                foreach (Creature creature in minionList)
                 {
                     if (creature.Monster is T)
                     {
                         await CreatureCmd.GainMaxHp(creature, amount);
-                        if (minionTriggerType == MinionTriggerType.First) { break; }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                 }
             }

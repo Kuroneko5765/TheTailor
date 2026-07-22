@@ -37,7 +37,7 @@ namespace TheTailor.Cards.Common
                 .FromCard(this, cardPlay)
                 .TargetingAllOpponents(CombatState)
                 .WithHitCount(2)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .WithHitFx("vfx/vfx_attack_slash", null, "dagger_throw.mp3")
                 .Execute(choiceContext);
         }
 

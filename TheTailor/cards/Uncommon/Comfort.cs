@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Comfort() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class Comfort() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";

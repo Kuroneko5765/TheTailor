@@ -35,7 +35,7 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/resourcefulnessBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/resourcefulnessBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

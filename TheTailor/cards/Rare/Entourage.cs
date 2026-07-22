@@ -31,7 +31,7 @@ using TheTailor.Powers;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Entourage() : CustomCardModel(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public class Entourage() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/entourageBeta.png";
@@ -39,6 +39,7 @@ namespace TheTailor.Cards.Rare
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/entourageBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -51,8 +52,12 @@ namespace TheTailor.Cards.Rare
                     {
                         if (creature.Monster is MinionDenim)
                         {
-                            await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.Creature, 2m, creature, null);
-                            await CreatureCmd.TriggerAnim(creature, "cast", 0f);
+                            for (int i = 0; i < DynamicVars["Triggers"].IntValue; i++)
+                            {
+                                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.Creature, 2m, creature, null);
+                                await CreatureCmd.TriggerAnim(creature, "cast", 0f);
+                            }
+
                             break;
                         }
                     }
@@ -62,7 +67,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Innate);
+            DynamicVars["Triggers"].UpgradeValueBy(1);
         }
     }
 }

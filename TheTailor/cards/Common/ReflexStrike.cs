@@ -38,41 +38,49 @@ using BaseLib.Extensions;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class ReflexStrike() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.RandomEnemy)
+    public class ReflexStrike() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1), new DynamicVar("Hits", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            AttackCommand attackCommand = await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
-                .TargetingRandomOpponents(CombatState)
-                .WithHitCount(DynamicVars["Hits"].IntValue)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                 .Execute(choiceContext);
-
-            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
         }
 
-        public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
+        public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
         {
-            if (card == this && card is ReflexStrike && card.Pile == PileType.Hand.GetPile(Owner))
+            if (card == this && card.CanPlay())
             {
-                if (Owner.HasPower<HellraiserPower>() && oldPileType == PileType.Draw)
+                if (Owner.HasPower<HellraiserPower>())
                 {
                     return;
                 }
-                await CardCmd.AutoPlay(new ThrowingPlayerChoiceContext(), card, null, AutoPlayType.Default);
+                await CardCmd.AutoPlay(choiceContext, card, null, AutoPlayType.Default);
             }
         }
 
+        /*
+        public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            if (cardPlay.Card == this)
+            {
+                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            }
+        }
+        */
+
         protected override void OnUpgrade()
         {
-            DynamicVars["Hits"].UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(2);
         }
     }
 }

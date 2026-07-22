@@ -52,7 +52,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Heal.UpgradeValueBy(2);
+            DynamicVars.Heal.UpgradeValueBy(1);
         }
     }
 }
