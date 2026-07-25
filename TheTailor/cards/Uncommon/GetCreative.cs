@@ -35,7 +35,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/getCreativeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/getCreativeBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [IsUpgraded ? HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate) : HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

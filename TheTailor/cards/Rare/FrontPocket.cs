@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999), new DynamicVar("DelicatePluralize", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), IsUpgraded ? HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate) : HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -48,8 +48,6 @@ namespace TheTailor.Cards.Rare
         {
             RemoveKeyword(CardKeyword.Exhaust);
             DynamicVars["Delicate"].BaseValue = 2;
-            DynamicVars["DelicatePluralize"].BaseValue = 2;
-            HoverTips.AddItem(HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate));
         }
     }
 }
