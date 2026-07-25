@@ -41,7 +41,7 @@ namespace TheTailor.Cards.Uncommon
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
-                .WithHitFx("vfx/vfx_attack_slash")
+                .WithHitFx("vfx/vfx_heavy_blunt", null, "heavy_attack.mp3")
                 .Execute(choiceContext);
         }
 

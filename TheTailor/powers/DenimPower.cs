@@ -31,7 +31,7 @@ namespace TheTailor.Powers
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (dealer != null && (Owner == target || Owner.PetOwner.Creature == target) && result.UnblockedDamage > 0 && props != ValueProp.Unblockable)
+            if (dealer != null && Owner == target && result.UnblockedDamage > 0)
             {
                 Flash();
                 await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);

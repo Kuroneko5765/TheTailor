@@ -30,7 +30,7 @@ namespace TheTailor.Relics.Starter
         public override RelicModel GetUpgradeReplacement() => ModelDb.Relic<MastersToolset>();
         public override async Task BeforeCombatStart()
         {
-            await MinionCmd.AddMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner, new MinionSummonOptions(Position: MinionPosition.Front));
+            await TailorMinionCmd.AddMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner);
         }
     }
 }

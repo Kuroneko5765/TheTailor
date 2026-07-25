@@ -45,6 +45,18 @@ namespace TheTailor.Cards.Uncommon
                     if (creature == Owner.Creature && PileType.Hand.GetPile(Owner).Cards.Contains(this))
                     {
                         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, null);
+
+                        if (CombatManager.Instance.IsEnding || CurrentUpgradeLevel <= 0 || IsCanonical)
+                        {
+                            return;
+                        }
+
+                        int newLevel = CurrentUpgradeLevel - 1;
+                        CardCmd.Downgrade(this);
+                        for (int n = 0; n < newLevel; ++n)
+                        {
+                            CardCmd.Upgrade(this);
+                        }
                     }
                 }
             }

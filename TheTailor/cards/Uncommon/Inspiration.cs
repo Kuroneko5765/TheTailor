@@ -49,7 +49,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Sharp"].UpgradeValueBy(1);
+            DynamicVars["Sharp"].UpgradeValueBy(2);
         }
     }
 }

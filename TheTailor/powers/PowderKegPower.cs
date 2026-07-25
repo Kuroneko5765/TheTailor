@@ -29,13 +29,13 @@ namespace TheTailor.Powers
         public override string? CustomPackedIconPath => "res://TheTailor/images/powers/powderKegSmall.png";
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/powderKeg.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/powderKeg.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(Keywords.LeatherMinion)];
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
         public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
         {
-            if (creature.PetOwner != null && Owner == creature.PetOwner.Creature)
+            if (creature.PetOwner != null && Owner == creature.PetOwner.Creature && creature.Monster is MinionLeather)
             {
                 Flash();
                 await Cmd.CustomScaledWait(0.2f, 0.4f);
@@ -45,8 +45,6 @@ namespace TheTailor.Powers
                 }
                 await Cmd.CustomScaledWait(0.2f, 0.4f);
                 await CreatureCmd.Damage(choiceContext, CombatState.HittableEnemies, new DamageVar(Amount, ValueProp.Unpowered), Owner);
-
-                await PowerCmd.Remove(this);
             }
         }
     }

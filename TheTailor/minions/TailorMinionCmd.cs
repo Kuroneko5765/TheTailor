@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Monsters;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MinionLib.Commands;
 using MinionLib.Minion;
@@ -53,6 +54,29 @@ namespace TheTailor.Minions
         }
 
         /// <summary>
+        ///     Adds a minion.
+        /// </summary>
+        public static async Task<bool> AddMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int maxHpOverride = 0) where T : MinionModel
+        {
+            if (CanMinionBeAdded(owner))
+            {
+                var result = await MinionCmd.AddMinion<T>(playerChoiceContext, owner, new MinionSummonOptions(Position: MinionPosition.Front));
+                if (maxHpOverride > 0 && result != null)
+                {
+                    await CreatureCmd.SetMaxAndCurrentHp(result, maxHpOverride);
+                }
+
+                await PutOstyAtBack(playerChoiceContext, owner);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         ///     Adds a minion. If too many exist, prompts the player to select one for replacing. Returns true if the minion was added
         /// </summary>
         public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0) where T : MinionModel
@@ -78,6 +102,8 @@ namespace TheTailor.Minions
                 {
                     await CreatureCmd.SetMaxAndCurrentHp(result, maxHpOverride);
                 }
+
+                await PutOstyAtBack(playerChoiceContext, owner);
 
                 return true;
             }
@@ -116,6 +142,8 @@ namespace TheTailor.Minions
                 _ = MinionAnimCmd.Rearrange(duration: 0.5f);
                 accessor.SetManualRearranged();
                 PetOrderSnapshotManager.TakeSnapshot(owner);
+                
+                await PutOstyAtBack(playerChoiceContext, owner);
 
                 if (convert)
                 {
@@ -289,7 +317,7 @@ namespace TheTailor.Minions
                     }
                     else if (creature.Monster is MinionWool)
                     {
-                        await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 1m, creature, null);
+                        await PowerCmd.Apply<WoolWeakPower>(choiceContext, player.Creature, 2m, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType != MinionTriggerType.All) { break; }
@@ -324,6 +352,27 @@ namespace TheTailor.Minions
                         await CreatureCmd.GainMaxHp(creature, amount);
                         if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Osty gets hit last to protect his max hp stacking
+        /// </summary>
+        public static async Task PutOstyAtBack(PlayerChoiceContext choiceContext, Player player)
+        {
+            PetsOrderAccessor accessor = new PetsOrderAccessor(player);
+            if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
+            {
+                int ostyPos = accessor.Pets.FirstIndex(pet => pet.Monster != null && pet.Monster is Osty);
+
+                if (ostyPos >= 0)
+                {
+                    Creature osty = accessor.Pets[ostyPos];
+                    accessor.Pets.Remove(osty);
+                    accessor.Pets.Add(osty);
+                    accessor.SetManualRearranged();
+                    PetOrderSnapshotManager.TakeSnapshot(player);
                 }
             }
         }

@@ -8,6 +8,7 @@ using MinionLib.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MinionLib.Utilities;
+using TheTailor.Minions;
 
 #pragma warning disable STS003
 public sealed class TailorMinionOrderAction : ActionModel
@@ -33,6 +34,8 @@ public sealed class TailorMinionOrderAction : ActionModel
             await CreatureCmd.TriggerAnim(Owner, "cast", 0f);
             accessor.SetManualRearranged();
             PetOrderSnapshotManager.TakeSnapshot(Owner.PetOwner);
+
+            await TailorMinionCmd.PutOstyAtBack(choiceContext, Owner.PetOwner);
         }
     }
 }

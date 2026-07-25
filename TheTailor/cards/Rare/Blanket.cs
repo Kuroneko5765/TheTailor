@@ -42,7 +42,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
             }

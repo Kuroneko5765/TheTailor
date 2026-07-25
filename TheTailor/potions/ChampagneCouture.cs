@@ -31,8 +31,8 @@ namespace TheTailor.Potions
     [Pool(typeof(TheTailorPotionPool))]
     public class ChampagneCouture : CustomPotionModel
     {
-        public override string? CustomPackedImagePath => "res://TheTailor/images/potions/weaversWine.png";
-        public override string? CustomPackedOutlinePath => "res://TheTailor/images/potions/weaversWineOutline.png";
+        public override string? CustomPackedImagePath => "res://TheTailor/images/potions/champagneCouture.png";
+        public override string? CustomPackedOutlinePath => "res://TheTailor/images/potions/champagneCoutureOutline.png";
         public override PotionRarity Rarity => PotionRarity.Rare;
         public override PotionUsage Usage => PotionUsage.AnyTime;
         public override TargetType TargetType => TargetType.Self;

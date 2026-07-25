@@ -45,7 +45,7 @@ namespace TheTailor.Powers
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.DynamicVars.ContainsKey("Delicate"))
+            if (cardPlay.Card.Owner.Creature == Owner && cardPlay.Card.DynamicVars.ContainsKey("Delicate") && cardPlay.Card.DynamicVars["Delicate"].BaseValue >= 0)
             {
                 Data internalData = GetInternalData<Data>();
                 if (internalData.thisTurn == false)

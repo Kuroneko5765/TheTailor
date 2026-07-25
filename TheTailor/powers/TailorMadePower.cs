@@ -9,6 +9,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 using MinionLib.Minion;
 using MinionLib.Powers.Patches;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models.Monsters;
 
 namespace TheTailor.Powers
 {
@@ -22,18 +24,18 @@ namespace TheTailor.Powers
 
         public override Creature ModifyUnblockedDamageTarget(Creature target, decimal amount, ValueProp props, Creature? dealer)
         {
-            if (base.Owner.Monster is MinionModel { Position: not MinionPosition.Front })
+            if (Owner.Monster is MinionModel { Position: not MinionPosition.Front })
             {
                 return target;
             }
 
-            if (target != base.Owner.PetOwner?.Creature)
+            if (target != Owner.PetOwner?.Creature)
             {
                 bool flag = true;
-                if (target.PetOwner == base.Owner.PetOwner && base.Owner.PetOwner != null && target.GetPower<TailorMadePower>() != null)
+                if (target.PetOwner == Owner.PetOwner && Owner.PetOwner != null && (target.GetPower<TailorMadePower>() != null || target.GetPower<DieForYouPower>() != null))
                 {
                     IReadOnlyList<Creature> pets = target.PetOwner.PlayerCombatState.Pets;
-                    if (pets.IndexOf(base.Owner) < pets.IndexOf(target))
+                    if (pets.IndexOf(Owner) < pets.IndexOf(target))
                     {
                         flag = false;
                     }
@@ -45,7 +47,7 @@ namespace TheTailor.Powers
                 }
             }
 
-            if (base.Owner.IsDead)
+            if (Owner.IsDead)
             {
                 return target;
             }
@@ -55,7 +57,7 @@ namespace TheTailor.Powers
                 return target;
             }
 
-            return base.Owner;
+            return Owner;
         }
     }
 
@@ -67,14 +69,8 @@ namespace TheTailor.Powers
         {
             if (__result == false)
             {
-                if (creature.GetPower<TailorMadePower>() != null)
+                if (creature.GetPower<TailorMadePower>() != null || creature.GetPower<DieForYouPower>() != null)
                 {
-                    if (creature.Monster is MinionModel minionModel)
-                    {
-                        __result = minionModel.Position == MinionPosition.Front;
-                        return;
-                    }
-
                     __result = true;
                     return;
                 }

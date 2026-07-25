@@ -32,10 +32,9 @@ namespace TheTailor.Powers
         {
             if (Owner == player.Creature)
             {
-                if (TailorMinionCmd.CanMinionBeAdded(player))
+                if (await TailorMinionCmd.AddMinion<MinionLinen>(choiceContext, player))
                 {
                     Flash();
-                    await MinionCmd.AddMinion<MinionLinen>(choiceContext, player, new MinionSummonOptions(Position: MinionPosition.Front));
                 }
             }
         }
