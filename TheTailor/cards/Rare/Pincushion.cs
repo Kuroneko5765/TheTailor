@@ -52,6 +52,7 @@ namespace TheTailor.Cards.Rare
         protected override void OnUpgrade()
         {
             DynamicVars["Delicate"].UpgradeValueBy(1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

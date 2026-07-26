@@ -44,10 +44,13 @@ namespace TheTailor.Cards.Rare
 
             if (IsUpgraded)
             {
-                CardModel? cardModel = (await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 2), context: choiceContext, player: base.Owner, filter: null, source: this)).FirstOrDefault();
-                if (cardModel != null)
+                IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 2), context: choiceContext, player: base.Owner, filter: null, source: this);
+                if (cardModels != null && cardModels.Count() > 0)
                 {
-                    await CardCmd.Exhaust(choiceContext, cardModel);
+                    foreach (CardModel cardModel in cardModels)
+                    {
+                        await CardCmd.Exhaust(choiceContext, cardModel);
+                    }
                 }
             }
         }

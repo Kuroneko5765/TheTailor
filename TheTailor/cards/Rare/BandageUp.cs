@@ -46,6 +46,7 @@ namespace TheTailor.Cards.Rare
         {
             DynamicVars.Heal.UpgradeValueBy(2);
             DynamicVars["Delicate"].UpgradeValueBy(1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }
