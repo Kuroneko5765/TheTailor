@@ -10,6 +10,7 @@
 ! Minions (Cotton, Silk, Wool)
 
 -- CURRENT ISSUES --
+!!! Refined gives energy for Ethereal cards at the end of the turn instead of the start of the next
 - Versatility gives the enemy vulnerable when played??? haha sometimes
 - Scroll Of Biting doesn't seem to reduce max HP
 - Pincushion + Slick Strike shows stitching in the draw pile even after Slick Strike is exhausted

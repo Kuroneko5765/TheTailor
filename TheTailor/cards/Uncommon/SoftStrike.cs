@@ -42,13 +42,13 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
             await PowerCmd.Apply<WeakPower>(choiceContext, cardPlay.Target, DynamicVars["Weaken"].BaseValue, Owner.Creature, this);
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                 .Execute(choiceContext);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
         }
 
         protected override void OnUpgrade()

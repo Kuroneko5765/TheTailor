@@ -45,9 +45,9 @@ namespace TheTailor.Cards.Uncommon
                 {
                     await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
                 }
-            }
 
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+            }
         }
 
         protected override void OnUpgrade()
