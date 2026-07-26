@@ -39,8 +39,8 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class Scrap() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scrapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/scrapBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scrap.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/scrap.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/scrapBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move), new CardsVar(1)];
