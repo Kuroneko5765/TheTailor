@@ -27,8 +27,8 @@ namespace TheTailor.Cards.Common
     public class Pinprick() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         public override bool GainsBlock => true;
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new BlockVar(2m, ValueProp.Move)];
 

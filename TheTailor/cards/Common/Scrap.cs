@@ -42,7 +42,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/scrap.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/scrap.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/scrapBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Cards.Token.Patch>()];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>()];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move), new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -53,9 +53,11 @@ namespace TheTailor.Cards.Common
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            CardModel card = CombatState.CreateCard<Patch>(Owner);
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
-            await Cmd.Wait(0.5f);
+            for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
+            {
+                CardModel card = CombatState.CreateCard<Patch>(Owner);
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
+            }
         }
 
         protected override void OnUpgrade()
