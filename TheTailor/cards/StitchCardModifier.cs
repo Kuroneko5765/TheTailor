@@ -5,11 +5,14 @@ using BaseLib.Patches.Localization;
 using BaseLib.Patches.Saves;
 using BaseLib.Utils;
 using BaseLib.Utils.Patching;
+using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -18,6 +21,7 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
+using MegaCrit.Sts2.Core.Nodes.Cards;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using TheTailor;
 using TheTailor.Cards;
@@ -87,11 +91,11 @@ namespace TheTailor.Cards
             {
                 if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchCard(card);
+                    await StitchCmd.UnstitchBothCards(card);
                 }
                 else if (card == null || !card.IsInCombat || card.Pile == null || card.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchCard(card);
+                    await StitchCmd.UnstitchBothCards(card);
                 }
             }
         }
@@ -104,11 +108,11 @@ namespace TheTailor.Cards
             {
                 if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                    await StitchCmd.UnstitchBothCards(cardPlay.Card);
                 }
                 else if (cardPlay.Card == null || !cardPlay.Card.IsInCombat || cardPlay.Card.Pile == null || cardPlay.Card.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                    await StitchCmd.UnstitchBothCards(cardPlay.Card);
                 }
             }
         }
@@ -117,27 +121,29 @@ namespace TheTailor.Cards
     [HarmonyPatch]
     internal static class StitchOverlayPatch
     {
-        [HarmonyPatch(typeof(CardModel), "OverlayPath", MethodType.Getter)]
-        internal static string Postfix(string __result, CardModel __instance)
+        public static Control CreateOverlay()
         {
-            StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
-            if (__instance.Affliction == null && cardStitch != null)
-            {
-                __result = "res://TheTailor/scenes/cards/overlays/stitch.tscn";
-            }
-
-            return __result;
+            return PreloadManager.Cache.GetScene("res://TheTailor/scenes/cards/overlays/stitch.tscn").Instantiate<Control>(PackedScene.GenEditState.Disabled);
         }
 
-        [HarmonyPatch(typeof(CardModel), "HasBuiltInOverlay", MethodType.Getter)]
-        internal static bool Postfix(bool __result, CardModel __instance)
+        [HarmonyPatch(typeof(NCard), "ReloadOverlay")]
+        internal static void Postfix(NCard __instance)
         {
-            StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
-            if (cardStitch != null)
+            if (__instance.Model == null || __instance.Model.IsCanonical)
             {
-                __result = true;
+                return;
             }
-            return __result;
+
+            StitchCardModifier? cardStitch = __instance.Model.GetModifier<StitchCardModifier>();
+            if (cardStitch != null && __instance.GetNodeOrNull<Control>("Stitch") == null)
+            {
+                __instance.AddChildSafely(CreateOverlay());
+                Log.Warn(__instance.Model.Title);
+            }
+            if (cardStitch == null)
+            {
+                __instance.RemoveChildSafely(__instance.GetNodeOrNull<Control>("Stitch"));
+            }
         }
     }
 }

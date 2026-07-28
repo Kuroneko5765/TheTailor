@@ -58,7 +58,7 @@ namespace TheTailor.Cards.Common
             for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)
             {
                 CardModel card = CombatState.CreateCard<Dazed>(Owner);
-                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
+                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Draw, Owner));
             }
         }
 

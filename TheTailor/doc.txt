@@ -1,6 +1,5 @@
 -- TODO --
 - Minion selection prompt should say "Replace a minion"
-- Afflictions + Stitched should appear simultaneously
 - Epochs/unlocks?
 - Stock attack vfx
 
@@ -14,7 +13,6 @@
     ??? Does Steady Hand remove Exhaust when a card is at 1 Delicate?
 - Versatility gives the enemy vulnerable when played??? haha sometimes
 - Scroll Of Biting doesn't seem to reduce max HP
-- Pincushion + Slick Strike shows stitching in the draw pile even after Slick Strike is exhausted
 - Byrd/Legion have odd positioning
 - Osty stats covered up by Minions
 

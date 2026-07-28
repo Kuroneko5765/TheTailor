@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://umj4kxerm4at" path="res://TheTailor/images/card_overlays/stitch.png" id="1_c0j8t"]
 
-[node name="Infection" type="Control"]
+[node name="Stitch" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 
