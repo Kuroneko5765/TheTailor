@@ -118,31 +118,35 @@ namespace TheTailor.Cards
         }
     }
 
+    public class StitchOverlayAdd
+    {
+        private static readonly string _scenePath = "res://TheTailor/scenes/cards/overlays/stitch.tscn";
+        public static AddedNode<NCard, StitchOverlay> StitchOverlay = new(_scenePath, (card, display) =>
+        {
+            Node cardContainer = card.GetChild(0);
+            cardContainer.AddChild(display);
+            display.Visible = card.Model?.GetModifier<StitchCardModifier>() != null;
+        });
+    }
+
     [HarmonyPatch]
     internal static class StitchOverlayPatch
     {
-        public static Control CreateOverlay()
-        {
-            return PreloadManager.Cache.GetScene("res://TheTailor/scenes/cards/overlays/stitch.tscn").Instantiate<Control>(PackedScene.GenEditState.Disabled);
-        }
-
         [HarmonyPatch(typeof(NCard), "ReloadOverlay")]
         internal static void Postfix(NCard __instance)
         {
-            if (__instance.Model == null || __instance.Model.IsCanonical)
-            {
+            if (__instance.Model == null)
+            { 
                 return;
             }
 
-            StitchCardModifier? cardStitch = __instance.Model.GetModifier<StitchCardModifier>();
-            if (cardStitch != null && __instance.GetNodeOrNull<Control>("Stitch") == null)
+            foreach (Node node in __instance.GetChild(0).GetChildren())
             {
-                __instance.AddChildSafely(CreateOverlay());
-                Log.Warn(__instance.Model.Title);
-            }
-            if (cardStitch == null)
-            {
-                __instance.RemoveChildSafely(__instance.GetNodeOrNull<Control>("Stitch"));
+                if (node is StitchOverlay)
+                {
+                    StitchOverlay stitchOverlay = node as StitchOverlay;
+                    stitchOverlay.Visible = __instance.Model.GetModifier<StitchCardModifier>() != null;
+                }
             }
         }
     }

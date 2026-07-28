@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://din166674xpkc"]
+[gd_scene load_steps=3 format=3 uid="uid://din166674xpkc"]
 
 [ext_resource type="Texture2D" uid="uid://umj4kxerm4at" path="res://TheTailor/images/card_overlays/stitch.png" id="1_c0j8t"]
+[ext_resource type="Script" uid="uid://ci2giwbkvdmes" path="res://TheTailor/cards/StitchOverlay.cs" id="1_thbdp"]
 
 [node name="Stitch" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_thbdp")
 
 [node name="VisualLayer2" type="Sprite2D" parent="."]
 position = Vector2(-0.499993, -7.50001)
