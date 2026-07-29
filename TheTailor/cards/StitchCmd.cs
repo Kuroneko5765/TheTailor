@@ -60,6 +60,11 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchCard(CardModel card1)
         {
+            if (card1 == null)
+            {
+                return;
+            }
+
             StitchCardModifier? cardStitch1 = card1.GetModifier<StitchCardModifier>();
             if (cardStitch1 != null)
             {
@@ -72,11 +77,16 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchRelatedCard(CardModel card1)
         {
+            if (card1 == null)
+            {
+                return;
+            }
+
             StitchCardModifier? cardStitch1 = card1.GetModifier<StitchCardModifier>();
             if (cardStitch1 != null)
             {
-                CardModel card2 = cardStitch1.StitchedCard;
-                if (card2 != null)
+                CardModel? card2 = cardStitch1.StitchedCard;
+                if (card2 != null && card2.IsInCombat && card2.Pile != null)
                 {
                     StitchCardModifier? cardStitch2 = card2.GetModifier<StitchCardModifier>();
                     if (cardStitch2 != null)
@@ -88,12 +98,6 @@ namespace TheTailor.Cards
                     }
                 }
             }
-        }
-
-        public static async Task UnstitchBothCards(CardModel card1)
-        {
-            await UnstitchRelatedCard(card1);
-            await UnstitchCard(card1);
         }
 
         public static bool CanBeStitched(CardModel cardModel)

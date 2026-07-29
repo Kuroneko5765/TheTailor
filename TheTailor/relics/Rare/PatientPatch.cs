@@ -33,7 +33,7 @@ namespace TheTailor.Relics.Rare
         public override string PackedIconPath => "res://TheTailor/images/relics/patientPatch.png";
         protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/patientPatchOutline.png";
         protected override string BigIconPath => "res://TheTailor/images/relics/patientPatchBig.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>(), HoverTipFactory.FromKeyword(CardKeyword.Retain)];
 
         private int _uses = 3;

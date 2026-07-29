@@ -57,10 +57,15 @@ namespace TheTailor.Cards
 
         public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (!cardPlay.IsAutoPlay)
+            if (!cardPlay.IsAutoPlay && StitchedCard != null && StitchedCard.IsInCombat && StitchedCard.Pile != null)
             {
                 Creature? target = cardPlay.Target is { IsAlive: true } ? cardPlay.Target : null;
                 await CardCmd.AutoPlay(choiceContext, StitchedCard, target, AutoPlayType.Default);
+
+                if (Owner.Type == CardType.Power || Owner.Keywords.Contains(CardKeyword.Exhaust))
+                {
+                    await StitchCmd.UnstitchCard(StitchedCard);
+                }
             }
         }
     }
@@ -86,33 +91,22 @@ namespace TheTailor.Cards
         [HarmonyPatch(typeof(AbstractModel), "AfterCardChangedPiles")]
         internal static async void Postfix(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
         {
+            if (card == null || card.Pile == null)
+            {
+                return;
+            }
+
             StitchCardModifier? cardStitch = card.GetModifier<StitchCardModifier>();
             if (cardStitch != null)
             {
                 if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchBothCards(card);
+                    await StitchCmd.UnstitchCard(card);
                 }
-                else if (card == null || !card.IsInCombat || card.Pile == null || card.Pile.Type == PileType.Exhaust)
+                else if (card.Pile.Type == PileType.Exhaust)
                 {
-                    await StitchCmd.UnstitchBothCards(card);
-                }
-            }
-        }
-
-        [HarmonyPatch(typeof(AbstractModel), "AfterCardPlayed")]
-        internal static async void Postfix(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            StitchCardModifier? cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
-            if (cardStitch != null)
-            {
-                if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
-                {
-                    await StitchCmd.UnstitchBothCards(cardPlay.Card);
-                }
-                else if (cardPlay.Card == null || !cardPlay.Card.IsInCombat || cardPlay.Card.Pile == null || cardPlay.Card.Pile.Type == PileType.Exhaust)
-                {
-                    await StitchCmd.UnstitchBothCards(cardPlay.Card);
+                    await StitchCmd.UnstitchRelatedCard(card);
+                    await StitchCmd.UnstitchCard(card);
                 }
             }
         }
