@@ -41,28 +41,24 @@ namespace TheTailor.Cards.Uncommon
     [Pool(typeof(TheTailorCardPool))]
     public class Trim() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars =>
-        [
-            new CalculationBaseVar(4m),
-            new CalculationExtraVar(2m),
-            new CalculatedBlockVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => CombatManager.Instance.History.Entries.OfType<CardExhaustedEntry>().Count(e => e.HappenedThisTurn(card.CombatState) && e.Card.Owner == card.Owner))
-        ];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (IsUpgraded)
+            IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, DynamicVars.Cards.IntValue), context: choiceContext, player: Owner, filter: null, source: this);
+            foreach(CardModel cardModel in cardModels)
             {
-                CardModel? cardModel = (await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 1), context: choiceContext, player: Owner, filter: null, source: this)).FirstOrDefault();
-                if (cardModel != null)
-                {
-                    await CardCmd.Exhaust(choiceContext, cardModel);
-                }
+                await CardCmd.Exhaust(choiceContext, cardModel);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             }
+        }
 
-            await CreatureCmd.GainBlock(Owner.Creature, new BlockVar(DynamicVars.CalculatedBlock.Calculate(Owner.Creature), ValueProp.Move), cardPlay);
+        protected override void OnUpgrade()
+        {
+            DynamicVars.Cards.UpgradeValueBy(1);
         }
     }
 }

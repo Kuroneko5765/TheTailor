@@ -46,7 +46,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coupDeGraceBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars =>
         [
-            new CalculationBaseVar(8m),
+            new CalculationBaseVar(6m),
             new ExtraDamageVar(4m),
             new CalculatedDamageVar(ValueProp.Move).WithMultiplier((CardModel card, Creature? _) => CombatManager.Instance.History.CardPlaysFinished.Count((CardPlayFinishedEntry e) => e.HappenedThisTurn(card.CombatState) && e.CardPlay.Card.Type == CardType.Attack && e.CardPlay.Card.Owner == card.Owner))
         ];

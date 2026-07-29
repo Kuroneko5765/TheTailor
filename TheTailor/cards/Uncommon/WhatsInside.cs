@@ -41,14 +41,20 @@ namespace TheTailor.Cards.Uncommon
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null && accessor.Pets[0] != null)
+            if (accessor != null && accessor.Pets != null)
             {
-                for (int i = 0; i < DynamicVars["Triggers"].BaseValue; i++)
+                for (int i = 0; i < accessor.Pets.Count; i++)
                 {
-                    await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
+                    if (accessor.Pets[0].Monster is TailorMinion)
+                    {
+                        for (int j = 0; j < DynamicVars["Triggers"].BaseValue; j++)
+                        {
+                            await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
+                        }
+                        await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0, false, true);
+                        break;
+                    }
                 }
-
-                await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0, false, true);
             }
         }
 

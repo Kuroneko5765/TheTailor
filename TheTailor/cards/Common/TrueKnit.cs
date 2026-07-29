@@ -39,12 +39,12 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class TrueKnit() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        // public override int MaxUpgradeLevel => 99999;
+        public override int MaxUpgradeLevel => 99999;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/trueKnitBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move), new DynamicVar("Upgrades", 1)];
-        // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -69,7 +69,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2);
+            // DynamicVars.Damage.UpgradeValueBy(2);
             DynamicVars["Upgrades"].UpgradeValueBy(1);
         }
     }

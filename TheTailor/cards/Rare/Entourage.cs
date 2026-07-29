@@ -43,25 +43,10 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true))
+            await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true);
+            for (int i = 0; i < DynamicVars["Triggers"].IntValue; i++)
             {
-                PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
-                if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
-                {
-                    foreach (Creature creature in accessor.Pets)
-                    {
-                        if (creature.Monster is MinionDenim)
-                        {
-                            for (int i = 0; i < DynamicVars["Triggers"].IntValue; i++)
-                            {
-                                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.Creature, 2m, creature, null);
-                                await CreatureCmd.TriggerAnim(creature, "cast", 0f);
-                            }
-
-                            break;
-                        }
-                    }
-                }
+                await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Player, TailorMinionCmd.MinionTriggerType.All);
             }
         }
 
