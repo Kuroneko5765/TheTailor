@@ -8,6 +8,7 @@ using BaseLib.Utils.Patching;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Assets;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -22,6 +23,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Potions;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
 using MegaCrit.Sts2.Core.Nodes.Cards;
+using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using TheTailor;
 using TheTailor.Cards;
@@ -30,8 +32,8 @@ namespace TheTailor.Cards
 {
     public class StitchCardModifier : CardModifier
     {
-        private CardModel _stitchedCard;
-        public CardModel StitchedCard
+        private CardModel? _stitchedCard;
+        public CardModel? StitchedCard
         {
             get
             {
@@ -55,18 +57,52 @@ namespace TheTailor.Cards
             }
         }
 
+        public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        {
+            // StitchCardModifier? cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
+            if (!cardPlay.IsAutoPlay && cardPlay.Card == Owner && Owner != null && StitchedCard != null)
+            {
+                Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
+                if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)
+                {
+                    target = cardPlay.Target;
+                }
+
+                await CardCmd.AutoPlay(choiceContext, StitchedCard, target, AutoPlayType.Default);
+            }
+        }
+
+        /*
         public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (!cardPlay.IsAutoPlay && StitchedCard != null && StitchedCard.IsInCombat && StitchedCard.Pile != null)
+            if (!cardPlay.IsAutoPlay && StitchedCard != null && StitchedCard.Pile != null)
             {
-                Creature? target = cardPlay.Target is { IsAlive: true } ? cardPlay.Target : null;
+                Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
+                if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)
+                {
+                    target = cardPlay.Target;
+                }
+
                 await CardCmd.AutoPlay(choiceContext, StitchedCard, target, AutoPlayType.Default);
 
-                if (Owner.Type == CardType.Power || Owner.Keywords.Contains(CardKeyword.Exhaust))
+                if (StitchedCard != null && StitchedCard.Pile != null && Owner != null && (Owner.Type == CardType.Power || Owner.Keywords.Contains(CardKeyword.Exhaust)))
                 {
                     await StitchCmd.UnstitchCard(StitchedCard);
                 }
             }
+        }
+        */
+
+        private Creature? GetTarget(CardModel card, ICombatState combatState)
+        {
+            Rng combatTargets = Owner.RunState.Rng.CombatTargets;
+            return card.TargetType switch
+            {
+                TargetType.AnyEnemy => combatState.HittableEnemies.FirstOrDefault(),
+                TargetType.AnyAlly => combatTargets.NextItem(combatState.Allies.Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != Owner.Owner.Creature)),
+                TargetType.AnyPlayer => Owner.Owner.Creature,
+                _ => null,
+            };
         }
     }
 
@@ -99,11 +135,11 @@ namespace TheTailor.Cards
             StitchCardModifier? cardStitch = card.GetModifier<StitchCardModifier>();
             if (cardStitch != null)
             {
-                if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
+                if (cardStitch.StitchedCard == null || !cardStitch.StitchedCard.IsInCombat || cardStitch.StitchedCard.Pile == null)
                 {
                     await StitchCmd.UnstitchCard(card);
                 }
-                else if (card.Pile.Type == PileType.Exhaust)
+                else if (card.Pile.Type == PileType.Exhaust || cardStitch.StitchedCard.Pile.Type == PileType.Exhaust)
                 {
                     await StitchCmd.UnstitchRelatedCard(card);
                     await StitchCmd.UnstitchCard(card);

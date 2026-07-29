@@ -5,12 +5,9 @@
 
 ! Campfire sprite
 ! Cookie
-! Life essence
 ! Minions (Cotton, Silk, Wool)
 
 -- CURRENT ISSUES --
-!!! Refined gives energy for Ethereal cards at the end of the turn instead of the start of the next
-    ??? Does Steady Hand remove Exhaust when a card is at 1 Delicate?
 - Versatility gives the enemy vulnerable when played??? haha sometimes
 - Scroll Of Biting doesn't seem to reduce max HP
 - Byrd/Legion have odd positioning
@@ -40,7 +37,7 @@ RARE
     > At the start of combat, Stitch two cards in your hand.
 - Patient Patch
     > Patches gain Retain. The first 3 times you Exhaust a card each combat, add a Patch to your hand.
-A Life Essence
+- Life Essence
     > Whenever a Minion is created, trigger their ability.
 
 SHOP

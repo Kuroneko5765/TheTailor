@@ -60,7 +60,7 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchCard(CardModel card1)
         {
-            if (card1 == null)
+            if (card1 == null || card1.Pile == null)
             {
                 return;
             }
@@ -77,7 +77,7 @@ namespace TheTailor.Cards
 
         public static async Task UnstitchRelatedCard(CardModel card1)
         {
-            if (card1 == null)
+            if (card1 == null || card1.Pile == null)
             {
                 return;
             }
@@ -86,7 +86,7 @@ namespace TheTailor.Cards
             if (cardStitch1 != null)
             {
                 CardModel? card2 = cardStitch1.StitchedCard;
-                if (card2 != null && card2.IsInCombat && card2.Pile != null)
+                if (card2 != null && card2.Pile != null)
                 {
                     StitchCardModifier? cardStitch2 = card2.GetModifier<StitchCardModifier>();
                     if (cardStitch2 != null)
