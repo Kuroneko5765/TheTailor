@@ -189,7 +189,7 @@
     "THETAILOR-POWDER_KEG.description": "Whenever a [gold]Leather Minion[/gold] is destroyed, deal {Damage:diff()} damage to ALL enemies.",
     "THETAILOR-JACKET_POCKET.title": "Jacket Pocket",
     "THETAILOR-JACKET_POCKET.description": "{IfUpgraded:show:[gold]Delicate[/gold] {Delicate:diff()}.\n|}Add {Cards:diff()} [gold]{Cards:plural:Patch|Patches}[/gold] to your [gold]Hand[/gold].",
-    "THETAILOR-TAG_TEAM.title": "Tag Team",
+    "THETAILOR-TAG_TEAM.title": "Coordination",
     "THETAILOR-TAG_TEAM.description": "Gain 1 [gold]Strength[/gold] for each [gold]Denim Minion[/gold] you have.\nDeal {Damage:diff()} damage {Hits:diff()} times.",
     "THETAILOR-BANDAGE_UP.title": "Bandage Up",
     "THETAILOR-BANDAGE_UP.description": "[gold]Delicate[/gold] {Delicate:diff()}.\nHeal {Heal:diff()} HP.\nCreate a [gold]Cotton Minion[/gold].",
