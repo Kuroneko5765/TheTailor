@@ -18,7 +18,7 @@
     "THETAILOR-LIVING_NEEDLE.description": "At the start of combat, [gold]Stitch[/gold] two cards in your [gold]Hand[/gold].",
     "THETAILOR-LIVING_NEEDLE.flavor": "A land exists where these are the bees, and their flowers are fabric. Trust me, boy- I dreamt it!!\n- Guildmaster Kress",
     "THETAILOR-PATIENT_PATCH.title": "Patient Patch",
-    "THETAILOR-PATIENT_PATCH.description": "[gold]Patches[/gold] gain [gold]Retain[/gold]. The first [blue]{Cards}[/blue] times you [gold]Exhaust[/gold] a card each combat, add a [gold]Patch[/gold] to your [gold]Hand[/gold].",
+    "THETAILOR-PATIENT_PATCH.description": "[gold]Patches[/gold] gain [gold]Retain[/gold]. The first [blue]{Cards}[/blue] times you [gold]Exhaust[/gold] a card each combat, add a [gold]Patch[/gold] into your [gold]Hand[/gold].",
     "THETAILOR-PATIENT_PATCH.flavor": "Never saw you sit down for a break, boy. Not once!! Where the hell'd you get that energy from?\n- Guildmaster Kress",
     "THETAILOR-LIFE_ESSENCE.title": "Life Essence",
     "THETAILOR-LIFE_ESSENCE.description": "Whenever a Minion is created, trigger its ability.",

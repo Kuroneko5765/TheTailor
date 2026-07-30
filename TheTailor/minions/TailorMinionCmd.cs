@@ -1,19 +1,28 @@
 using BaseLib;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Extensions;
+using MegaCrit.Sts2.Core.GameActions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Monsters;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Nodes.Combat;
+using MegaCrit.Sts2.Core.Nodes.Screens.CardSelection;
+using MegaCrit.Sts2.Core.Runs;
+using MegaCrit.Sts2.Core.Saves;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using MinionLib.Utilities;
 using TheTailor.Cards.Token;
+using TheTailor.Extensions;
+using TheTailor.Nodes;
 using TheTailor.Powers;
 
 namespace TheTailor.Minions
@@ -79,11 +88,11 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Adds a minion. If too many exist, prompts the player to select one for replacing. Returns true if the minion was added
         /// </summary>
-        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0) where T : MinionModel
+        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0) where T : TailorMinion
         {
             if (!CanMinionBeAdded(owner))
             {
-                int replaceIndex = await SelectionPromptFromCurrentMinions(playerChoiceContext, owner, canSkip);
+                int replaceIndex = await SelectionPromptFromCurrentMinions<T>(playerChoiceContext, owner, canSkip);
 
                 if (replaceIndex < 0)
                 {
@@ -163,7 +172,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Allows the player to select from cards representing their minions, and returns the index of the minion's index in accessor.Pets
         /// </summary>
-        public static async Task<int> SelectionPromptFromCurrentMinions(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip)
+        public static async Task<int> SelectionPromptFromCurrentMinions<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, TailorMinion? minionToAdd = null) where T : TailorMinion
         {
             List<CardModel> choices = new();
 
@@ -223,7 +232,7 @@ namespace TheTailor.Minions
             }
             
             choices.Reverse();
-            CardModel cardModel = await CardSelectCmd.FromChooseACardScreen(playerChoiceContext, choices, owner, canSkip);
+            CardModel cardModel = await CustomMinionChooseACardScreen<T>(playerChoiceContext, choices, owner, canSkip);
             
             if (cardModel == null)
             {
@@ -375,6 +384,105 @@ namespace TheTailor.Minions
                     PetOrderSnapshotManager.TakeSnapshot(player);
                 }
             }
+        }
+
+        public static async Task<CardModel?> CustomMinionChooseACardScreen<T>(PlayerChoiceContext context, IReadOnlyList<CardModel> cards, Player player, bool canSkip = false) where T : TailorMinion
+        {
+            if (cards.Count > 3)
+            {
+                throw new ArgumentException("Only works with less than 3 cards", "cards");
+            }
+            if (cards.Count == 0)
+            {
+                CardSelectCmd.ReportSoftlock();
+                return null;
+            }
+            CardModel result;
+            if (CardSelectCmd.Selector != null)
+            {
+                result = (await CardSelectCmd.Selector.GetSelectedCards(cards, 0, 1)).FirstOrDefault();
+            }
+            else
+            {
+                uint choiceId = RunManager.Instance.PlayerChoiceSynchronizer.ReserveChoiceId(player);
+                await context.SignalPlayerChoiceBegun(player, PlayerChoiceOptions.None);
+                if (CardSelectCmd.ShouldSelectLocalCard(player))
+                {
+                    if (CardSelectCmd.LocalSelector != null)
+                    {
+                        result = (await CardSelectCmd.LocalSelector.GetSelectedCards(cards, 0, 1)).FirstOrDefault();
+                    }
+                    else
+                    {
+                        NPlayerHand.Instance?.CancelAllCardPlay();
+                        NChooseACardSelectionScreen nChooseACardSelectionScreen = ShowScreenWithMinionName<T>(cards, canSkip);
+                        if (LocalContext.IsMe(player))
+                        {
+                            foreach (CardModel card in cards)
+                            {
+                                SaveManager.Instance.MarkCardAsSeen(card);
+                            }
+                        }
+                        result = (await nChooseACardSelectionScreen.CardsSelected()).FirstOrDefault();
+                        int value = cards.IndexOf(result);
+                        PlayerChoiceResult result2 = PlayerChoiceResult.FromIndex(value);
+                        RunManager.Instance.PlayerChoiceSynchronizer.SyncLocalChoice(player, choiceId, result2);
+                    }
+                }
+                else
+                {
+                    int num = (await RunManager.Instance.PlayerChoiceSynchronizer.WaitForRemoteChoice(player, choiceId)).AsIndex();
+                    result = ((num < 0) ? null : cards[num]);
+                }
+                await context.SignalPlayerChoiceEnded();
+            }
+            CardSelectCmd.LogChoice(player, [result]);
+            return result;
+        }
+
+        public static NChooseACardSelectionScreen? ShowScreenWithMinionName<T>(IReadOnlyList<CardModel> cards, bool canSkip) where T : TailorMinion
+        {
+            NChooseACardSelectionScreen? nChooseACardSelectionScreen = NChooseACardSelectionScreen.ShowScreen(cards, canSkip);
+            if (nChooseACardSelectionScreen != null)
+            {
+                nChooseACardSelectionScreen._banner.label.SetTextAutoSize(String.Format(CardSelectorPrefsExtensions.ReplaceMinionSelectionPrompt.GetRawText(), GetMinionNameFromType<T>()));
+                // nChooseACardSelectionScreen._banner.label.Size = new Godot.Vector2(nChooseACardSelectionScreen._banner.label.Size.X * 1.4f, nChooseACardSelectionScreen._banner.label.Size.Y * 1.4f);
+            }
+
+            return nChooseACardSelectionScreen;
+        }
+
+        public static string GetMinionNameFromType<T>() where T : TailorMinion
+        {
+            string ret = "";
+            
+
+            if (typeof(T) == typeof(MinionLeather))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_LEATHER.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionLinen))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_LINEN.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionDenim))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_DENIM.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionWool))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_WOOL.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionSilk))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_SILK.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionCotton))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_COTTON.name").GetRawText();
+            }
+
+            return ret;
         }
     }
 }

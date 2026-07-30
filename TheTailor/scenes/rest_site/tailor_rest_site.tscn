@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcgrpnaui0sig"]
+
+[ext_resource type="Script" uid="uid://dvm7u5ba6hwb6" path="res://TheTailor/nodes/TailorNRestSiteCharacter.cs" id="1_05xb3"]
+[ext_resource type="Script" uid="uid://btyiq8f4wpo7j" path="res://TheTailor/nodes/TailorNSelectionReticle.cs" id="1_k8h63"]
+[ext_resource type="Texture2D" uid="uid://bex2j8f5inqry" path="res://TheTailor/images/character/restsite_tailor.png" id="2_qbejy"]
+
+[node name="TailorRestSite" type="Node2D"]
+position = Vector2(0, 43)
+scale = Vector2(0.36, 0.36)
+script = ExtResource("1_05xb3")
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpineSprite"]
+position = Vector2(123.61108, 67.53096)
+scale = Vector2(3.105781, 3.0479016)
+texture = ExtResource("2_qbejy")
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="SelectionReticle" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -304.61542
+offset_top = -436.92313
+offset_right = 492.30774
+offset_bottom = 604.6155
+mouse_filter = 2
+script = ExtResource("1_k8h63")
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -304.61542
+offset_top = -436.92313
+offset_right = 492.30774
+offset_bottom = 604.6155
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 432.30774
+offset_top = -409.23077
+offset_right = 432.30774
+offset_bottom = -409.23077
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -246.15385
+offset_top = -409.23077
+offset_right = -246.15385
+offset_bottom = -409.23077

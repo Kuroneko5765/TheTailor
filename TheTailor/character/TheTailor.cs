@@ -26,7 +26,8 @@ namespace TheTailor.Character
         public override int StartingHp => 60;
 
         public override string CustomVisualPath => "res://TheTailor/scenes/char/tailor.tscn";
-        // public override string CustomMerchantAnimPath => "res://TheTailor/scenes/char/tailor.tscn";
+        public override string CustomRestSiteAnimPath => "res://TheTailor/scenes/rest_site/tailor_rest_site.tscn";
+        public override string CustomMerchantAnimPath => "res://TheTailor/scenes/merchant/tailor_merchant.tscn";
 
         public override IEnumerable<CardModel> StartingDeck =>
         [

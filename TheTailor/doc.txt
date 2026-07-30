@@ -1,5 +1,4 @@
 -- TODO --
-- Minion selection prompt should say "Replace a minion"
 - Epochs/unlocks?
 - Stock attack vfx
 
@@ -36,7 +35,7 @@ RARE
 - Living Needle
     > At the start of combat, Stitch two cards in your hand.
 - Patient Patch
-    > Patches gain Retain. The first 3 times you Exhaust a card each combat, add a Patch to your hand.
+    > Patches gain Retain. The first 2 times you Exhaust a card each combat, add a Patch into your hand.
 - Life Essence
     > Whenever a Minion is created, trigger their ability.
 
