@@ -23,6 +23,7 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using MinionLib.Utilities;
 
 namespace TheTailor.Cards.Rare
 {
@@ -36,9 +37,16 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < 2; i++)
+            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
+            if (accessor != null && accessor.Pets != null)
             {
-                await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
+                for (int i = 0; i < accessor.Pets.Count; i++)
+                {
+                    if (accessor.Pets[i].Monster is MinionDenim)
+                    {
+                        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+                    }
+                }
             }
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)

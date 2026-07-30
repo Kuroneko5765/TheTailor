@@ -35,7 +35,10 @@ namespace TheTailor.Powers
             }
 
             Flash();
-            await TailorMinionCmd.TriggerMinionAbility(choiceContext, player, TailorMinionCmd.MinionTriggerType.First);
+            for (int i = 0; i < Amount; i++)
+            {
+                await TailorMinionCmd.TriggerMinionAbility(choiceContext, player, TailorMinionCmd.MinionTriggerType.First);
+            }
         }
     }
 }

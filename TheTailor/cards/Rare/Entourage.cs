@@ -37,7 +37,7 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/entourageBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/entourageBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/entourageBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
 
@@ -52,7 +52,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Triggers"].UpgradeValueBy(1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

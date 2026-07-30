@@ -45,7 +45,7 @@ namespace TheTailor.Cards.Uncommon
             {
                 for (int i = 0; i < accessor.Pets.Count; i++)
                 {
-                    if (accessor.Pets[0].Monster is TailorMinion)
+                    if (accessor.Pets[i].Monster is TailorMinion)
                     {
                         for (int j = 0; j < DynamicVars["Triggers"].BaseValue; j++)
                         {

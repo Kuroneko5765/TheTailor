@@ -27,22 +27,23 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Motivation() : CustomCardModel(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public class Motivation() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<MotivationPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, false);
+            await PowerCmd.Apply<MotivationPower>(choiceContext, Owner.Creature, DynamicVars["Triggers"].IntValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars["Triggers"].UpgradeValueBy(1);
         }
     }
 }
