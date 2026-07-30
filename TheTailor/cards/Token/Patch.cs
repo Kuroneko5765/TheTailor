@@ -38,7 +38,7 @@ namespace TheTailor.Cards.Token
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
@@ -51,7 +51,8 @@ namespace TheTailor.Cards.Token
 
         protected override void OnUpgrade()
         {
-            base.DynamicVars.Cards.UpgradeValueBy(1m);
+            DynamicVars.Damage.UpgradeValueBy(2m);
+            DynamicVars.Block.UpgradeValueBy(2m);
         }
 
         public static async Task<CardModel?> CreateInHand(Player owner, ICombatState combatState)

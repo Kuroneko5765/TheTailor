@@ -68,16 +68,6 @@ namespace TheTailor.Cards.Common
             }
         }
 
-        /*
-        public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            if (cardPlay.Card == this)
-            {
-                await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            }
-        }
-        */
-
         protected override void OnUpgrade()
         {
             DynamicVars.Damage.UpgradeValueBy(2);

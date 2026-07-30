@@ -23,28 +23,29 @@ using TheTailor.Minions;
 using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class RapidAssembly() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class DressUp() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/rapidAssemblyBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4m, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/dressUpBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/dressUpBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/dressUpBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("TempDex", 2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
+            await PowerCmd.Apply<SilkDexterityPower>(choiceContext, Owner.Creature, DynamicVars["TempDex"].IntValue, Owner.Creature, this);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
+        }
 
-            if (IsUpgraded)
-            {
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            }
+        protected override void OnUpgrade()
+        {
+            DynamicVars["TempDex"].UpgradeValueBy(2);
         }
     }
 }

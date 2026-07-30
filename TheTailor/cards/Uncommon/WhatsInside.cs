@@ -29,7 +29,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class WhatsInside() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class WhatsInside() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
@@ -47,10 +47,13 @@ namespace TheTailor.Cards.Uncommon
                 {
                     if (accessor.Pets[i].Monster is TailorMinion)
                     {
-                        for (int j = 0; j < DynamicVars["Triggers"].BaseValue; j++)
-                        {
-                            await TailorMinionCmd.TriggerMinionAbility(choiceContext, cardPlay.Card.Owner, TailorMinionCmd.MinionTriggerType.First);
-                        }
+                        await DamageCmd.Attack(accessor.Pets[i].MaxHp)
+                            .FromCard(this, cardPlay)
+                            .TargetingAllOpponents(CombatState)
+                            .WithHitCount(DynamicVars["Triggers"].IntValue)
+                            .WithHitFx("vfx/vfx_attack_slash")
+                            .Execute(choiceContext);
+
                         await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0, false, true);
                         break;
                     }

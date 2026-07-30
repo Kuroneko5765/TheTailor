@@ -59,8 +59,7 @@ namespace TheTailor.Cards
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            // StitchCardModifier? cardStitch = cardPlay.Card.GetModifier<StitchCardModifier>();
-            if (!cardPlay.IsAutoPlay && cardPlay.Card == Owner && Owner != null && StitchedCard != null)
+            if (!StitchTrackAutoplaySingleton.BlockedFromAutoplay.Contains(cardPlay.Card) && cardPlay.Card == Owner && Owner != null && StitchedCard != null)
             {
                 Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
                 if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)
@@ -68,30 +67,9 @@ namespace TheTailor.Cards
                     target = cardPlay.Target;
                 }
 
-                await CardCmd.AutoPlay(choiceContext, StitchedCard, target, AutoPlayType.Default);
+                await CardCmd.AutoPlay(choiceContext, StitchedCard, target, StitchedAutoPlayType.Stitched);
             }
         }
-
-        /*
-        public override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            if (!cardPlay.IsAutoPlay && StitchedCard != null && StitchedCard.Pile != null)
-            {
-                Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
-                if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)
-                {
-                    target = cardPlay.Target;
-                }
-
-                await CardCmd.AutoPlay(choiceContext, StitchedCard, target, AutoPlayType.Default);
-
-                if (StitchedCard != null && StitchedCard.Pile != null && Owner != null && (Owner.Type == CardType.Power || Owner.Keywords.Contains(CardKeyword.Exhaust)))
-                {
-                    await StitchCmd.UnstitchCard(StitchedCard);
-                }
-            }
-        }
-        */
 
         private Creature? GetTarget(CardModel card, ICombatState combatState)
         {

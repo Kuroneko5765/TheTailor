@@ -30,22 +30,22 @@ namespace TheTailor.Cards.Uncommon
     public class Comfort() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
+        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Energy.UpgradeValueBy(1);
+            DynamicVars.Block.UpgradeValueBy(3);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class TryOn() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
+        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/tryOnBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/tryOnBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/tryOnBeta.png";
@@ -46,13 +47,16 @@ namespace TheTailor.Cards.Common
             {
                 if (num <= 0) { break; }
                 await CardPileCmd.Add(item, PileType.Hand.GetPile(Owner), CardPilePosition.Bottom);
+                if (item.IsUpgradable)
+                {
+                    CardCmd.Upgrade(item);
+                }
                 num--;
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(1);
             DynamicVars.Cards.UpgradeValueBy(1);
         }
     }

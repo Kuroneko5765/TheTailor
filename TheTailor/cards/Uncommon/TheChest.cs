@@ -33,7 +33,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/theChestBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Upgrades", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.SilkMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
@@ -41,24 +41,18 @@ namespace TheTailor.Cards.Uncommon
         {
             if (card == this && card.Owner == Owner)
             {
-                for (int i = 0; i < 2; i++)
-                {
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
-                }
+                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
 
-                for (int i = 0; i < DynamicVars["Upgrades"].IntValue; i++)
+                foreach (CardModel item in PileType.Hand.GetPile(Owner).Cards.Where((CardModel c) => c.IsUpgradable))
                 {
-                    foreach (CardModel item in PileType.Hand.GetPile(Owner).Cards.Where((CardModel c) => c.IsUpgradable))
-                    {
-                        CardCmd.Upgrade(item);
-                    }
+                    CardCmd.Upgrade(item);
                 }
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Upgrades"].UpgradeValueBy(1);
+            DynamicVars.Energy.UpgradeValueBy(1);
         }
     }
 }

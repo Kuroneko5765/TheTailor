@@ -44,7 +44,7 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new HealVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -55,7 +55,12 @@ namespace TheTailor.Cards.Rare
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue, TailorMinionCmd.MinionTriggerType.First);
+            CardPile pile = PileType.Hand.GetPile(Owner);
+            CardModel cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.MaxUpgradeLevel > cm.CurrentUpgradeLevel && cm.Type != CardType.Status && cm.Type != CardType.Curse));
+            if (cardModel != null)
+            {
+                CardCmd.Upgrade(cardModel);
+            }
         }
 
         public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -72,8 +77,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Heal.UpgradeValueBy(1);
-            DynamicVars.Damage.UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(3);
         }
     }
 }

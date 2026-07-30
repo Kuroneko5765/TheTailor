@@ -32,9 +32,8 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/inspirationBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Sharp", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2), new DynamicVar("Sharp", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>(), HoverTipFactory.FromEnchantment<Sharp>(DynamicVars["Sharp"].IntValue).First()];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

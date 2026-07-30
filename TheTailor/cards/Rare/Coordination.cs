@@ -28,11 +28,11 @@ using MinionLib.Utilities;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class TagTeam() : CustomCardModel(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class Coordination() : CustomCardModel(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/tagTeamBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/tagTeamBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/tagTeamBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new DynamicVar("Hits", 3)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
