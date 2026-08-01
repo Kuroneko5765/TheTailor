@@ -37,7 +37,7 @@
     "THETAILOR-STEADY_HAND_POWER.smartDescription": "[gold]Delicate[/gold] cards may be played {Amount} additional {Amount:plural:time|times} before [gold]Exhausting[/gold].",
     "THETAILOR-LOOM_POWER.title": "Loom",
     "THETAILOR-LOOM_POWER.description": "[gold]Vulnerable[/gold] enemies take additional damage for each Linen Minion you have.",
-    "THETAILOR-LOOM_POWER.smartDescription": "[gold]Vulnerable[/gold] enemies take an additional {VulnBonus:diff()}% damage for each Linen Minion you have",
+    "THETAILOR-LOOM_POWER.smartDescription": "[gold]Vulnerable[/gold] enemies take an additional {Amount}% damage for each Linen Minion you have.",
     "THETAILOR-THRIFTING_POWER.title": "Thrifting",
     "THETAILOR-THRIFTING_POWER.description": "The first cards you [gold]Exhaust[/gold] each turn, Draw 1 card.",
     "THETAILOR-THRIFTING_POWER.smartDescription": "The first {Amount:plural:|{Amount} }{Amount:plural:card|cards} you [gold]Exhaust[/gold] each turn, Draw 1 card.",

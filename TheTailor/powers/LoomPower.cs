@@ -16,6 +16,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Entities.Players;
 using TheTailor.Minions;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Cards;
 
 namespace TheTailor.Powers
 {
@@ -30,12 +31,42 @@ namespace TheTailor.Powers
 
         public decimal ModifyVulnerableMultiplier(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (dealer == null || target.Side != CombatSide.Enemy || !props.IsPoweredAttack())
+            if (target == Owner || !Owner.IsPlayer)
             {
                 return amount;
             }
+            if (!props.IsPoweredAttack())
+            {
+                return amount;
+            }
+            return amount + ((decimal)base.Amount / 100m) * (decimal)TailorMinionCmd.GetMinionCount<MinionLinen>(Owner.Player);
+        }
+    }
 
-            return amount + amount * (Amount / 100m) * TailorMinionCmd.GetMinionCount<MinionLinen>(Owner.Player);
+    [HarmonyPatch]
+    internal static class LoomVulnPatch
+    {
+        [HarmonyPatch(typeof(VulnerablePower), "ModifyDamageMultiplicative")]
+        internal static decimal Postfix(decimal __result, Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay, VulnerablePower __instance)
+        {
+            if (target != __instance.Owner)
+            {
+                return __result;
+            }
+            if (!props.IsPoweredAttack())
+            {
+                return __result;
+            }
+            if (dealer != null)
+            {
+                LoomPower? power = dealer.GetPower<LoomPower>();
+                if (power != null)
+                {
+                    __result = power.ModifyVulnerableMultiplier(target, __result, props, dealer, cardSource);
+                }
+            }
+
+            return __result;
         }
     }
 }
