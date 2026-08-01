@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://balxkupjxy3gk"
-path="res://.godot/imported/tagTeamBeta.png-2c7d5abba1711f4a919fa6c4a1f1079d.ctex"
+uid="uid://rb4yi6tkd4hn"
+path="res://.godot/imported/partingGiftSmall.png-6e1590f4c6502752acb8e8782f7d270d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheTailor/images/card_portraits/tagTeamBeta.png"
-dest_files=["res://.godot/imported/tagTeamBeta.png-2c7d5abba1711f4a919fa6c4a1f1079d.ctex"]
+source_file="res://TheTailor/images/powers/partingGiftSmall.png"
+dest_files=["res://.godot/imported/partingGiftSmall.png-6e1590f4c6502752acb8e8782f7d270d.ctex"]
 
 [params]
 

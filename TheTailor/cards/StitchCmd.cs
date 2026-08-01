@@ -52,8 +52,8 @@ namespace TheTailor.Cards
             StitchCardModifier? card2Stitch = card2.GetModifier<StitchCardModifier>();
             card1Stitch.StitchedCard = card2;
             card2Stitch.StitchedCard = card1;
-            if (card1 is IOnStitchEffect) { (card1 as IOnStitchEffect).OnStitch(); }
-            if (card2 is IOnStitchEffect) { (card2 as IOnStitchEffect).OnStitch(); }
+            if (card1 is IOnStitchEffect) { (card1 as IOnStitchEffect).OnStitch(card1, card2); }
+            if (card2 is IOnStitchEffect) { (card2 as IOnStitchEffect).OnStitch(card1, card2); }
             NCard.FindOnTable(card1)?.ReloadOverlay();
             NCard.FindOnTable(card2)?.ReloadOverlay();
         }
@@ -70,7 +70,7 @@ namespace TheTailor.Cards
             {
                 card1.RemoveKeyword(Keywords.Stitched);
                 CardModifier.RemoveModifier(card1, cardStitch1);
-                if (card1 is IOnStitchEffect) { (card1 as IOnStitchEffect).OnUnstitch(); }
+                if (card1 is IOnStitchEffect) { (card1 as IOnStitchEffect).OnUnstitch(card1); }
                 NCard.FindOnTable(card1)?.ReloadOverlay();
             }
         }
@@ -93,7 +93,7 @@ namespace TheTailor.Cards
                     {
                         card2.RemoveKeyword(Keywords.Stitched);
                         CardModifier.RemoveModifier(card2, cardStitch2);
-                        if (card2 is IOnStitchEffect) { (card2 as IOnStitchEffect).OnUnstitch(); }
+                        if (card2 is IOnStitchEffect) { (card2 as IOnStitchEffect).OnUnstitch(card2); }
                         NCard.FindOnTable(card2)?.ReloadOverlay();
                     }
                 }

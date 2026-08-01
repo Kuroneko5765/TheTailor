@@ -27,22 +27,23 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class SilkTouch() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public class HighFashion() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/silkTouchBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/silkTouchBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/silkTouchBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(6)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/highFashionBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/highFashionBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/highFashionBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Upgrades", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<SilkTouchPower>(choiceContext, Owner.Creature, DynamicVars.Cards.BaseValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<HighFashionPower>(choiceContext, Owner.Creature, DynamicVars["Upgrades"].BaseValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Cards.UpgradeValueBy(-1);
+            DynamicVars["Upgrades"].UpgradeValueBy(1);
         }
     }
 }

@@ -20,6 +20,7 @@ using TheTailor;
 using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Common
 {
@@ -30,26 +31,22 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new BlockVar(2m, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new BlockVar(1m, ValueProp.Move), new DynamicVar("Hits", 2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-                ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-                await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this, cardPlay)
-                    .Targeting(cardPlay.Target)
-                    .WithHitFx("vfx/vfx_attack_slash")
-                    .Execute(choiceContext);
-            }
+            await PowerCmd.Apply<PinprickPower>(choiceContext, cardPlay.Target, DynamicVars.Block.IntValue, Owner.Creature, this);
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .WithHitCount(DynamicVars["Hits"].IntValue)
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(1m);
-            DynamicVars.Block.UpgradeValueBy(1m);
+            DynamicVars["Hits"].UpgradeValueBy(1m);
         }
     }
 }

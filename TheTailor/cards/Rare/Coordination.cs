@@ -24,12 +24,14 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 using MinionLib.Utilities;
+using TheTailor.Cards.Token;
 
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Coordination() : CustomCardModel(2, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
+    public class Coordination() : CustomCardModel(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
     {
+        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
@@ -37,17 +39,7 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
-            if (accessor != null && accessor.Pets != null)
-            {
-                for (int i = 0; i < accessor.Pets.Count; i++)
-                {
-                    if (accessor.Pets[i].Monster is MinionDenim)
-                    {
-                        await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
-                    }
-                }
-            }
+            await TailorMinionCmd.TriggerMinionAbility<MinionDenim>(choiceContext, cardPlay.Player, TailorMinionCmd.MinionTriggerType.All);
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)

@@ -280,7 +280,7 @@ namespace TheTailor.Minions
             }
         }
 
-        public static async Task TriggerMinionAbility(PlayerChoiceContext choiceContext, Player player, MinionTriggerType minionTriggerType, TailorMinion? specificMinion = null)
+        public static async Task TriggerMinionAbility<T>(PlayerChoiceContext choiceContext, Player player, MinionTriggerType minionTriggerType, TailorMinion? specificMinion = null) where T : TailorMinion
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(player);
             if (accessor != null && accessor.Pets != null && accessor.Pets.Count > 0)
@@ -295,6 +295,11 @@ namespace TheTailor.Minions
                 foreach (Creature creature in minionList)
                 {
                     if (specificMinion != null && creature.Monster != specificMinion)
+                    {
+                        continue;
+                    }
+
+                    if (creature.Monster is not T)
                     {
                         continue;
                     }

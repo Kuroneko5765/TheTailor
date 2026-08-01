@@ -1,4 +1,5 @@
 {
     "TO_STITCH": "Choose {Amount:plural:a card|[blue]{}[/blue] cards} to [gold]Stitch[/gold].",
+    "TO_STITCH_CLONE": "Choose a card to clone and [gold]Stitch[/gold].",
     "TO_REPLACE_MINION": "Replace a Minion with {0}."
 }

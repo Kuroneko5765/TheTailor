@@ -27,6 +27,7 @@ using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using TheTailor;
 using TheTailor.Cards;
+using TheTailor.Cards.Rare;
 
 namespace TheTailor.Cards
 {
@@ -71,14 +72,14 @@ namespace TheTailor.Cards
             }
         }
 
-        private Creature? GetTarget(CardModel card, ICombatState combatState)
+        public static Creature? GetTarget(CardModel card, ICombatState combatState)
         {
-            Rng combatTargets = Owner.RunState.Rng.CombatTargets;
+            Rng combatTargets = card.Owner.RunState.Rng.CombatTargets;
             return card.TargetType switch
             {
                 TargetType.AnyEnemy => combatState.HittableEnemies.FirstOrDefault(),
-                TargetType.AnyAlly => combatTargets.NextItem(combatState.Allies.Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != Owner.Owner.Creature)),
-                TargetType.AnyPlayer => Owner.Owner.Creature,
+                TargetType.AnyAlly => combatTargets.NextItem(combatState.Allies.Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != card.Owner.Creature)),
+                TargetType.AnyPlayer => card.Owner.Creature,
                 _ => null,
             };
         }
@@ -91,10 +92,20 @@ namespace TheTailor.Cards
         internal static IEnumerable<IHoverTip> Postfix(IEnumerable<IHoverTip> __result, CardModel __instance)
         {
             StitchCardModifier? cardStitch = __instance.GetModifier<StitchCardModifier>();
-            if (cardStitch != null && cardStitch.StitchedCard != null)
+            if (cardStitch != null && cardStitch.StitchedCard != null && __instance.IsMutable)
             {
-                return [.. __result, .. new IHoverTip[1] { new CardHoverTip(cardStitch.StitchedCard) }];
+                __result = [.. __result, .. new IHoverTip[1] { new CardHoverTip(cardStitch.StitchedCard) }];
             }
+
+            if (__instance is Pincushion && __instance.IsMutable)
+            {
+                Pincushion pincushion = __instance as Pincushion;
+                foreach(CardModel card in pincushion.relatedCards)
+                {
+                    __result = [.. __result, .. new IHoverTip[1] { new CardHoverTip(card) }];
+                }
+            }
+
             return __result;
         }
     }

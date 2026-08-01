@@ -34,10 +34,7 @@ namespace TheTailor.Cards.Common
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (IsUpgraded)
-            {
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            }
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
             IEnumerable<CardModel> cards = await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
             foreach (CardModel cm in cards)
@@ -47,6 +44,11 @@ namespace TheTailor.Cards.Common
                     CardCmd.Upgrade(cm);
                 }
             }
+        }
+
+        protected override void OnUpgrade()
+        {
+            DynamicVars.Block.UpgradeValueBy(2m);
         }
     }
 }

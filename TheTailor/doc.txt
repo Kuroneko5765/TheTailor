@@ -194,8 +194,8 @@ UNCOMMON (COMPLETE)
     > Wall of Denim
         = Denim minions
         = High-cost
-    > Rapid Assembly
-        = Leather minions
+    > Dress Up
+        = Silk minions
     > Workbench
         = Upgrades
         = Retain

@@ -36,31 +36,17 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Token.Patch>(IsUpgraded)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 3), new CardsVar(1), new BlockVar(2, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            IEnumerable<CardModel> enumerable = PileType.Draw.GetPile(Owner).Cards.Where(cm => StitchCmd.CanBeStitched(cm) == true).TakeRandom(1, Owner.RunState.Rng.CombatCardSelection);
-            IEnumerable<CardModel> enumerable2 = PileType.Discard.GetPile(Owner).Cards.Where(cm => StitchCmd.CanBeStitched(cm) == true).TakeRandom(1, Owner.RunState.Rng.CombatCardSelection);
-
-            if (enumerable.Any() && enumerable2.Any())
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            IEnumerable<CardModel> cm = await Token.Patch.CreateInHand(Owner, 1, CombatState);
+            if (IsUpgraded)
             {
-                CardModel cm1 = enumerable.First();
-                CardModel cm2 = enumerable2.First();
-
-                await StitchCmd.StitchCards(cm1, cm2);
-
-                if (IsUpgraded)
-                {
-                    if (cm1.IsUpgradable) { CardCmd.Upgrade(cm1); }
-                    if (cm2.IsUpgradable) { CardCmd.Upgrade(cm2); }
-                }
-
-                IReadOnlyList<CardModel> list = enumerable.Concat(enumerable2).ToImmutableArray();
-
-                CardCmd.Preview(list, 0.75f);
-                await Cmd.Wait(0.75f);
+                CardCmd.Upgrade(cm.First());
             }
         }
     }

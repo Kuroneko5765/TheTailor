@@ -43,41 +43,41 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            CardPile pile = PileType.Hand.GetPile(Owner);
-            CardModel cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.MaxUpgradeLevel > cm.CurrentUpgradeLevel && cm.Type != CardType.Status && cm.Type != CardType.Curse));
-            if (cardModel != null)
+            for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
             {
-                CardCmd.Upgrade(cardModel);
-            }
-        }
-
-        public override async Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
-        {
-            if (cardPlay.Card.Owner == Owner && cardPlay.Card is Patch)
-            {
-                CardPile? pile = Pile;
-                if (pile != null && (pile.Type == PileType.Discard || pile.Type == PileType.Draw))
+                CardPile pile = PileType.Hand.GetPile(Owner);
+                CardModel? cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.MaxUpgradeLevel > cm.CurrentUpgradeLevel && cm.Type != CardType.Status && cm.Type != CardType.Curse));
+                if (cardModel != null)
                 {
-                    await CardPileCmd.Add(this, PileType.Hand);
+                    CardCmd.Upgrade(cardModel);
                 }
             }
+        }
+        
+        protected override CardLocation GetResultLocationForCardPlay()
+        {
+            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
+            if (resultLocationForCardPlay.pileType == PileType.Discard)
+            {
+                resultLocationForCardPlay.pileType = PileType.Draw;
+                resultLocationForCardPlay.position = CardPilePosition.Random;
+            }
+            return resultLocationForCardPlay;
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(3);
+            DynamicVars.Cards.UpgradeValueBy(1);
         }
     }
 }

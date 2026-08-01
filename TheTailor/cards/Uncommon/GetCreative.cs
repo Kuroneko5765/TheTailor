@@ -28,7 +28,7 @@ using HarmonyLib;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class GetCreative() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class GetCreative() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/getCreativeBeta.png";
@@ -40,28 +40,31 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            int random = Owner.RunState.Rng.CombatCardGeneration.NextInt(6);
-            
-            switch (random)
+            for (int i = 0; i < 2; i++)
             {
-                case 0:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
-                    break;
-                case 1:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
-                    break;
-                case 2:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true);
-                    break;
-                case 3:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
-                    break;
-                case 4:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionCotton>(choiceContext, Owner, true);
-                    break;
-                case 5:
-                    await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
-                    break;
+                int random = Owner.RunState.Rng.CombatCardGeneration.NextInt(6);
+
+                switch (random)
+                {
+                    case 0:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
+                        break;
+                    case 1:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
+                        break;
+                    case 2:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true);
+                        break;
+                    case 3:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
+                        break;
+                    case 4:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionCotton>(choiceContext, Owner, true);
+                        break;
+                    case 5:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
+                        break;
+                }
             }
         }
 

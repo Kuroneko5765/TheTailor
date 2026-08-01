@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using TheTailor.Minions;
 using MegaCrit.Sts2.Core.HoverTips;
 using TheTailor.Cards.Uncommon;
+using TheTailor.Cards.Common;
 
 namespace TheTailor.Powers
 {

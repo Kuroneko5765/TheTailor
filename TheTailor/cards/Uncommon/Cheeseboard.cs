@@ -26,17 +26,17 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Workbench() : CustomCardModel(-1, CardType.Skill, CardRarity.Uncommon, TargetType.None)
+    public class Cheeseboard() : CustomCardModel(-1, CardType.Skill, CardRarity.Uncommon, TargetType.None)
     {
         public override int MaxUpgradeLevel => 99999;
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(1, ValueProp.Unpowered)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/cheeseboardBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/cheeseboardBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/cheeseboardBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Vigor", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium), HoverTipFactory.FromPower<VigorPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Retain];
 
-        public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+        public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
         {
             if (side == CombatSide.Player)
             {
@@ -44,19 +44,7 @@ namespace TheTailor.Cards.Uncommon
                 {
                     if (creature == Owner.Creature && PileType.Hand.GetPile(Owner).Cards.Contains(this))
                     {
-                        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, null);
-
-                        if (CombatManager.Instance.IsEnding || CurrentUpgradeLevel <= 0 || IsCanonical)
-                        {
-                            return;
-                        }
-
-                        int newLevel = CurrentUpgradeLevel - 1;
-                        CardCmd.Downgrade(this);
-                        for (int n = 0; n < newLevel; ++n)
-                        {
-                            CardCmd.Upgrade(this);
-                        }
+                        await PowerCmd.Apply<VigorPower>(new ThrowingPlayerChoiceContext(), Owner.Creature, DynamicVars["Vigor"].IntValue, Owner.Creature, this);
                     }
                 }
             }
@@ -64,7 +52,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(1);
+            DynamicVars["Vigor"].UpgradeValueBy(1);
         }
     }
 }

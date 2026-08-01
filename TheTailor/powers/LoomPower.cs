@@ -15,6 +15,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Entities.Players;
 using TheTailor.Minions;
+using MegaCrit.Sts2.Core.Combat;
 
 namespace TheTailor.Powers
 {
@@ -25,20 +26,16 @@ namespace TheTailor.Powers
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/loom.png";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>(), HoverTipFactory.FromKeyword(Keywords.LinenMinion)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(Keywords.LinenMinion), HoverTipFactory.FromPower<VulnerablePower>()];
 
-        public override async Task AfterPlayerTurnStartLate(PlayerChoiceContext choiceContext, Player player)
+        public decimal ModifyVulnerableMultiplier(Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (Owner == player.Creature)
+            if (dealer == null || target.Side != CombatSide.Enemy || !props.IsPoweredAttack())
             {
-                int minions = TailorMinionCmd.GetMinionCount<MinionLinen>(player);
-                if (minions > 0)
-                {
-                    Flash();
-                    var targets = CombatState.HittableEnemies.ToList();
-                    await PowerCmd.Apply<WeakPower>(choiceContext, targets, minions * Amount, Owner, null);
-                }
+                return amount;
             }
+
+            return amount + amount * (Amount / 100m) * TailorMinionCmd.GetMinionCount<MinionLinen>(Owner.Player);
         }
     }
 }

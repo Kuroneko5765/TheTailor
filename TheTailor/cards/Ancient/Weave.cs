@@ -24,7 +24,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Ancient
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Weave() : CustomCardModel(2, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
+    public class Weave() : CustomCardModel(1, CardType.Attack, CardRarity.Ancient, TargetType.AnyEnemy)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/weaveBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/weaveBeta.png";
@@ -34,8 +34,7 @@ namespace TheTailor.Cards.Ancient
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-            await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_slash")
@@ -61,7 +60,6 @@ namespace TheTailor.Cards.Ancient
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(4);
             DynamicVars["Delicate"].UpgradeValueBy(1);
             RemoveKeyword(CardKeyword.Exhaust);
         }

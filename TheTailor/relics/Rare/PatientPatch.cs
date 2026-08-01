@@ -36,7 +36,7 @@ namespace TheTailor.Relics.Rare
         protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Patch>(), HoverTipFactory.FromKeyword(CardKeyword.Retain)];
 
-        private int _uses = 3;
+        private int _uses = 2;
         public int Uses
         {
             get
@@ -45,11 +45,8 @@ namespace TheTailor.Relics.Rare
             }
             private set
             {
-                if (_uses != value)
-                {
-                    AssertMutable();
-                    _uses = value;
-                }
+                AssertMutable();
+                _uses = value;
             }
         }
 
@@ -65,7 +62,7 @@ namespace TheTailor.Relics.Rare
 
         public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
         {
-            if (card.Owner == Owner)
+            if (CombatManager.Instance.IsInProgress && card.Owner == Owner && Uses > 0)
             {
                 Flash();
                 await Patch.CreateInHand(Owner, 1, card.CombatState);

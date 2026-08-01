@@ -35,15 +35,14 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/versatility.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatility.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Convert), HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
-        // public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (TailorMinionCmd.GetMinionCount<MinionLeather>(cardPlay.Card.Owner) <= 0)
+            for (int i = 0; i < 2; i++)
             {
-                await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, cardPlay.Card.Owner, true);
-                return;
+                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             }
 
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
@@ -53,10 +52,15 @@ namespace TheTailor.Cards.Common
                 {
                     if (accessor.Pets[i] != null && accessor.Pets[i].Monster is MinionLeather)
                     {
-                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i, IsUpgraded);
+                        await TailorMinionCmd.ReplaceMinion<MinionLinen>(choiceContext, cardPlay.Card.Owner, i);
                     }
                 }
             }
+        }
+
+        protected override void OnUpgrade()
+        {
+            DynamicVars.Block.UpgradeValueBy(1);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace TheTailor.Relics.Rare
             if (creature.Monster is TailorMinion && creature.Monster is not MinionLeather && creature.IsPet && creature.PetOwner == Owner)
             {
                 Flash();
-                await TailorMinionCmd.TriggerMinionAbility(new ThrowingPlayerChoiceContext(), Owner, TailorMinionCmd.MinionTriggerType.First, creature.Monster as TailorMinion);
+                await TailorMinionCmd.TriggerMinionAbility<TailorMinion>(new ThrowingPlayerChoiceContext(), Owner, TailorMinionCmd.MinionTriggerType.First, creature.Monster as TailorMinion);
             }
         }
     }
