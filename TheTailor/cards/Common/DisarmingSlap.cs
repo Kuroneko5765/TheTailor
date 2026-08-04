@@ -30,8 +30,8 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class DisarmingSlap() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/disarmingSlapBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/disarmingSlapBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/disarmingSlap.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/disarmingSlap.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/disarmingSlapBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new DynamicVar("StrengthDown", 6), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>(), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
@@ -51,6 +51,7 @@ namespace TheTailor.Cards.Common
         {
             DynamicVars["Delicate"].UpgradeValueBy(1);
             RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars["StrengthDown"].UpgradeValueBy(2m);
         }
     }
 }

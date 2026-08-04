@@ -41,8 +41,8 @@ namespace TheTailor.Cards.Common
     public class ReflexStrike() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
 
@@ -70,7 +70,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2);
+            DynamicVars.Damage.UpgradeValueBy(3);
         }
     }
 }

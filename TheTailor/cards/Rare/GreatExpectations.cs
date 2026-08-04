@@ -29,7 +29,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class GreatExpectations() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public class GreatExpectations() : CustomCardModel(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/greatExpectationsBeta.png";

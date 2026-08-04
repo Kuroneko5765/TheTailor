@@ -53,7 +53,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(4);
+            DynamicVars.Damage.UpgradeValueBy(6);
         }
     }
 }

@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class SteadyHand() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public class SteadyHand() : CustomCardModel(0, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/steadyHandBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/steadyHandBeta.png";

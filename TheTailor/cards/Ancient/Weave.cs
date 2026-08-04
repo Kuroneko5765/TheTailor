@@ -62,6 +62,7 @@ namespace TheTailor.Cards.Ancient
         {
             DynamicVars["Delicate"].UpgradeValueBy(1);
             RemoveKeyword(CardKeyword.Exhaust);
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

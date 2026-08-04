@@ -48,7 +48,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new DynamicVar("Slaps", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Slaps", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

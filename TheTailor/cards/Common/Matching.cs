@@ -27,14 +27,15 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class Matching() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
+        public override int MaxUpgradeLevel => 99999;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/matching.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/matching.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/matchingBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
@@ -50,7 +51,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(4m);
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

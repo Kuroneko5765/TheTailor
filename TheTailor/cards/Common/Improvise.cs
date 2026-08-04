@@ -36,18 +36,18 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Token.Patch>(IsUpgraded)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => IsUpgraded ? [HoverTipFactory.FromCard<Token.Patch>()] : [];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 3), new CardsVar(1), new BlockVar(2, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            IEnumerable<CardModel> cm = await Token.Patch.CreateInHand(Owner, 1, CombatState);
             if (IsUpgraded)
             {
-                CardCmd.Upgrade(cm.First());
+                IEnumerable<CardModel> cm = await Token.Patch.CreateInHand(Owner, 1, CombatState);
             }
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
         }
     }
 }

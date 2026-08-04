@@ -17,6 +17,9 @@ using MinionLib.Powers;
 using TheTailor.Powers;
 using BaseLib.Extensions;
 using TheTailor.BaseLibAdapters;
+using HarmonyLib;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace TheTailor.Minions
 {
@@ -27,5 +30,35 @@ namespace TheTailor.Minions
         public override string DeathSfx => "res://TheTailor/audio/clothRip1.ogg";
         public override bool HasDeathSfx => true;
         public override float DeathAnimLengthOverride => 0.8f;
+    }
+
+    [HarmonyPatch]
+    internal static class MinionBufferPatch
+    {
+        [HarmonyPatch(typeof(BufferPower), "ModifyHpLostAfterOstyLate")]
+        internal static decimal Postfix(decimal __result, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, BufferPower __instance)
+        {
+            if (__instance.Owner.Pets.Contains(target) && target.Monster is TailorMinion)
+            {
+                return 0m;
+            }
+
+            return __result;
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class MinionIntangiblePatch
+    {
+        [HarmonyPatch(typeof(IntangiblePower), "ModifyHpLostAfterOsty")]
+        internal static decimal Postfix(decimal __result, Creature target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, BufferPower __instance)
+        {
+            if (__instance.Owner.Pets.Contains(target) && target.Monster is TailorMinion)
+            {
+                return 1m;
+            }
+
+            return __result;
+        }
     }
 }

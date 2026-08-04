@@ -55,6 +55,7 @@ namespace TheTailor.Cards.Starter
         {
             RemoveKeyword(CardKeyword.Exhaust);
             DynamicVars["Delicate"].BaseValue = 2;
+            DynamicVars.Damage.UpgradeValueBy(3m);
         }
     }
 }

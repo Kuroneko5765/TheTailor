@@ -43,7 +43,7 @@ namespace TheTailor.Cards.Starter
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Retain);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

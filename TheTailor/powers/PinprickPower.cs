@@ -38,6 +38,14 @@ namespace TheTailor.Powers
             }
         }
 
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        {
+            if (Owner == creature && Applier != null)
+            {
+                await CreatureCmd.GainBlock(Applier, new BlockVar(Amount, ValueProp.Unpowered), null);
+            }
+        }
+
         public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
         {
             if (participants.Contains(Owner))

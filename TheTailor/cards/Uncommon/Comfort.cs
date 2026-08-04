@@ -34,7 +34,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/comfortBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
