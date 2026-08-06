@@ -57,6 +57,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
+            DynamicVars.Block.UpgradeValueBy(1);
             DynamicVars.Cards.UpgradeValueBy(1);
         }
     }

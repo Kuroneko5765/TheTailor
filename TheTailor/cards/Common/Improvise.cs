@@ -41,7 +41,7 @@ namespace TheTailor.Cards.Common
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            // await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
             if (IsUpgraded)
             {
