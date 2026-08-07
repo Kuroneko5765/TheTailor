@@ -54,7 +54,7 @@ namespace TheTailor.Cards.Uncommon
                             .WithHitFx("vfx/vfx_attack_slash")
                             .Execute(choiceContext);
 
-                        await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, 0, false, true);
+                        await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, i, false, true);
                         break;
                     }
                 }

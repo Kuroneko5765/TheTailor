@@ -45,7 +45,7 @@ namespace TheTailor.Cards.Common
             if (player == Owner && CombatManager.Instance.History.CardPlaysFinished.Any((CardPlayFinishedEntry e) => e.HappenedLastPlayerTurn(Owner) && e.CardPlay.Card == this))
             {
                 CardPile? pile = Pile;
-                if (pile == null || pile.Type != PileType.Hand)
+                if (pile != null && pile.Type != PileType.Hand && pile.Type != PileType.Exhaust)
                 {
                     await CardPileCmd.Add(this, PileType.Hand);
                 }
