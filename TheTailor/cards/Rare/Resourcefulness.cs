@@ -41,18 +41,11 @@ namespace TheTailor.Cards.Rare
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
             await PowerCmd.Apply<ResourcefulnessPower>(choiceContext, Owner.Creature, DynamicVars.Heal.IntValue, Owner.Creature, this, false);
+        }
 
-            if (IsUpgraded)
-            {
-                IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 2), context: choiceContext, player: base.Owner, filter: null, source: this);
-                if (cardModels != null && cardModels.Count() > 0)
-                {
-                    foreach (CardModel cardModel in cardModels)
-                    {
-                        await CardCmd.Exhaust(choiceContext, cardModel);
-                    }
-                }
-            }
+        protected override void OnUpgrade()
+        {
+            DynamicVars.Heal.UpgradeValueBy(1);
         }
     }
 }

@@ -36,14 +36,11 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/versatility.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/versatilityBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < 2; i++)
-            {
-                await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            }
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
             if (accessor != null && accessor.Pets != null)
@@ -60,7 +57,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(1);
+            DynamicVars.Block.UpgradeValueBy(2);
         }
     }
 }

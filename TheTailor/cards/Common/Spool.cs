@@ -21,10 +21,10 @@ using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
 
-namespace TheTailor.Cards.Uncommon
+namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Spool() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class Spool() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/spoolBeta.png";

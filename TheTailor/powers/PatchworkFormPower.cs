@@ -36,10 +36,18 @@ namespace TheTailor.Powers
                 Flash();
                 foreach (CardModel card in await Cards.Token.Patch.CreateInHand(player, Amount, CombatState))
                 {
-                    IEnumerable<CardModel> cardModel = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(TheTailor.Extensions.CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: Owner.Player, filter: StitchCmd.CanBeStitched, pile: PileType.Discard.GetPile(Owner.Player));
+                    card.AddModifier<StitchBlockModifier>();
+
+                    IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(TheTailor.Extensions.CardSelectorPrefsExtensions.StitchPatchSelectionPrompt, 1), context: choiceContext, player: Owner.Player, filter: StitchCmd.CanBeStitchedExcluding, source: this);
                     if (cardModel != null && cardModel.Count() == 1)
                     {
                         await StitchCmd.StitchCards(card, cardModel.ElementAt(0));
+                    }
+
+                    StitchBlockModifier? stitchBlockModifier = card.GetModifier<StitchBlockModifier>();
+                    if (stitchBlockModifier != null)
+                    {
+                        CardModifier.RemoveModifier(card, stitchBlockModifier);
                     }
                 }
             }

@@ -19,11 +19,11 @@ using MinionLib.Utilities;
 
 namespace TheTailor.Powers
 {
-    public sealed class MotivationPower : CustomPowerModel
+    public sealed class MendingPower : CustomPowerModel
     {
-        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/motivationSmall.png";
-        public override string? CustomBigIconPath => "res://TheTailor/images/powers/motivation.png";
-        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/motivation.png";
+        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/mendingSmall.png";
+        public override string? CustomBigIconPath => "res://TheTailor/images/powers/mending.png";
+        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/mending.png";
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
@@ -35,10 +35,7 @@ namespace TheTailor.Powers
             }
 
             Flash();
-            for (int i = 0; i < Amount; i++)
-            {
-                await TailorMinionCmd.TriggerMinionAbility<TailorMinion>(choiceContext, player, TailorMinionCmd.MinionTriggerType.First);
-            }
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, Owner.Player, Amount, TailorMinionCmd.MinionTriggerType.First);
         }
     }
 }

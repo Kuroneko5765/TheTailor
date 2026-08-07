@@ -60,7 +60,7 @@ namespace TheTailor.Cards
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (!StitchTrackAutoplaySingleton.BlockedFromAutoplay.Contains(cardPlay.Card) && cardPlay.Card == Owner && Owner != null && StitchedCard != null)
+            if (!StitchTrackAutoplaySingleton.BlockedFromAutoplay.Contains(cardPlay.Card) && cardPlay.Card == Owner && Owner != null && StitchedCard != null && cardPlay.PlayIndex == 0)
             {
                 Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
                 if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)

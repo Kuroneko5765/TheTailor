@@ -20,30 +20,32 @@ using TheTailor;
 using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Minions;
-using TheTailor.Powers;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MinionLib.Commands;
+using MinionLib.Minion;
 using TheTailor.Character;
+using MinionLib.Utilities;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Motivation() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public class Mending() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/motivationBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<MotivationPower>(choiceContext, Owner.Creature, DynamicVars["Triggers"].IntValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<MendingPower>(choiceContext, Owner.Creature, DynamicVars.Heal.BaseValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Triggers"].UpgradeValueBy(1);
+            DynamicVars.Heal.UpgradeValueBy(1);
         }
     }
 }

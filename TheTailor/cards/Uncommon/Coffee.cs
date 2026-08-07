@@ -20,30 +20,29 @@ using TheTailor;
 using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Minions;
-using MinionLib.Commands;
-using MinionLib.Minion;
+using TheTailor.Powers;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using TheTailor.Character;
-using MinionLib.Utilities;
 
-namespace TheTailor.Cards.Common
+namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Mending() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class Coffee() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/mendingBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(7)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/coffeeBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/coffeeBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coffeeBeta.png";
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2), new EnergyVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue, TailorMinionCmd.MinionTriggerType.First);
+            await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+            DynamicVars.Energy.UpgradeValueBy(1);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Heal.UpgradeValueBy(3);
+            DynamicVars["Delicate"].UpgradeValueBy(1);
         }
     }
 }

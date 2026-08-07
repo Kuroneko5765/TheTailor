@@ -39,7 +39,7 @@ namespace TheTailor.Cards.Token
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)

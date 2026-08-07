@@ -18,6 +18,7 @@ using TheTailor.Minions;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Combat;
 using MinionLib.Utilities;
+using MegaCrit.Sts2.Core.CardSelection;
 
 namespace TheTailor.Powers
 {
@@ -36,6 +37,18 @@ namespace TheTailor.Powers
             {
                 Flash();
                 await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, Owner.Player, Amount, TailorMinionCmd.MinionTriggerType.Random);
+            }
+        }
+
+        public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+        {
+            if (player != Owner.Player)
+            {
+                return;
+            }
+            foreach (CardModel item in await CardSelectCmd.FromHand(choiceContext, player, new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1), null, this))
+            {
+                await CardCmd.Exhaust(choiceContext, item);
             }
         }
     }

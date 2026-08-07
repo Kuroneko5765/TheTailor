@@ -39,13 +39,13 @@ using BaseLib.Extensions;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Riposte() : CustomCardModel(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class Riposte() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move), new DynamicVar("Vigor", 6)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new DynamicVar("Vigor", 4)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VigorPower>()];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

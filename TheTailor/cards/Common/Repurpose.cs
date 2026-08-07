@@ -24,6 +24,8 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MinionLib.Utilities;
 
 namespace TheTailor.Cards.Common
 {
@@ -33,26 +35,44 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/repurposeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/repurposeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/repurposeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            CardModel? cardModel = (await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, 1), context: choiceContext, player: Owner, filter: null, source: this)).FirstOrDefault();
-            if (cardModel != null)
+            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            
+            int replaceIndex = -1;
+            PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
+            if (accessor.Pets != null)
             {
-                if (cardModel.Type == CardType.Skill || cardModel.Type == CardType.Power)
+                foreach (Creature creature in accessor.Pets)
                 {
-                    await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+                    if (creature.Monster is TailorMinion)
+                    {
+                        replaceIndex = accessor.Pets.IndexOf(creature);
+                        break;
+                    }
                 }
 
-                await CardCmd.Exhaust(choiceContext, cardModel);
+                if (replaceIndex == -1)
+                {
+                    return;
+                }
+
+                accessor.Pets[replaceIndex].RemoveAllPowersInternalExcept();
+                await CreatureCmd.Kill(accessor.Pets[replaceIndex], true);
+                _ = MinionAnimCmd.Rearrange(duration: 0.5f);
+                accessor.SetManualRearranged();
+                PetOrderSnapshotManager.TakeSnapshot(Owner);
+
+                await TailorMinionCmd.PutOstyAtBack(choiceContext, Owner);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Energy.UpgradeValueBy(1);
+            DynamicVars.Cards.UpgradeValueBy(1);
         }
     }
 }

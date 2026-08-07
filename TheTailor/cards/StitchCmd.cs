@@ -31,12 +31,13 @@ using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Runs.History;
 using MegaCrit.Sts2.Core.TestSupport;
 using TheTailor;
+using TheTailor.Cards.Token;
 
 namespace TheTailor.Cards
 {
     public static class StitchCmd
     {
-        public static List<CardType> UnstitchableTypes = new List<CardType> { CardType.Status, CardType.Curse, CardType.Quest, CardType.None };
+        public static List<CardType> UnstitchableTypes = new List<CardType> { CardType.Quest, CardType.None };
 
         public static async Task StitchCards(CardModel card1, CardModel card2)
         {
@@ -106,6 +107,17 @@ namespace TheTailor.Cards
             && !cardModel.Keywords.Contains(CardKeyword.Unplayable)
             && !UnstitchableTypes.Contains(cardModel.Type)
             && cardModel.IsMutable;
+
+            return ret;
+        }
+
+        public static bool CanBeStitchedExcluding(CardModel cardModel)
+        {
+            bool ret = cardModel.GetModifier<StitchCardModifier>() == null
+            && !cardModel.Keywords.Contains(CardKeyword.Unplayable)
+            && !UnstitchableTypes.Contains(cardModel.Type)
+            && cardModel.IsMutable
+            && cardModel.GetModifier<StitchBlockModifier>() == null;
 
             return ret;
         }

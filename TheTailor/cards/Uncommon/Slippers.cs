@@ -21,6 +21,7 @@ using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
 using BaseLib.Extensions;
+using TheTailor.Cards.Token;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -30,23 +31,35 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/slippersBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3), new EnergyVar(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitched)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            
-            StitchCardModifier? cardStitch = this.GetModifier<StitchCardModifier>();
-            if (cardStitch != null)
+
+            if (!StitchCmd.CanBeStitched(this))
             {
-                await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
+                return;
+            }
+
+            this.AddModifier<StitchBlockModifier>();
+
+            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(TheTailor.Extensions.CardSelectorPrefsExtensions.StitchSlipperSelectionPrompt, 1), context: choiceContext, player: Owner, filter: StitchCmd.CanBeStitchedExcluding, source: this);
+            if (cardModel != null && cardModel.Count() == 1)
+            {
+                await StitchCmd.StitchCards(this, cardModel.ElementAt(0));
+            }
+
+            StitchBlockModifier? stitchBlockModifier = this.GetModifier<StitchBlockModifier>();
+            if (stitchBlockModifier != null)
+            {
+                CardModifier.RemoveModifier(this, stitchBlockModifier);
             }
         }
-
         protected override void OnUpgrade()
         {
-            DynamicVars.Energy.UpgradeValueBy(1m);
+            DynamicVars.Cards.UpgradeValueBy(1);
         }
     }
 }

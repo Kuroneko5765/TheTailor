@@ -134,6 +134,7 @@ namespace TheTailor.Minions
                     if (creature.Monster is T)
                     {
                         replaceIndex = accessor.Pets.IndexOf(creature);
+                        break;
                     }
                 }
             }

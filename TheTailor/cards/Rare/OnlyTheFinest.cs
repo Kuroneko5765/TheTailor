@@ -21,6 +21,7 @@ using TheTailor.Extensions;
 using TheTailor.Cards;
 using TheTailor.Character;
 using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace TheTailor.Cards.Rare
 {
@@ -51,7 +52,25 @@ namespace TheTailor.Cards.Rare
         private IEnumerable<CardModel> GetCards()
         {
             CardPile pile = PileType.Hand.GetPile(Owner);
-            return pile.Cards.Where((CardModel c) => !c.IsUpgraded);
+            return pile.Cards.Where
+            (
+                (CardModel c) => 
+                {
+                    if (c is Wither)
+                    {
+                        Wither w = c as Wither;
+                        if (w.FakeUpgradeLevel <= 0)
+                        {
+                            return true;
+                        }
+                    }
+                    else if (!c.IsUpgraded)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            );
         }
     }
 }

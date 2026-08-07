@@ -35,7 +35,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
