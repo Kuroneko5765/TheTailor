@@ -70,6 +70,11 @@ namespace TheTailor.Character
         public override string CustomMapMarkerPath => "res://TheTailor/images/charui/map_marker_tailor.png";
         public override string CustomCharacterSelectTransitionPath => "res://TheTailor/materials/transitions/tailor_transition_mat.tres";
 
+        public override string CustomArmPointingTexturePath => "res://TheTailor/images/charui/multiplayer_hand_tailor_point.png";
+        public override string CustomArmRockTexturePath => "res://TheTailor/images/charui/multiplayer_hand_tailor_rock.png";
+        public override string CustomArmPaperTexturePath => "res://TheTailor/images/charui/multiplayer_hand_tailor_paper.png";
+        public override string CustomArmScissorsTexturePath => "res://TheTailor/images/charui/multiplayer_hand_tailor_scissors.png";
+
         public override string CustomCharacterSelectBg => "res://TheTailor/scenes/screens/char_select/char_select_bg_tailor.tscn";
         public override string CustomEnergyCounterPath => "res://TheTailor/scenes/combat/energy_counters/tailor_energy_counter.tscn";
     }

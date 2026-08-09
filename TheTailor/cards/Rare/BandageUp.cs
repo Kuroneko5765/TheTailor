@@ -38,6 +38,7 @@ namespace TheTailor.Cards.Rare
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
             await TailorMinionCmd.AddOrReplaceMinion<MinionCotton>(choiceContext, Owner, true);
         }

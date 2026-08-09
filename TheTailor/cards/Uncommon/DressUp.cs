@@ -39,6 +39,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PowerCmd.Apply<SilkDexterityPower>(choiceContext, Owner.Creature, DynamicVars["TempDex"].IntValue, Owner.Creature, this);
             await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(choiceContext, Owner, true);
         }

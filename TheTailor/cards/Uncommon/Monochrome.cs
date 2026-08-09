@@ -39,14 +39,15 @@ namespace TheTailor.Cards.Uncommon
     [Pool(typeof(TheTailorCardPool))]
     public class Monochrome() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/monochromeBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/monochromeBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/monochrome.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/monochrome.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/monochromeBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchCloneSelectionPrompt, 1), context: choiceContext, player: Owner, filter: StitchCmd.CanBeStitched, source: this);
             if (cardModels != null && cardModels.Count() >= 1)
             {

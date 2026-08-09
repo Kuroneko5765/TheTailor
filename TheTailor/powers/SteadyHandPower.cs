@@ -35,6 +35,10 @@ namespace TheTailor.Powers
                 IEnumerable<CardModel> enumerable = Owner.Player.PlayerCombatState.AllCards.Where((CardModel c) => c.DynamicVars.ContainsKey("Delicate"));
                 foreach (CardModel card in enumerable)
                 {
+                    if (card.DynamicVars["Delicate"].IntValue + Amount > 1 && card.Keywords.Contains(CardKeyword.Exhaust))
+                    {
+                        card.RemoveKeyword(CardKeyword.Exhaust);
+                    }
                     card.UpdateDynamicVarPreview(CardPreviewMode.Normal, card.Owner.Creature, card.DynamicVars);
                 }
             }
@@ -44,6 +48,10 @@ namespace TheTailor.Powers
         {
             if (card.Owner.HasPower<SteadyHandPower>() && card.DynamicVars.ContainsKey("Delicate"))
             {
+                if (card.DynamicVars["Delicate"].IntValue + Amount > 1 && card.Keywords.Contains(CardKeyword.Exhaust))
+                {
+                    card.RemoveKeyword(CardKeyword.Exhaust);
+                }
                 card.UpdateDynamicVarPreview(CardPreviewMode.Normal, card.Owner.Creature, card.DynamicVars);
             }
         }

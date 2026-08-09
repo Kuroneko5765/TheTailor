@@ -36,6 +36,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
             IEnumerable<CardModel> cardModel2 = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, pile: PileType.Discard.GetPile(Owner));
             if (cardModel != null && cardModel2 != null && cardModel.Count() == 1 && cardModel2.Count() == 1)

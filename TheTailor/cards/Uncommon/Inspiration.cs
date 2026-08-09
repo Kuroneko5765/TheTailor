@@ -37,6 +37,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PowerCmd.Apply<InspirationPower>(choiceContext, cardPlay.Card.Owner.Creature, DynamicVars["Sharp"].BaseValue, cardPlay.Card.Owner.Creature, cardPlay.Card);
 
             for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)

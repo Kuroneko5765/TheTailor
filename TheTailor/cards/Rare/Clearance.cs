@@ -43,6 +43,8 @@ namespace TheTailor.Cards.Rare
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
+            await StitchCmd.UnstitchCard(this);
+
             for (int i = 0; i < 2; i++)
             {
                 CardModel card = CreateClone();

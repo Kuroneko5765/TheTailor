@@ -1,3 +1,4 @@
+
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.CardSelection;
@@ -45,7 +46,7 @@ namespace TheTailor.Cards
                     cardPlay.Card.AddKeyword(CardKeyword.Exhaust);
                 }
 
-                if (cardPlay.Card.DynamicVars["Delicate"].BaseValue <= 0)
+                if (cardPlay.Card.DynamicVars["Delicate"].BaseValue + extraDelicacies <= 0)
                 {
                     await CardCmd.Exhaust(choiceContext, cardPlay.Card);
                 }

@@ -40,6 +40,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await PlayerCmd.GainEnergy(DynamicVars.Energy.IntValue, Owner);
             await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(choiceContext, Owner, true);
         }
