@@ -42,6 +42,7 @@ namespace TheTailor.Powers
         {
             if (Owner == creature && !wasRemovalPrevented && TailorLastAttackSingleton.lastAttacker != null)
             {
+                Flash();
                 await PowerCmd.Apply<VulnerablePower>(choiceContext, TailorLastAttackSingleton.lastAttacker, 2, Owner, null);
             }
         }

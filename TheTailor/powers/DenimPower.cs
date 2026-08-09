@@ -42,6 +42,7 @@ namespace TheTailor.Powers
         {
             if (Owner == creature && !wasRemovalPrevented)
             {
+                Flash();
                 await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);
             }
         }

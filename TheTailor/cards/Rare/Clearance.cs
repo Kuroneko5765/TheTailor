@@ -43,13 +43,14 @@ namespace TheTailor.Cards.Rare
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            await StitchCmd.UnstitchCard(this);
-
             for (int i = 0; i < 2; i++)
             {
                 CardModel card = CreateClone();
                 card.EnergyCost.SetThisCombat(EnergyCost.GetResolved() + 1);
-                CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner));
+
+                CardPileAddResult cardPileAddResult = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner);
+                await StitchCmd.UnstitchCard(cardPileAddResult.cardAdded);
+                CardCmd.PreviewCardPileAdd(cardPileAddResult);
             }
         }
 
