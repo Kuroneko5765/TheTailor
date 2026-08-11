@@ -37,7 +37,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Monochrome() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class Monochrome() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/monochrome.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/monochrome.png";

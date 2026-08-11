@@ -37,7 +37,7 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => IsUpgraded ? [HoverTipFactory.FromCard<Token.Patch>()] : [];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 3), new CardsVar(1), new BlockVar(2, ValueProp.Move)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2), new CardsVar(1), new BlockVar(2, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

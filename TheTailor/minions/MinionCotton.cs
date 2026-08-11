@@ -17,8 +17,8 @@ namespace TheTailor.Minions
 {
     public sealed class MinionCotton : TailorMinion
     {
-        public override int MinInitialHp => 4;
-        public override int MaxInitialHp => 4;
+        public override int MinInitialHp => 3;
+        public override int MaxInitialHp => 3;
 
         protected override string VisualsPath => "res://TheTailor/scenes/minions/minionCotton.tscn";
 

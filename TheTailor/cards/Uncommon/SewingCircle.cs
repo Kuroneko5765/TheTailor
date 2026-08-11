@@ -29,13 +29,14 @@ namespace TheTailor.Cards.Uncommon
     [Pool(typeof(TheTailorCardPool))]
     public class SewingCircle() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
+        public override int MaxUpgradeLevel => 99999;
         protected override bool HasEnergyCostX => true;
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2), new DynamicVar("ExtraPlays", 0)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -44,10 +45,15 @@ namespace TheTailor.Cards.Uncommon
             int energy = ResolveEnergyXValue();
             if (IsUpgraded)
             {
-                energy++;
+                energy += DynamicVars["ExtraPlays"].IntValue;
             }
 
             await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue * energy, TailorMinionCmd.MinionTriggerType.All);
+        }
+
+        protected override void OnUpgrade()
+        {
+            DynamicVars["ExtraPlays"].UpgradeValueBy(1);
         }
     }
 }

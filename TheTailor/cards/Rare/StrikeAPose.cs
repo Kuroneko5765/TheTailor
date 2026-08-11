@@ -39,14 +39,12 @@ namespace TheTailor.Cards.Rare
         {
             int xCost = ResolveEnergyXValue();
 
-            for (int i = 0; i < xCost; i++)
-            {
-                await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this, cardPlay)
-                    .TargetingAllOpponents(CombatState)
-                    .WithHitFx("vfx/vfx_attack_slash")
-                    .Execute(choiceContext);
-            }
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .TargetingAllOpponents(CombatState)
+                .WithHitCount(xCost)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
 
             var targets = CombatState.HittableEnemies.ToList();
             await PowerCmd.Apply<StrengthPower>(choiceContext, targets, -xCost, Owner.Creature, null);

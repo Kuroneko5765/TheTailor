@@ -42,7 +42,7 @@ namespace TheTailor.Minions
             List<Vector2> newList = new();
             foreach (var vector in __result)
             {
-                newList.Add(new Vector2((vector.X * 2.0f) - 0f, 0f));
+                newList.Add(new Vector2((vector.X * 1.6f) - 0f, 0f));
             }
 
             __result = newList;

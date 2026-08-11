@@ -17,6 +17,7 @@ using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace TheTailor.Powers
 {
@@ -38,6 +39,7 @@ namespace TheTailor.Powers
                     {
                         Flash();
                         await CreatureCmd.Heal(Owner.PetOwner.Creature, Amount);
+                        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, new DamageVar(Amount, ValueProp.Unpowered | ValueProp.Unblockable), Owner);
                     }
                 }
             }

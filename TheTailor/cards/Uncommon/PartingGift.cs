@@ -32,7 +32,7 @@ namespace TheTailor.Cards.Uncommonz
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/partingGiftBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/partingGiftBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/partingGiftBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Unpowered)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Unpowered)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

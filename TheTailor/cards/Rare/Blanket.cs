@@ -30,7 +30,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Blanket() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    public class Blanket() : CustomCardModel(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/blanketBeta.png";

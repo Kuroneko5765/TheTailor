@@ -30,25 +30,22 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/frontPocketBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch), IsUpgraded ? HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate) : HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            IEnumerable<CardModel> cardModel = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
-            IEnumerable<CardModel> cardModel2 = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, pile: PileType.Draw.GetPile(Owner));
-            if (cardModel != null && cardModel2 != null && cardModel.Count() == 1 && cardModel2.Count() == 1)
+            IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, source: this);
+            IEnumerable<CardModel> cardModels2 = await CardSelectCmd.FromCombatPile(prefs: new CardSelectorPrefs(CardSelectorPrefsExtensions.StitchSelectionPrompt, 1), context: choiceContext, player: base.Owner, filter: StitchCmd.CanBeStitched, pile: PileType.Draw.GetPile(Owner));
+            if (cardModels != null && cardModels2 != null && cardModels.Count() == 1 && cardModels2.Count() == 1)
             {
-                await StitchCmd.StitchCards(cardModel.ElementAt(0), cardModel2.ElementAt(0));
+                CardModel cardModel = cardModels.ElementAt(0);
+                CardModel cardModel2 = cardModels2.ElementAt(0);
+                if (IsUpgraded && cardModel.IsUpgradable) { CardCmd.Upgrade(cardModel); }
+                if (IsUpgraded && cardModel2.IsUpgradable) { CardCmd.Upgrade(cardModel2); }
+                await StitchCmd.StitchCards(cardModel, cardModel2);
             }
-        }
-
-        protected override void OnUpgrade()
-        {
-            RemoveKeyword(CardKeyword.Exhaust);
-            DynamicVars["Delicate"].BaseValue = 2;
         }
     }
 }

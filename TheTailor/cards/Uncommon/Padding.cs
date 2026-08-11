@@ -24,6 +24,7 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -35,16 +36,17 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", -999)/*, new BlockVar(4m, ValueProp.Move)*/];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), IsUpgraded ? HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate) : HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            // await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-            for (int i = 0; i < 2; i++)
+            IReadOnlyList<Creature> hittableEnemies = CombatState.HittableEnemies;
+            int enemycount = Math.Min(hittableEnemies.Count(), 3);
+
+            for (int i = 0; i < enemycount; i++)
             {
                 await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
             }
@@ -52,8 +54,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            RemoveKeyword(CardKeyword.Exhaust);
-            DynamicVars["Delicate"].BaseValue = 2;
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

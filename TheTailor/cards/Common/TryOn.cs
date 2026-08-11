@@ -47,10 +47,6 @@ namespace TheTailor.Cards.Common
             {
                 if (num <= 0) { break; }
                 await CardPileCmd.Add(item, PileType.Hand.GetPile(Owner), CardPilePosition.Bottom);
-                if (item.IsUpgradable)
-                {
-                    CardCmd.Upgrade(item);
-                }
                 num--;
             }
         }

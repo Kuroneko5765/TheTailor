@@ -26,7 +26,7 @@ namespace TheTailor.Powers
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/linen.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/linen.png";
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
@@ -34,7 +34,7 @@ namespace TheTailor.Powers
             if (dealer != null && Owner == target && result.UnblockedDamage > 0)
             {
                 Flash();
-                await PowerCmd.Apply<VulnerablePower>(choiceContext, dealer, 2, Owner, null);
+                await PowerCmd.Apply<VulnerablePower>(choiceContext, dealer, Amount, Owner, null);
             }
         }
 
@@ -43,7 +43,7 @@ namespace TheTailor.Powers
             if (Owner == creature && !wasRemovalPrevented && TailorLastAttackSingleton.lastAttacker != null)
             {
                 Flash();
-                await PowerCmd.Apply<VulnerablePower>(choiceContext, TailorLastAttackSingleton.lastAttacker, 2, Owner, null);
+                await PowerCmd.Apply<VulnerablePower>(choiceContext, TailorLastAttackSingleton.lastAttacker, Amount, Owner, null);
             }
         }
     }

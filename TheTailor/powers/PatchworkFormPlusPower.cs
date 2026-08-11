@@ -34,8 +34,17 @@ namespace TheTailor.Powers
             if (Owner == player.Creature)
             {
                 Flash();
-                foreach (CardModel card in await Cards.Token.Patch.CreateInHand(player, Amount, CombatState))
+
+                for (int i = 0; i < Amount; i++)
                 {
+                    var cards = await Cards.Token.Patch.CreateInHand(player, 1, CombatState);
+                    if (cards == null || cards.Count() <= 0)
+                    {
+                        continue;
+                    }
+
+                    var card = cards.First();
+
                     CardCmd.Upgrade(card);
 
                     card.AddModifier<StitchBlockModifier>();

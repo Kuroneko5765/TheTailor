@@ -12,9 +12,9 @@ unique_name_in_owner = true
 [node name="CharBox" type="Control" parent="Visuals"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -68.0
-offset_top = -139.0
-offset_right = 68.0
+offset_left = -56.0
+offset_top = -112.0
+offset_right = 56.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Visuals/CharBox"]
 y_sort_enabled = true
@@ -35,50 +35,50 @@ own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 scaling_3d_scale = 2.0
-size = Vector2i(288, 163)
+size = Vector2i(264, 136)
 render_target_update_mode = 4
 
 [node name="MinionLinenAnimView" parent="Visuals/CharBox/SubViewportContainer/SubViewport" instance=ExtResource("2_qlwjj")]
 
 [node name="Skeleton3D" parent="Visuals/CharBox/SubViewportContainer/SubViewport/MinionLinenAnimView/minionLinenAnim/Armature" index="1"]
-bones/0/rotation = Quaternion(0, 0, -0.001341674, 0.9999991)
-bones/1/rotation = Quaternion(0, 0, -0.001969367, 0.9999981)
-bones/1/scale = Vector3(1.0000004, 1.000054, 1)
-bones/2/rotation = Quaternion(-2.6641366e-08, 2.6743724e-08, 0.70708114, 0.7071324)
-bones/2/scale = Vector3(1.0000001, 1.1019158, 1)
-bones/3/rotation = Quaternion(-1.0050756e-08, 5.490298e-14, 0.030859314, 0.99952376)
-bones/3/scale = Vector3(0.9996601, 0.9078858, 1)
-bones/4/rotation = Quaternion(2.0820861e-08, -6.9188237e-09, -0.4030712, 0.9151686)
-bones/5/rotation = Quaternion(-2.6617016e-08, -2.677043e-08, -0.7070666, 0.70714706)
-bones/5/scale = Vector3(1.0000001, 1.1019158, 1)
-bones/6/rotation = Quaternion(-8.185434e-09, -2.4487602e-14, -0.025130834, 0.99968415)
-bones/6/scale = Vector3(0.9997746, 0.9077599, 1)
-bones/7/rotation = Quaternion(2.5779418e-08, -3.6536836e-08, 0.35517833, 0.93479866)
-bones/8/rotation = Quaternion(-2.6615776e-08, -2.676931e-08, -0.7070666, 0.70714694)
-bones/8/scale = Vector3(1, 0.9815742, 1)
-bones/9/rotation = Quaternion(-2.8423897e-09, 7.3639096e-16, -0.0003356851, 1)
-bones/9/scale = Vector3(1, 1.0187767, 1)
-bones/10/rotation = Quaternion(2.9051835e-08, -4.6889146e-09, 0.3825223, 0.9239464)
-bones/11/rotation = Quaternion(-2.6692543e-08, 2.6692543e-08, 0.7071068, 0.7071068)
-bones/11/scale = Vector3(1, 0.9815742, 1)
-bones/12/rotation = Quaternion(-4.3417794e-09, -3.846274e-17, 0.0005127674, 0.9999999)
-bones/12/scale = Vector3(1, 1.018772, 1)
-bones/13/rotation = Quaternion(2.7258833e-08, -8.9321155e-09, -0.43303585, 0.9013767)
-bones/14/rotation = Quaternion(0.49998808, -0.5000119, -0.49998808, -0.5000119)
-bones/16/rotation = Quaternion(-0.00029204102, 0, 0, 1)
-bones/17/rotation = Quaternion(0.43302575, 8.530692e-08, 2.8900972e-08, 0.9013816)
-bones/18/position = Vector3(0, 0, 0)
-bones/18/rotation = Quaternion(0.49997166, 0.50002843, 0.49997166, -0.50002843)
-bones/20/rotation = Quaternion(-0.00021429939, 0, 0, 1)
-bones/21/rotation = Quaternion(0.38249058, -1.0199038e-07, -2.6343736e-08, 0.92395943)
+bones/0/rotation = Quaternion(0, 0, 0.03794024, 0.9992801)
+bones/1/rotation = Quaternion(0, 0, -0.02654758, 0.99964756)
+bones/1/scale = Vector3(1.0000272, 1.004143, 1)
+bones/2/rotation = Quaternion(-2.6988308e-08, 2.6393922e-08, 0.69922245, 0.7149042)
+bones/2/scale = Vector3(0.9957879, 1.0591515, 1)
+bones/3/rotation = Quaternion(-4.3926606e-20, -2.5549846e-16, -0.0001745241, 1)
+bones/3/scale = Vector3(1.0000001, 0.9441514, 1)
+bones/4/rotation = Quaternion(2.819927e-08, -9.372893e-09, -0.43334517, 0.90122813)
+bones/5/rotation = Quaternion(-2.6454074e-08, -2.6929367e-08, -0.7133482, 0.7008098)
+bones/5/scale = Vector3(0.99578726, 1.0591522, 1)
+bones/6/rotation = Quaternion(-5.9930425e-09, -1.0251931e-15, -0.0007077697, 0.9999998)
+bones/6/scale = Vector3(1, 0.9441514, 1)
+bones/7/rotation = Quaternion(4.165915e-08, -3.0839203e-08, 0.38281143, 0.9238265)
+bones/8/rotation = Quaternion(-2.6454833e-08, -2.6928147e-08, -0.7133482, 0.7008098)
+bones/8/scale = Vector3(1, 1.0586424, 1)
+bones/9/rotation = Quaternion(-3.7616945e-09, 8.806673e-17, -0.00047930115, 0.9999999)
+bones/9/scale = Vector3(1, 0.9446067, 1)
+bones/10/rotation = Quaternion(3.0575116e-08, -4.060717e-09, 0.38261083, 0.9239096)
+bones/11/rotation = Quaternion(-2.6986879e-08, 2.6394918e-08, 0.6992225, 0.7149041)
+bones/11/scale = Vector3(0.99999994, 1.0586423, 1)
+bones/12/rotation = Quaternion(-5.746028e-09, 2.0085008e-15, 0.0007215346, 0.99999976)
+bones/12/scale = Vector3(1, 0.9446068, 1)
+bones/13/rotation = Quaternion(2.8196936e-08, -9.379903e-09, -0.43312111, 0.9013358)
+bones/14/rotation = Quaternion(0.49985227, -0.50014776, -0.49985227, -0.50014776)
+bones/16/rotation = Quaternion(-0.00046214563, 0, 0, 0.99999994)
+bones/17/rotation = Quaternion(0.43318865, 8.058281e-08, 3.873009e-08, 0.9013033)
+bones/18/position = Vector3(0.00517384, 0.0003318845, 0)
+bones/18/rotation = Quaternion(0.49892476, 0.50107294, 0.49892476, -0.50107294)
+bones/20/rotation = Quaternion(-3.6866135e-05, 0, 0, 1)
+bones/21/rotation = Quaternion(0.3826834, -9.636814e-08, -3.9917e-08, 0.92387956)
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -68.0
-offset_top = -139.0
-offset_right = 68.0
+offset_left = -56.0
+offset_top = -114.0
+offset_right = 56.0
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true

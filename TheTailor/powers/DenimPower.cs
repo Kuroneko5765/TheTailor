@@ -17,8 +17,8 @@ using MegaCrit.Sts2.Core.HoverTips;
 namespace TheTailor.Powers
 {
     /// <summary>
-    ///     Applies temp. strength to the owner when hit
-    ///     Also applies temp. strength on death because AfterDamageReceived doesn't work properly with killing blows on minions
+    ///     Applies strength to the owner when hit
+    ///     Also applies strength on death because AfterDamageReceived doesn't work properly with killing blows on minions
     /// </summary>
     public sealed class DenimPower : CustomPowerModel
     {
@@ -34,7 +34,7 @@ namespace TheTailor.Powers
             if (dealer != null && Owner == target && result.UnblockedDamage > 0)
             {
                 Flash();
-                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.PetOwner.Creature, Amount, Owner, null);
             }
         }
 
@@ -43,7 +43,7 @@ namespace TheTailor.Powers
             if (Owner == creature && !wasRemovalPrevented)
             {
                 Flash();
-                await PowerCmd.Apply<DenimStrengthPower>(choiceContext, Owner.PetOwner.Creature, 2, Owner, null);
+                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.PetOwner.Creature, Amount, Owner, null);
             }
         }
     }

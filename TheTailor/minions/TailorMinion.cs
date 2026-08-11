@@ -30,6 +30,7 @@ namespace TheTailor.Minions
         public override string DeathSfx => "res://TheTailor/audio/clothRip1.ogg";
         public override bool HasDeathSfx => true;
         public override float DeathAnimLengthOverride => 0.8f;
+        public override float HpBarSizeReduction => 12f;
     }
 
     [HarmonyPatch]

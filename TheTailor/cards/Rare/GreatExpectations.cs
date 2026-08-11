@@ -71,11 +71,13 @@ namespace TheTailor.Cards.Rare
             _ = MinionAnimCmd.Rearrange(duration: 0.5f);
             accessor.SetManualRearranged();
             PetOrderSnapshotManager.TakeSnapshot(Owner);
-        }
 
-        protected override void OnUpgrade()
-        {
-            AddKeyword(CardKeyword.Retain);
+            await TailorMinionCmd.PutOstyAtBack(choiceContext, Owner);
+
+            if (IsUpgraded)
+            {
+                await CardPileCmd.Draw(choiceContext, replaceAmount, Owner);
+            }
         }
     }
 }
