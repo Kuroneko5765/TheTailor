@@ -53,15 +53,12 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            for (int i = 0; i < DynamicVars["Slaps"].BaseValue; i++)
-            {
-                ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
-                await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-                    .FromCard(this, cardPlay)
-                    .Targeting(cardPlay.Target)
-                    .WithHitFx("vfx/vfx_attack_slash")
-                    .Execute(choiceContext);
-            }
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .Targeting(cardPlay.Target)
+                .WithHitCount(DynamicVars["Slaps"].IntValue)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
         }
 
         protected override void OnUpgrade()

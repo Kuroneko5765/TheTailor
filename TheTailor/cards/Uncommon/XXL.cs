@@ -24,6 +24,8 @@ using MinionLib.Commands;
 using MinionLib.Minion;
 using TheTailor.Character;
 using HarmonyLib;
+using BaseLib.Extensions;
+using TheTailor.Relics.Common;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -40,8 +42,17 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            int extraMaxHp = 0;
+            foreach (RelicModel relicModel in Owner.Relics)
+            {
+                if (relicModel is HeavyDuty)
+                {
+                    extraMaxHp++;
+                }
+            }
+
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true, maxHpOverride: DynamicVars.Heal.IntValue);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true, maxHpOverride: DynamicVars.Heal.IntValue + extraMaxHp);
         }
 
         protected override void OnUpgrade()
