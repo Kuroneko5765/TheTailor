@@ -1,7 +1,7 @@
 {
     "THETAILOR-TAILOR_MADE_POWER.title" : "Tailor-made",
-    "THETAILOR-TAILOR_MADE_POWER.description": "Takes unblocked attack damage for its creator. [gold]Click this Minion to move it to the front.[/gold]",
-    "THETAILOR-TAILOR_MADE_POWER.smartDescription": "Takes unblocked attack damage for its creator. [gold]Click this Minion to move it to the front.[/gold]",
+    "THETAILOR-TAILOR_MADE_POWER.description": "Takes unblocked attack damage for its creator.\n[gold]Click this Minion to move it to the front.[/gold]",
+    "THETAILOR-TAILOR_MADE_POWER.smartDescription": "Takes unblocked attack damage for its creator.\n[gold]Click this Minion to move it to the front.[/gold]",
     "THETAILOR-LINEN_POWER.title": "Linen",
     "THETAILOR-LINEN_POWER.description": "When hit, applies [gold]Vulnerable[/gold] to its attacker.",
     "THETAILOR-LINEN_POWER.smartDescription": "When hit, applies {Amount} [gold]Vulnerable[/gold] to its attacker.",

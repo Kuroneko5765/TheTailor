@@ -20,6 +20,10 @@ using TheTailor.BaseLibAdapters;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Godot;
+using MegaCrit.Sts2.Core.Nodes.Vfx;
+using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
+using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
 
 namespace TheTailor.Minions
 {
@@ -33,6 +37,9 @@ namespace TheTailor.Minions
         public override float HpBarSizeReduction => 12f;
     }
 
+    /// <summary>
+    ///     Makes Minions consume Buffer
+    /// </summary>
     [HarmonyPatch]
     internal static class MinionBufferPatch
     {
@@ -48,6 +55,9 @@ namespace TheTailor.Minions
         }
     }
 
+    /// <summary>
+    ///     Makes Minions consume Intangible
+    /// </summary>
     [HarmonyPatch]
     internal static class MinionIntangiblePatch
     {
@@ -60,6 +70,46 @@ namespace TheTailor.Minions
             }
 
             return __result;
+        }
+    }
+
+    /// <summary>
+    ///     Enables the selection reticle when a Minion is hovered over to make its interactability obvious
+    /// </summary>
+    [HarmonyPatch]
+    internal static class MinionReticlePatch
+    {
+        [HarmonyPatch(typeof(NCreature), "OnFocus")]
+        internal static void Postfix(NCreature __instance)
+        {
+            if (__instance.Entity.Monster != null && __instance.Entity.Monster is TailorMinion)
+            {
+                __instance.ShowSingleSelectReticle();
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Makes the death fade vfx unclickable so Minions are easier to re-order during the animation
+    /// </summary>
+    [HarmonyPatch]
+    internal static class MinionDeathClickablePatch
+    {
+        [HarmonyPatch(typeof(NCreature), "DisableInteractionForDeath")]
+        internal static void Postfix(NCreature __instance)
+        {
+            if (__instance.Entity.Monster != null && __instance.Entity.Monster is TailorMinion)
+            {
+                foreach (Control control in __instance.Visuals.GetChildrenRecursive<Control>())
+                {
+                    if (control.HasFocus())
+                    {
+                        ActiveScreenContext.Instance.FocusOnDefaultControl();
+                    }
+                    control.FocusMode = Control.FocusModeEnum.None;
+                    control.MouseFilter = Control.MouseFilterEnum.Ignore;
+                }
+            }
         }
     }
 }

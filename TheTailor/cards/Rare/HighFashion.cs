@@ -27,7 +27,7 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Rare
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class HighFashion() : CustomCardModel(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+    public class HighFashion() : CustomCardModel(3, CardType.Power, CardRarity.Rare, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/highFashionBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/highFashionBeta.png";
@@ -43,7 +43,7 @@ namespace TheTailor.Cards.Rare
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Upgrades"].UpgradeValueBy(1);
+            EnergyCost.UpgradeBy(-1);
         }
     }
 }

@@ -44,22 +44,31 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 0, DynamicVars.Cards.IntValue), context: choiceContext, player: Owner, filter: null, source: this);
+            IEnumerable<CardModel> cardModels = await CardSelectCmd.FromHand(prefs: new CardSelectorPrefs(CardSelectorPrefs.ExhaustSelectionPrompt, 1, 1), context: choiceContext, player: Owner, filter: null, source: this);
             foreach(CardModel cardModel in cardModels)
             {
                 await CardCmd.Exhaust(choiceContext, cardModel);
-                await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
             }
-        }
 
-        protected override void OnUpgrade()
-        {
-            DynamicVars.Cards.UpgradeValueBy(1);
+            if (IsUpgraded)
+            {
+                foreach (CardModel item in PileType.Hand.GetPile(Owner).Cards.Where((CardModel c) => c.IsUpgradable))
+                {
+                    CardCmd.Upgrade(item);
+                }
+            }
+            else
+            {
+                CardModel? cardModel = await CardSelectCmd.FromHandForUpgrade(choiceContext, Owner, this);
+                if (cardModel != null)
+                {
+                    CardCmd.Upgrade(cardModel);
+                }
+            }
         }
     }
 }

@@ -97,15 +97,6 @@ namespace TheTailor.Cards
                 __result = [.. __result, .. new IHoverTip[1] { new CardHoverTip(cardStitch.StitchedCard) }];
             }
 
-            if (__instance is Pincushion && __instance.IsMutable)
-            {
-                Pincushion pincushion = __instance as Pincushion;
-                foreach(CardModel card in pincushion.relatedCards)
-                {
-                    __result = [.. __result, .. new IHoverTip[1] { new CardHoverTip(card) }];
-                }
-            }
-
             return __result;
         }
     }

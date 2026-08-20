@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://dauqvntxfqafg"]
 
-[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_rvpb4"]
+[ext_resource type="Script" uid="uid://d0s2e1ft3qrmr" path="res://TheTailor/nodes/TailorNMinionVisuals.cs" id="1_phpg1"]
 [ext_resource type="PackedScene" uid="uid://cfp76fpochgnd" path="res://TheTailor/scenes/minions/minionLeather/minion_leather_anim_view.tscn" id="2_rvpb4"]
 [ext_resource type="Texture2D" uid="uid://be5wt1pyx67fm" path="res://TheTailor/scenes/minions/minionLeather/minionLeatherAnim_shadow.png" id="3_s2om0"]
 
 [node name="Root" type="Node2D"]
-script = ExtResource("1_rvpb4")
+script = ExtResource("1_phpg1")
 
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -27,6 +27,10 @@ offset_left = -57.0
 offset_right = 57.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 0
+focus_behavior_recursive = 1
+mouse_filter = 2
+mouse_behavior_recursive = 1
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="Visuals/CharBox/SubViewportContainer"]
@@ -41,18 +45,18 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.012222e-05, 0.0034223795, -0.0011179447)
 
 [node name="Skeleton3D" parent="Visuals/CharBox/SubViewportContainer/SubViewport/Node3D/minionLeatherAnim/Armature" index="0"]
-bones/0/position = Vector3(-1.4908901, -0.68590426, 2.9999998)
-bones/0/rotation = Quaternion(0.00022979637, -7.103675e-05, -0.6097888, 0.79256403)
-bones/0/scale = Vector3(1.0034093, 1.0034096, 0.99999994)
-bones/1/rotation = Quaternion(0.000102454884, 8.2565595e-05, 0.031861242, 0.9994924)
-bones/2/rotation = Quaternion(-5.930728e-05, 4.4768523e-05, -0.76301116, 0.64638543)
-bones/3/rotation = Quaternion(-0.00016579257, -1.49796315e-05, 0.1312522, 0.991349)
-bones/4/position = Vector3(-1.5032369, -0.6859045, 3)
-bones/4/rotation = Quaternion(0.9381693, 0.34617683, 1.9916271e-08, 1.0366138e-07)
-bones/5/rotation = Quaternion(-1.6312312e-07, -2.0498785e-08, 0.6219024, 0.7830948)
-bones/8/position = Vector3(1.0841379, -1.1874777, 3.0050642)
+bones/0/position = Vector3(-1.51723, -0.6859043, 2.9999998)
+bones/0/rotation = Quaternion(0.00019311176, -6.118324e-05, -0.6158031, 0.78790003)
+bones/0/scale = Vector3(1.009829, 1.0098293, 1)
+bones/1/rotation = Quaternion(6.6057684e-05, 7.0774615e-05, 0.051976424, 0.9986483)
+bones/2/rotation = Quaternion(-4.8728536e-05, 1.7777582e-05, -0.7668983, 0.6417687)
+bones/3/rotation = Quaternion(-0.00015718017, -1.4621465e-05, 0.12024415, 0.99274445)
+bones/4/position = Vector3(-1.5190408, -0.68590444, 3)
+bones/4/rotation = Quaternion(0.9360706, 0.3518124, 2.2480368e-08, 1.0436351e-07)
+bones/5/rotation = Quaternion(-1.6338208e-07, -2.0593074e-08, 0.6229166, 0.78228825)
+bones/8/position = Vector3(1.1736935, -1.1874777, 3.0050642)
 
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+[node name="ShadowSprite" type="Sprite2D" parent="Visuals"]
 y_sort_enabled = true
 position = Vector2(5.9604645e-08, -61)
 scale = Vector2(0.61249995, 0.61249995)

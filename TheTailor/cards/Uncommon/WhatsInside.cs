@@ -36,7 +36,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.CottonMinion)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Triggers", 1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -47,10 +47,9 @@ namespace TheTailor.Cards.Uncommon
                 {
                     if (accessor.Pets[i].Monster is TailorMinion)
                     {
-                        await DamageCmd.Attack(accessor.Pets[i].MaxHp)
+                        await DamageCmd.Attack(DynamicVars.Damage.IntValue)
                             .FromCard(this, cardPlay)
                             .TargetingAllOpponents(CombatState)
-                            .WithHitCount(DynamicVars["Triggers"].IntValue)
                             .WithHitFx("vfx/vfx_attack_slash")
                             .Execute(choiceContext);
 
@@ -63,7 +62,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars["Triggers"].UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(3);
         }
     }
 }

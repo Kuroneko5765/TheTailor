@@ -31,7 +31,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/outfitBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/outfitBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/outfitBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(5m, ValueProp.Move)]; 
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)]; 
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -50,7 +50,7 @@ namespace TheTailor.Cards.Uncommon
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2m);
+            DynamicVars.Damage.UpgradeValueBy(3);
         }
     }
 }

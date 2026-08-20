@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://vio2dndxxw8x"]
+
+[ext_resource type="Script" path="res://TheTailor/cards/PincushionOverlay.cs" id="1_r8enu"]
+[ext_resource type="Texture2D" uid="uid://k6enefpwm1k7" path="res://TheTailor/images/card_overlays/pincushion.png" id="2_r8enu"]
+
+[node name="Pincushion" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_r8enu")
+
+[node name="VisualLayer2" type="Sprite2D" parent="."]
+position = Vector2(-0.499993, -7.50001)
+scale = Vector2(0.510736, 0.520501)
+texture = ExtResource("2_r8enu")

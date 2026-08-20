@@ -32,6 +32,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/lostAndFoundBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/lostAndFoundBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/lostAndFoundBeta.png";
+        public override bool GainsBlock => true;
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(6, ValueProp.Move), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
 

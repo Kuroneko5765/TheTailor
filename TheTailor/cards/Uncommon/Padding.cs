@@ -32,7 +32,6 @@ namespace TheTailor.Cards.Uncommon
     public class Padding() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";

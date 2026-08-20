@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bta23m83nfv5a"]
 
-[ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_jx4x4"]
+[ext_resource type="Script" uid="uid://d0s2e1ft3qrmr" path="res://TheTailor/nodes/TailorNMinionVisuals.cs" id="1_1xsrl"]
 [ext_resource type="Texture2D" uid="uid://ba6irlxgndopu" path="res://TheTailor/images/minions/minionSilk_placeholder.png" id="2_jx4x4"]
 
 [node name="MinionSilk" type="Node2D"]
-script = ExtResource("1_jx4x4")
+script = ExtResource("1_1xsrl")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
