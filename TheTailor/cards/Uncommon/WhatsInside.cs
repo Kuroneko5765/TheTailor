@@ -40,6 +40,12 @@ namespace TheTailor.Cards.Uncommon
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
+            await DamageCmd.Attack(DynamicVars.Damage.IntValue)
+                .FromCard(this, cardPlay)
+                .TargetingAllOpponents(CombatState)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
+                
             PetsOrderAccessor accessor = new PetsOrderAccessor(cardPlay.Card.Owner);
             if (accessor != null && accessor.Pets != null)
             {
@@ -47,12 +53,6 @@ namespace TheTailor.Cards.Uncommon
                 {
                     if (accessor.Pets[i].Monster is TailorMinion)
                     {
-                        await DamageCmd.Attack(DynamicVars.Damage.IntValue)
-                            .FromCard(this, cardPlay)
-                            .TargetingAllOpponents(CombatState)
-                            .WithHitFx("vfx/vfx_attack_slash")
-                            .Execute(choiceContext);
-
                         await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, i, false, true);
                         break;
                     }

@@ -57,6 +57,7 @@ namespace TheTailor.Cards
                 _stitchedCard.AddKeyword(Keywords.Stitched);
             }
         }
+        
 
         public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -69,6 +70,12 @@ namespace TheTailor.Cards
                 }
 
                 await CardCmd.AutoPlay(choiceContext, StitchedCard, target, StitchedAutoPlayType.Stitched);
+
+                if (cardPlay.Card.Type == CardType.Power || StitchedCard.Type == CardType.Power)
+                {
+                    await StitchCmd.UnstitchCard(cardPlay.Card);
+                    await StitchCmd.UnstitchCard(StitchedCard);
+                }
             }
         }
 

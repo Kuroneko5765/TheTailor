@@ -35,12 +35,11 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/productionLineBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/productionLineBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Unpowered)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<ProductionLinePower>(choiceContext, Owner.Creature, DynamicVars.Damage.IntValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<ProductionLinePower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, false);
 
             if (IsUpgraded)
             {

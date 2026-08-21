@@ -25,7 +25,7 @@ namespace TheTailor.Powers
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/productionLine.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/productionLine.png";
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Counter;
+        public override PowerStackType StackType => PowerStackType.Single;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
