@@ -35,7 +35,7 @@ namespace TheTailor.Cards.Uncommon
 
                 if (!IsUpgraded)
                 {
-                    return $"{prefix.GetFormattedText()} {titleLocString.GetFormattedText()}";
+                    return $"{titleLocString.GetFormattedText()}";
                 }
                 else
                 {
@@ -48,8 +48,9 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/singleSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6m, ValueProp.Move), new DynamicVar("Slaps", 2), new DynamicVar("Delicate", 2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(8, ValueProp.Move), new DynamicVar("Slaps", 1)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

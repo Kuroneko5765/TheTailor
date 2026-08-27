@@ -39,7 +39,7 @@ using MegaCrit.Sts2.Core.Combat.History.Entries;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Trim() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+    public class Trim() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/trimBeta.png";

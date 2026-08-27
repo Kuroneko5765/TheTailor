@@ -35,25 +35,19 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2), new DynamicVar("ExtraPlays", 0)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            int energy = ResolveEnergyXValue();
-            if (IsUpgraded)
-            {
-                energy += DynamicVars["ExtraPlays"].IntValue;
-            }
-
-            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue * energy, TailorMinionCmd.MinionTriggerType.All);
+            await TailorMinionCmd.GiveMinionHealth<TailorMinion>(choiceContext, cardPlay.Card.Owner, DynamicVars.Heal.IntValue * ResolveEnergyXValue(), TailorMinionCmd.MinionTriggerType.All);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["ExtraPlays"].UpgradeValueBy(1);
+            DynamicVars.Heal.UpgradeValueBy(1);
         }
     }
 }
