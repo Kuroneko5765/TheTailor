@@ -44,7 +44,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move), new CardsVar(0), new DynamicVar("CardsPluralize", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -54,18 +54,10 @@ namespace TheTailor.Cards.Common
                 .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                 .Execute(choiceContext);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
-        }
 
-        public override async Task AfterCardDrawn(PlayerChoiceContext choiceContext, CardModel card, bool fromHandDraw)
-        {
-            if (card == this && card.CanPlay())
-            {
-                if (Owner.HasPower<HellraiserPower>())
-                {
-                    return;
-                }
-                await CardCmd.AutoPlay(choiceContext, card, null, AutoPlayType.Default);
-            }
+            EnergyCost.UpgradeBy(1);
+            DynamicVars.Cards.UpgradeValueBy(1);
+            DynamicVars["CardsPluralize"].UpgradeValueBy(1);
         }
 
         protected override void OnUpgrade()

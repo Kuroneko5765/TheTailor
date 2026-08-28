@@ -43,7 +43,7 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/needleworkBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1), new DynamicVar("Delicate", 3)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -53,31 +53,20 @@ namespace TheTailor.Cards.Rare
                 .WithHitFx("vfx/vfx_attack_slash")
                 .Execute(choiceContext);
 
-            for (int i = 0; i < DynamicVars.Cards.IntValue; i++)
+            IEnumerable<CardModel> cardModels = await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
+            foreach(CardModel cardModel in cardModels)
             {
-                CardPile pile = PileType.Hand.GetPile(Owner);
-                CardModel? cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.MaxUpgradeLevel > cm.CurrentUpgradeLevel && cm.Type != CardType.Status && cm.Type != CardType.Curse));
-                if (cardModel != null)
+                if (cardModel.IsUpgradable)
                 {
                     CardCmd.Upgrade(cardModel);
                 }
             }
         }
-        
-        protected override CardLocation GetResultLocationForCardPlay()
-        {
-            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
-            if (resultLocationForCardPlay.pileType == PileType.Discard)
-            {
-                resultLocationForCardPlay.pileType = PileType.Draw;
-                resultLocationForCardPlay.position = CardPilePosition.Random;
-            }
-            return resultLocationForCardPlay;
-        }
 
         protected override void OnUpgrade()
         {
             DynamicVars.Cards.UpgradeValueBy(1);
+            DynamicVars.Damage.UpgradeValueBy(2);
         }
     }
 }

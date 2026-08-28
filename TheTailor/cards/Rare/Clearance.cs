@@ -49,7 +49,7 @@ namespace TheTailor.Cards.Rare
                 card.EnergyCost.SetThisCombat(EnergyCost.GetResolved() + 1);
 
                 CardPileAddResult cardPileAddResult = await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Discard, Owner);
-                await StitchCmd.UnstitchCard(cardPileAddResult.cardAdded);
+                // await StitchCmd.UnstitchCard(cardPileAddResult.cardAdded);
                 CardCmd.PreviewCardPileAdd(cardPileAddResult);
             }
         }

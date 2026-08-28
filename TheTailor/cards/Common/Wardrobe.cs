@@ -31,27 +31,20 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/wardrobeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(8, ValueProp.Move), new CardsVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(7, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
-
-            for (int i = 0; i < DynamicVars.Cards.BaseValue; i++)
+            foreach (CardModel item in PileType.Hand.GetPile(Owner).Cards.Where((CardModel c) => c.IsUpgradable))
             {
-                CardPile pile = PileType.Hand.GetPile(Owner);
-                CardModel cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards.Where(cm => cm.MaxUpgradeLevel > cm.CurrentUpgradeLevel && cm.Type != CardType.Status && cm.Type != CardType.Curse));
-                if (cardModel != null)
-                {
-                    CardCmd.Upgrade(cardModel);
-                }
+                CardCmd.Upgrade(item);
             }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Block.UpgradeValueBy(2);
-            DynamicVars.Cards.UpgradeValueBy(1);
+            DynamicVars.Block.UpgradeValueBy(4);
         }
     }
 }

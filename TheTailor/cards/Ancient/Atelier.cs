@@ -29,12 +29,10 @@ namespace TheTailor.Cards.Ancient
     [Pool(typeof(TheTailorCardPool))]
     public class Atelier() : CustomCardModel(9, CardType.Power, CardRarity.Ancient, TargetType.Self)
     {
-        public override int MaxUpgradeLevel => 99999;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/atelierBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/atelierBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/atelierBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

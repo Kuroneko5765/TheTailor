@@ -22,7 +22,7 @@ Box of Chocolates (Skill)
 - Upgrade ALL cards in another player's Hand.
 
 Slap For All (Attack)
-- Deal 6 damage. Deals 3(4) additional damage for each allied player, pet or Minion on your team.
+- Deal 6 damage. Deals 4(6) additional damage for each allied player, pet or Minion on your team.
 
 Rare
 

@@ -39,10 +39,7 @@ namespace TheTailor.Cards.Rare
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            if (IsUpgraded)
-            {
-                await PowerCmd.Apply<PatchworkFormPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, false);
-            }
+            await PowerCmd.Apply<PatchworkFormPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()

@@ -167,4 +167,22 @@ namespace TheTailor.Cards
             }
         }
     }
+
+    [HarmonyPatch]
+    internal static class RemoveStitchOnCopiesPatch
+    {
+        [HarmonyPatch(typeof(CardModel), "CreateClone")]
+        internal static CardModel Postfix(CardModel __result, CardModel __instance)
+        {
+            StitchCardModifier? cardStitch = __result.GetModifier<StitchCardModifier>();
+            if (cardStitch != null && __instance.IsMutable)
+            {
+                __result.RemoveKeyword(Keywords.Stitched);
+                CardModifier.RemoveModifier(__result, cardStitch);
+                NCard.FindOnTable(__result)?.ReloadOverlay();
+            }
+
+            return __result;
+        }
+    }
 }

@@ -33,7 +33,7 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/disarmingSlap.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/disarmingSlap.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/disarmingSlapBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new DynamicVar("StrengthDown", 5)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7m, ValueProp.Move), new DynamicVar("StrengthDown", 4)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
