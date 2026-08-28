@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcgrpnaui0sig"]
 
 [ext_resource type="Script" uid="uid://dvm7u5ba6hwb6" path="res://TheTailor/nodes/TailorNRestSiteCharacter.cs" id="1_05xb3"]
-[ext_resource type="Script" uid="uid://btyiq8f4wpo7j" path="res://TheTailor/nodes/TailorNSelectionReticle.cs" id="1_k8h63"]
+[ext_resource type="Script" uid="uid://bktqe0c7wk26w" path="res://TheTailor/nodes/TailorNSelectionReticle.cs" id="1_k8h63"]
 [ext_resource type="Texture2D" uid="uid://bex2j8f5inqry" path="res://TheTailor/images/character/restsite_tailor.png" id="2_qbejy"]
 
 [node name="TailorRestSite" type="Node2D"]

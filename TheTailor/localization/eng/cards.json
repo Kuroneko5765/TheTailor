@@ -128,7 +128,7 @@
     "THETAILOR-SINGLE_SLAP.title": "Slap",
     "THETAILOR-SINGLE_SLAP.description": "Deal {Damage:diff()} damage {Slaps:diff()} {Slaps:plural:time|times}.\n[gold]Premium[/gold].",
     "THETAILOR-DISCERNING_EYE.title": "Discerning Eye",
-    "THETAILOR-DISCERNING_EYE.description": "At the start of your turn, [gold]Upgrade[/gold] a card in your [gold]Hand[/gold].",
+    "THETAILOR-DISCERNING_EYE.description": "The first time you play a Skill each turn, [gold]Upgrade[/gold] a card in your [gold]Hand[/gold].",
     "THETAILOR-WALL_OF_DENIM.title": "Wall of Denim",
     "THETAILOR-WALL_OF_DENIM.description": "Create 2 [gold]Denim Minions[/gold].",
     "THETAILOR-DRESS_UP.title": "Dress Up",
@@ -157,6 +157,8 @@
     "THETAILOR-MONOCHROME.description": "Choose{IfUpgraded:show: and upgrade} a card in your [gold]Hand[/gold].\nCreate a copy of that card in your [gold]Hand[/gold] and [gold]Stitch[/gold] it to the original.",
     "THETAILOR-MENDING.title": "Mending",
     "THETAILOR-MENDING.description": "At the start of your turn, your rightmost Minion gains {Heal:diff()} max HP.",
+    "THETAILOR-DO_IT_YOURSELF.title": "Do It Yourself",
+    "THETAILOR-DO_IT_YOURSELF.description": "Add a [gold]Sewing Kit[/gold]{IfUpgraded:show:+} to another player's [gold]Hand[/gold].",
 
     "THETAILOR-PINCUSHION.title": "Pincushion",
     "THETAILOR-PINCUSHION.description": "[gold]Stitching[/gold] a card to this one [gold]Exhausts[/gold] it.\nPlay all cards [gold]Exhausted[/gold] this way from your [gold]Exhaust Pile[/gold].",
@@ -212,6 +214,8 @@
 
     "THETAILOR-PATCH.title": "Patch",
     "THETAILOR-PATCH.description": "Gain {Block:diff()} [gold]Block[/gold].\nDeal {Damage:diff()} damage.\nDraw {Cards:diff()} {Cards:plural:card|cards}.",
+    "THETAILOR-SEWING_KIT.title": "Sewing Kit",
+    "THETAILOR-SEWING_KIT.description": "[gold]Stitch[/gold] two cards in your [gold]Hand[/gold].",
     "THETAILOR-LEATHER_MINION_TOKEN.title": "Leather Minion",
     "THETAILOR-LEATHER_MINION_TOKEN.description": "",
     "THETAILOR-COTTON_MINION_TOKEN.title": "Cotton Minion",
