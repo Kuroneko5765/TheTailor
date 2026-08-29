@@ -27,7 +27,7 @@ namespace TheTailor.Powers
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 
-        public override Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+        public override Task BeforeCardPlayed(CardPlay cardPlay)
         {
             if (cardPlay.Card.Owner.Creature == Owner && cardPlay != null && cardPlay.Card.IsUpgraded)
             {

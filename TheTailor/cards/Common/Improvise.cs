@@ -27,6 +27,7 @@ using MinionLib.Utilities;
 using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.Nodes.CommonUi;
 using System.Collections.Immutable;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Common
 {
@@ -36,16 +37,17 @@ namespace TheTailor.Cards.Common
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/improviseBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => IsUpgraded ? [HoverTipFactory.FromCard<Token.Patch>()] : [];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2), new CardsVar(1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Token.Patch>(IsUpgraded), HoverTipFactory.FromCard<Token.SewingKit>()];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            if (IsUpgraded)
+            await Token.SewingKit.CreateInHand(Owner, CombatState);
+            CardModel? patch = await Token.Patch.CreateInHand(Owner, CombatState);
+            if (patch != null && IsUpgraded)
             {
-                IEnumerable<CardModel> cm = await Token.Patch.CreateInHand(Owner, 1, CombatState);
+                CardCmd.Upgrade(patch);
             }
             await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
         }

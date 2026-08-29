@@ -36,7 +36,7 @@ namespace TheTailor.Cards.Rare
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/greatExpectationsBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/greatExpectationsBeta.png";
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust, CardKeyword.Retain];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -73,11 +73,11 @@ namespace TheTailor.Cards.Rare
             PetOrderSnapshotManager.TakeSnapshot(Owner);
 
             await TailorMinionCmd.PutOstyAtBack(choiceContext, Owner);
+        }
 
-            if (IsUpgraded)
-            {
-                await CardPileCmd.Draw(choiceContext, replaceAmount, Owner);
-            }
+        protected override void OnUpgrade()
+        {
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

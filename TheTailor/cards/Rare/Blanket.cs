@@ -36,7 +36,7 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/blanketBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/blanketBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/blanketBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(2)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(3)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

@@ -36,6 +36,7 @@ namespace TheTailor.Potions
         public override PotionRarity Rarity => PotionRarity.Rare;
         public override PotionUsage Usage => PotionUsage.AnyTime;
         public override TargetType TargetType => TargetType.Self;
+        public override bool CanBeGeneratedInCombat => false;
 
         protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
         {

@@ -41,7 +41,7 @@ namespace TheTailor.Cards.Common
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.IntValue, Owner);
-            
+
             int replaceIndex = -1;
             PetsOrderAccessor accessor = new PetsOrderAccessor(Owner);
             if (accessor.Pets != null)
@@ -68,6 +68,21 @@ namespace TheTailor.Cards.Common
 
                 await TailorMinionCmd.PutOstyAtBack(choiceContext, Owner);
             }
+        }
+
+        public override bool ShouldPlay(CardModel card, AutoPlayType autoPlayType)
+        {
+            if (card.Owner != Owner || card is not Repurpose)
+            {
+                return true;
+            }
+
+            if (TailorMinionCmd.GetMinionCount<TailorMinion>(card.Owner) <= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         protected override void OnUpgrade()

@@ -31,6 +31,7 @@ namespace TheTailor.Cards.Ancient
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/weaveBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9m, ValueProp.Move), new DynamicVar("Delicate", 2)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
+        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -47,22 +48,11 @@ namespace TheTailor.Cards.Ancient
             }
         }
 
-        protected override CardLocation GetResultLocationForCardPlay()
-        {
-            CardLocation resultLocationForCardPlay = base.GetResultLocationForCardPlay();
-            if (resultLocationForCardPlay.pileType == PileType.Discard)
-            {
-                resultLocationForCardPlay.pileType = PileType.Draw;
-                resultLocationForCardPlay.position = CardPilePosition.Top;
-            }
-            return resultLocationForCardPlay;
-        }
-
         protected override void OnUpgrade()
         {
             DynamicVars["Delicate"].UpgradeValueBy(1);
             RemoveKeyword(CardKeyword.Exhaust);
-            DynamicVars.Damage.UpgradeValueBy(3m);
+            DynamicVars.Damage.UpgradeValueBy(7m);
         }
     }
 }
