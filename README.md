@@ -9,7 +9,7 @@
 <img src="https://github.com/hex3gc/TheTailor/blob/main/TheTailor/images/showcase/0_selectScreen.png?raw=true">
 
 The character starts with:
-- 5 **Strikes**
+- 4 **Strikes**
 - 4 **Defends**
 - 1 **Sew**
 - 1 **Craft**
