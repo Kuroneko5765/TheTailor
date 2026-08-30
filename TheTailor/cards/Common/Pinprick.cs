@@ -27,7 +27,7 @@ namespace TheTailor.Cards.Common
     [Pool(typeof(TheTailorCardPool))]
     public class Pinprick() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
-        public override bool GainsBlock => true;
+        public override bool GainsBlock => false;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";

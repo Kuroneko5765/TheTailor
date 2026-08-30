@@ -35,7 +35,6 @@ namespace TheTailor.Character
             ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<StrikeTailor>(),
-            ModelDb.Card<StrikeTailor>(),
             ModelDb.Card<DefendTailor>(),
             ModelDb.Card<DefendTailor>(),
             ModelDb.Card<DefendTailor>(),

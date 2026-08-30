@@ -24,6 +24,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Nodes.Screens.ScreenContext;
 using MegaCrit.Sts2.Core.Nodes.GodotExtensions;
+using MinionLib.Utilities;
 
 namespace TheTailor.Minions
 {
@@ -35,6 +36,35 @@ namespace TheTailor.Minions
         public override bool HasDeathSfx => true;
         public override float DeathAnimLengthOverride => 0.8f;
         public override float HpBarSizeReduction => 12f;
+    }
+
+    /// <summary>
+    ///     Fixes Paper Cuts not reducing minions' nor players' max HP
+    /// </summary>
+    [HarmonyPatch]
+    internal static class MinionPapercutsPatch
+    {
+        [HarmonyPatch(typeof(PaperCutsPower), "AfterDamageGiven")]
+        internal static async void Postfix(PaperCutsPower __instance, PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
+        {
+            if (dealer == __instance.Owner && !target.IsPlayer && target.PetOwner != null && props.IsPoweredAttack() && result.UnblockedDamage > 0)
+            {
+                await CreatureCmd.LoseMaxHp(choiceContext, target, __instance.Amount, isFromCard: false);
+                if (result.OverkillDamage > 0)
+                {
+                    PetsOrderAccessor accessor = new PetsOrderAccessor(target.PetOwner);
+                    int indexOfPet = accessor.Pets.IndexOf(target);
+                    if (indexOfPet == accessor.Pets.Count - 1)
+                    {
+                        await CreatureCmd.LoseMaxHp(choiceContext, target.PetOwner.Creature, __instance.Amount, isFromCard: false);
+                    }
+                    else if (accessor.Pets.Count - 1 > indexOfPet)
+                    {
+                        await CreatureCmd.LoseMaxHp(choiceContext, accessor.Pets[indexOfPet + 1], __instance.Amount, isFromCard: false);
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>

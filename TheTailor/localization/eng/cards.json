@@ -165,8 +165,7 @@
     "THETAILOR-SLAP_FOR_ALL.description": "Deal {CalculatedDamage:diff()} damage.\nDeals {ExtraDamage:diff()} additional damage for each allied player, pet or Minion on your team.",
 
     "THETAILOR-PINCUSHION.title": "Pincushion",
-    "THETAILOR-PINCUSHION.description": "[gold]Stitching[/gold] a card to this one [gold]Exhausts[/gold] it.\nPlay all cards [gold]Exhausted[/gold] this way from your [gold]Exhaust Pile[/gold].",
-    "THETAILOR-PINCUSHION.cardList": "{CardsString}",
+    "THETAILOR-PINCUSHION.description": "Whenever you [gold]Stitch[/gold] a card to this card, it gains [gold]Replay {Replay:diff()}[/gold].",
     "THETAILOR-FRONT_POCKET.title": "Front Pocket",
     "THETAILOR-FRONT_POCKET.description": "[gold]Stitch[/gold] a card in your [gold]Hand[/gold] to a card in your [gold]Draw Pile[/gold]{IfUpgraded:show: and [gold]Upgrade[/gold] them}.",
     "THETAILOR-UNRAVEL.title": "Unravel",

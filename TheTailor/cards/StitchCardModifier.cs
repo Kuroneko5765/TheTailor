@@ -64,7 +64,7 @@ namespace TheTailor.Cards
             if (!StitchTrackAutoplaySingleton.BlockedFromAutoplay.Contains(cardPlay.Card) && cardPlay.Card == Owner && Owner != null && StitchedCard != null && cardPlay.PlayIndex == 0)
             {
                 Creature? target = GetTarget(StitchedCard, StitchedCard.CombatState);
-                if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null)
+                if (cardPlay.Target != null && cardPlay.Target.IsAlive && target != null && cardPlay.Card.TargetType == StitchedCard.TargetType)
                 {
                     target = cardPlay.Target;
                 }
@@ -87,6 +87,7 @@ namespace TheTailor.Cards
                 TargetType.AnyEnemy => combatState.HittableEnemies.FirstOrDefault(),
                 TargetType.AnyAlly => combatTargets.NextItem(combatState.Allies.Where((Creature c) => c != null && c.IsAlive && c.IsPlayer && c != card.Owner.Creature)),
                 TargetType.AnyPlayer => card.Owner.Creature,
+                TargetType.Self => card.Owner.Creature,
                 _ => null,
             };
         }

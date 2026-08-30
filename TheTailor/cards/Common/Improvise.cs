@@ -49,7 +49,6 @@ namespace TheTailor.Cards.Common
             {
                 CardCmd.Upgrade(patch);
             }
-            await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(choiceContext, Owner, true);
         }
     }
 }

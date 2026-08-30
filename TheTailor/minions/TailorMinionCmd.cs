@@ -325,7 +325,7 @@ namespace TheTailor.Minions
                     }
                     else if (creature.Monster is MinionDenim)
                     {
-                        await PowerCmd.Apply<DenimStrengthPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await PowerCmd.Apply<StrengthPower>(choiceContext, player.Creature, 1, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType != MinionTriggerType.All) { break; }

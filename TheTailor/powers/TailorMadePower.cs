@@ -60,21 +60,4 @@ namespace TheTailor.Powers
             return Owner;
         }
     }
-
-    [HarmonyPatch]
-    internal static class MinionLayoutPatch
-    {
-        [HarmonyPatch(typeof(MinionGuardianOverkillPatch), "IsFrontGuardian")]
-        internal static void Postfix(ref bool __result, Creature creature)
-        {
-            if (__result == false)
-            {
-                if (creature.GetPower<TailorMadePower>() != null || creature.GetPower<DieForYouPower>() != null)
-                {
-                    __result = true;
-                    return;
-                }
-            }
-        }
-    }
 }
