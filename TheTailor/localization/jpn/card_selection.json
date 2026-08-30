@@ -1,0 +1,7 @@
+{
+  "TO_REPLACE_MINION": "ミニオン1体を{0}に[gold]変化[/gold]させる。",
+  "TO_STITCH": "[gold]縫合[/gold]するカードを{Amount:plural:1枚|[blue]{}[/blue]枚}選ぶ。",
+  "TO_STITCH_CLONE": "複製して[gold]縫合[/gold]するカードを1枚選ぶ。",
+  "TO_STITCH_PATCH": "[gold]パッチ[/gold]と[gold]縫合[/gold]するカードを{Amount:plural:1枚|[blue]{}[/blue]枚}選ぶ。",
+  "TO_STITCH_SLIPPER": "[gold]スリッパ[/gold]と[gold]縫合[/gold]するカードを{Amount:plural:1枚|[blue]{}[/blue]枚}選ぶ。"
+}
