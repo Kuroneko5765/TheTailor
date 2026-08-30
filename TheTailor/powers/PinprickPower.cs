@@ -32,7 +32,7 @@ namespace TheTailor.Powers
 
         public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (Owner == target && result.TotalDamage > 0 && dealer != null && dealer.Side == CombatSide.Player)
+            if (Owner == target && result.TotalDamage > 0 && result.Props.HasFlag(ValueProp.Move) && dealer != null && dealer.Side == CombatSide.Player)
             {
                 await CreatureCmd.GainBlock(dealer, new BlockVar(Amount, ValueProp.Unpowered), null);
             }

@@ -47,6 +47,10 @@ namespace TheTailor.Minions
             {
                 return true;
             }
+            if (targets.Any(c => c.IsEnemy))
+            {
+                return true;
+            }
 
             List<Creature> list = targets.ToList();
             __result = HandleWithOverkillRedirect(choiceContext, list, amount, props, dealer, cardSource, cardPlay);

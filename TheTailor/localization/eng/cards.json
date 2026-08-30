@@ -46,7 +46,7 @@
     "THETAILOR-ATELIER.description": "At the end of combat, [gold]Upgrade[/gold] {Cards:diff()} random {Cards:plural:card|cards}.",
 
     "THETAILOR-PINPRICK.title": "Pinprick",
-    "THETAILOR-PINPRICK.description": "The enemy grants {Block:diff()} [gold]Block[/gold] when hit this turn.\nDeal {Damage:diff()} damage {Hits:diff()} times.",
+    "THETAILOR-PINPRICK.description": "The enemy grants {Block:diff()} [gold]Block[/gold] when hit with an Attack this turn.\nDeal {Damage:diff()} damage {Hits:diff()} times.",
     "THETAILOR-NEEDLE_STORM.title": "Needle Storm",
     "THETAILOR-NEEDLE_STORM.description": "Deal {Damage:diff()} damage to ALL enemies twice.",
     "THETAILOR-SLICK_STRIKE.title": "Slick Strike",
@@ -201,7 +201,7 @@
     "THETAILOR-BANDAGE_UP.title": "Bandage Up",
     "THETAILOR-BANDAGE_UP.description": "[gold]Delicate[/gold] {Delicate:diff()}.\nHeal {Heal:diff()} HP.\nCreate a [gold]Cotton Minion[/gold].",
     "THETAILOR-RESOURCEFULNESS.title": "Resourcefulness",
-    "THETAILOR-RESOURCEFULNESS.description": "At the start of your turn, [gold]Exhaust[/gold] a card in your [gold]Hand[/gold].\nWhenever a card is [gold]Exhausted[/gold], A random Minion gains {Heal:diff()} max HP.",
+    "THETAILOR-RESOURCEFULNESS.description": "At the start of your turn, [gold]Exhaust[/gold] a card in your [gold]Hand[/gold].\nWhenever a card is [gold]Exhausted[/gold], a random Minion gains {Heal:diff()} max HP.",
     "THETAILOR-SOMMELIER.title": "Sommelier",
     "THETAILOR-SOMMELIER.description": "Procure a [gold]Weaver's Wine[/gold].",
     "THETAILOR-CLEARANCE.title": "Clearance",
