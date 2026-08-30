@@ -3,6 +3,9 @@
 <img src="https://github.com/hex3gc/TheTailor/blob/main/TheTailor/images/charui/character_icon_tailor.png?raw=true" width=128>
 </p>
 <p align="center">A Slay The Spire 2 character mod which adds <b>The Tailor</b>, a stylish clothier with a score to settle.</p>
+<p align="center">---</p>
+<p align="center"><b>In development - expect incremental balance changes and placeholder graphics!</b></p>
+<p align="center">Supported languages: English, Japanese</p>
 
 <hr>
 
@@ -48,3 +51,5 @@ Many cards and assets still have missing or placeholder graphics which will be r
 
 ### Feedback
 If you have questions about the mod, bugs to report or balance/technical suggestions, find me in the [Slay The Spire Discord](https://discord.com/invite/SlayTheSpire) or post an issue on [Github](https://github.com/hex3gc/TheTailor).
+
+**In-game translations are appreciated - please submit these as pull requests!**
