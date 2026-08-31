@@ -1,0 +1,7 @@
+{
+    "TO_STITCH": "选择[blue]{Amount}[/blue]张牌来[gold]缝合[/gold]。",
+    "TO_STITCH_PATCH": "选择[blue]{Amount}[/blue]与[gold]补丁[/gold]进行[gold]缝合[/gold]。",
+    "TO_STITCH_SLIPPER": "选择[blue]{Amount}[/blue]与[gold]拖鞋[/gold]进行[gold]缝合[/gold]。",
+    "TO_STITCH_CLONE": "选择一张牌克隆并[gold]缝合[/gold].",
+    "TO_REPLACE_MINION": "用{0}替换一个随从。"
+}
