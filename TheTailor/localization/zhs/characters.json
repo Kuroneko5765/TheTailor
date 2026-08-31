@@ -1,0 +1,16 @@
+{
+    "THETAILOR-THE_TAILOR.aromaPrinciple": "[sine][purple]我的作品必将成为最伟大的……！[/purple][/sine]",
+    "THETAILOR-THE_TAILOR.banter.alive.endTurnPing": "动作快点！",
+    "THETAILOR-THE_TAILOR.banter.dead.endTurnPing": "……",
+    "THETAILOR-THE_TAILOR.cardsModifierDescription": "裁缝牌现在会出现在奖励和商店中。",
+    "THETAILOR-THE_TAILOR.cardsModifierTitle": "裁缝牌",
+    "THETAILOR-THE_TAILOR.description": "一位身负旧怨的裁缝大师。\n赋予无生命的织物以生命。",
+    "THETAILOR-THE_TAILOR.eventDeathPrevention": "消亡？绝不！",
+    "THETAILOR-THE_TAILOR.goldMonologue": "[sine]最上乘的材料，我都要买下……[/sine]",
+    "THETAILOR-THE_TAILOR.possessiveAdjective": "他的",
+    "THETAILOR-THE_TAILOR.pronounObject": "他",
+    "THETAILOR-THE_TAILOR.pronounPossessive": "他的",
+    "THETAILOR-THE_TAILOR.pronounSubject": "他",
+    "THETAILOR-THE_TAILOR.title": "裁缝",
+    "THETAILOR-THE_TAILOR.titleObject": "裁缝"
+}
