@@ -1,5 +1,5 @@
 {
-  "THETAILOR-CONVERT.description": "最大HPを維持したまま、ミニオンを[gold]変化[/gold]させる。",
+  "THETAILOR-CONVERT.description": "最大HPを維持したまま、[gold]ミニオン[/gold]を[gold]変化[/gold]させる。",
   "THETAILOR-CONVERT.title": "変換",
   "THETAILOR-COTTONMINION.description": "[gold]3 HP[/gold]。ブロックされなかった攻撃ダメージをすべて吸収する。ターン終了時、持ち主のHPを1回復し、自身は1ダメージを受ける。",
   "THETAILOR-COTTONMINION.title": "コットンミニオン",
@@ -15,10 +15,10 @@
   "THETAILOR-PREMIUM.title": "プレミアム",
   "THETAILOR-SILKMINION.description": "[gold]1 HP[/gold]。ブロックされなかった攻撃ダメージをすべて吸収する。ターン開始時、ターン終了時まで持ち主に[gold]敏捷[/gold]2を付与する。",
   "THETAILOR-SILKMINION.title": "シルクミニオン",
-  "THETAILOR-STITCH.description": "[gold]縫合[/gold]されていないカード2枚を連結する。片方をプレイした時、もう片方がその後にコストなしでプレイされる。",
+  "THETAILOR-STITCH.description": "[gold]縫合[/gold]されていないカード2枚を連結する。片方をプレイした時、もう片方がその後にコストを支払わずにプレイされる。",
   "THETAILOR-STITCH.title": "縫合",
-  "THETAILOR-STITCHED.description": "他のカードと縫合されている。このカードをプレイした時、もう片方がその後にコストなしでプレイされる。",
+  "THETAILOR-STITCHED.description": "他のカードと縫合されている。このカードをプレイした時、もう片方がその後にコストを支払わずにプレイされる。",
   "THETAILOR-STITCHED.title": "縫合済み",
-  "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]。ブロックされなかった攻撃ダメージをすべて吸収する。持ち主の各ターンの最初のアタックが[gold]脱力[/gold]1を付与する。",
+  "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]。ブロックされなかった攻撃ダメージをすべて吸収する。持ち主の毎ターン、最初のアタックが[gold]脱力[/gold]1を付与する。",
   "THETAILOR-WOOLMINION.title": "ウールミニオン"
 }
