@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://df7mwe3ycmtp4"]
+[gd_scene load_steps=17 format=3 uid="uid://df7mwe3ycmtp4"]
 
 [ext_resource type="Script" uid="uid://c1dmt8ahyligb" path="res://TheTailor/nodes/TailorNCreatureVisuals.cs" id="1_du8ap"]
 [ext_resource type="Texture2D" uid="uid://c32ppi80rx5bx" path="res://TheTailor/images/vfx/tailor_string_powerup_particle.png" id="3_b2qm1"]
-[ext_resource type="Texture2D" uid="uid://bbtbx1udeqym7" path="res://TheTailor/images/character/tailor_placeholder.png" id="3_wpyvb"]
 [ext_resource type="Texture2D" uid="uid://nu4q1keviflt" path="res://TheTailor/images/vfx/tailor_glow_powerup_particle.png" id="4_b2qm1"]
 [ext_resource type="PackedScene" uid="uid://ddcr7n14lh4io" path="res://TheTailor/scenes/char/tailor/tailor_anim_view.tscn" id="5_1vc7f"]
 
@@ -66,15 +65,15 @@ color_ramp = SubResource("GradientTexture1D_y3lgw")
 [node name="Root" type="Node2D"]
 script = ExtResource("1_du8ap")
 
+[node name="FormVfx" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-visible = false
-y_sort_enabled = true
-position = Vector2(0.18751693, -214.1875)
-scale = Vector2(0.7372845, 0.7372845)
-texture = ExtResource("3_wpyvb")
 
 [node name="PowerupParticles" type="Node2D" parent="Visuals"]
 unique_name_in_owner = true

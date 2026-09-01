@@ -22,6 +22,7 @@ using TheTailor.Cards;
 using TheTailor.Character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace TheTailor.Cards.Rare
 {
@@ -29,6 +30,7 @@ namespace TheTailor.Cards.Rare
     public class Workbench() : CustomCardModel(-1, CardType.Skill, CardRarity.Rare, TargetType.None)
     {
         public override int MaxUpgradeLevel => 99999;
+        public override bool GainsBlock => true;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/workbenchBeta.png";
@@ -44,7 +46,12 @@ namespace TheTailor.Cards.Rare
                 {
                     if (creature == Owner.Creature && PileType.Hand.GetPile(Owner).Cards.Contains(this))
                     {
-                        await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, null);
+                        int fullBlock = DynamicVars.Block.IntValue;
+                        if (Enchantment is Nimble)
+                        {
+                            fullBlock += Enchantment.Amount;
+                        }
+                        await CreatureCmd.GainBlock(Owner.Creature, new BlockVar(fullBlock, ValueProp.Unpowered), null);
                     }
                 }
             }

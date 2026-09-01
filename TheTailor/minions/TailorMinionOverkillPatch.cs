@@ -19,7 +19,8 @@ using TheTailor.Powers;
 namespace TheTailor.Minions
 {
     /// <summary>
-    ///     A clone of MinionGuardianOverkillPatch which actually works on Multiplayer :) im tired
+    ///     A clone of MinionGuardianOverkillPatch working on Multiplayer
+    ///     - This failed to make Phantasmal Gardeners give block, so certain things may cause problems with damage calculation
     /// </summary>
     [HarmonyPatch(typeof(CreatureCmd), "Damage", new Type[]
     {
@@ -39,6 +40,19 @@ namespace TheTailor.Minions
         [HarmonyPrefix]
         private static bool Prefix(PlayerChoiceContext choiceContext, IEnumerable<Creature> targets, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay, ref Task<IEnumerable<DamageResult>> __result)
         {
+            bool atLeastOneMinion = false;
+            foreach (Creature creature in targets)
+            {
+                if (creature.Pets != null && creature.Pets.Any(c => c.Monster is TailorMinion))
+                {
+                    atLeastOneMinion = true;
+                }
+            }
+
+            if (!atLeastOneMinion)
+            {
+                return true;
+            }
             if (IsHandling.Value)
             {
                 return true;

@@ -5,7 +5,7 @@
 <p align="center">A Slay The Spire 2 character mod which adds <b>The Tailor</b>, a stylish clothier with a score to settle.</p>
 <p align="center">---</p>
 <p align="center"><b>In development - expect incremental balance changes and placeholder graphics!</b></p>
-<p align="center">Supported languages: English, Japanese</p>
+<p align="center">Supported languages: English, Japanese, Chinese</p>
 
 <hr>
 
@@ -42,14 +42,33 @@ All assets have been made with Megacrit's style in mind to make The Tailor feel 
 Many cards and assets still have missing or placeholder graphics which will be replaced in the future.
 
 ### Download
-[Download the latest release from Github.](https://github.com/hex3gc/TheTailor/releases)
+Install on the [Steam Workshop](https://github.com/hex3gc/TheTailor/releases) or manually download the [latest release from Github](https://github.com/hex3gc/TheTailor/releases)
 
 ### Dependencies
 - **Slay The Spire 2** (Beta branch)
 - The latest **BaseLib** from [Github](https://github.com/Alchyr/BaseLib-StS2) or [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3737335127)
 - The latest **MinionLib** from [Github](https://github.com/FuYnAloft/MinionLib) or [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?l=english&id=3747595039)
 
-### Feedback
-If you have questions about the mod, bugs to report or balance/technical suggestions, find me in the [Slay The Spire Discord](https://discord.com/invite/SlayTheSpire) or post an issue on [Github](https://github.com/hex3gc/TheTailor).
+### Frequently asked  questions
+**My save has been reset! What happened?**
+- Slay The Spire 2, by default, has separate saves for modded installs. Get a mod like [Import Vanilla Saves](https://steamcommunity.com/sharedfiles/filedetails/?id=3747503308) to bring Vanilla progress into a modded instance.
 
-**In-game translations are appreciated - please submit these as pull requests!**
+**Why doesn't the character doesn't show up in the menu?**
+- You're most likely on the Release branch of Slay The Spire 2, which this mod isn't compatible with yet. If not, it may be an error which you can report using the method below.
+
+**Why does Replay not repeat Stitched cards?**
+- Early on I was having problems with this causing infinite chains of replay->stitch->replay, since Slay The Spire 2 queues up the card plays in an odd way. Once I learn the best way to approach it, this may change.
+
+**Can I submit a translation?**
+- You can, but you'll have to be a little familiar with the JSON file format and Github. Localization files are [here](https://github.com/hex3gc/TheTailor/tree/main/TheTailor/localization), and if you're submitting a new translation you'll have to commit your own folder there with a pull request.
+
+### Feedback
+If you have questions about the mod or balance/technical suggestions, find me in the [Slay The Spire Discord](https://discord.com/invite/SlayTheSpire) or post a comment on Steam Workshop. 
+
+**The most effective way to report an error is as an Issue on [Github](https://github.com/hex3gc/TheTailor) by providing a log file.** You can find log files by:
+- Opening the in-game console using ` or Shift+8
+- Type in 'open log'
+- Upload the **godot.log** file from that location. Make sure your current or last played session is the one where the bug happened!
+
+### Support
+[Donate on ko-fi](https://ko-fi.com/hex351999). Contributions will give me more free time to work on mods and personal game development projects, so anything is appreciated.
