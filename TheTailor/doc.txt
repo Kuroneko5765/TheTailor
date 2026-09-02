@@ -2,32 +2,9 @@
 - Epochs/unlocks?
 - Stock attack vfx
 
-! Campfire sprite
 ! Cookie
-! Minions (Cotton, Silk, Wool)
+! Minion animations (Denim, Burlap, Silk, Wool)
 
 -- CURRENT ISSUES --
-- Scroll Of Biting doesn't seem to reduce max HP
 - Byrd/Legion have odd positioning
 - Osty stats covered up by Minions
-
-MULTIPLAYER CARDS
-
-Uncommon
-
-Do It Yourself (Skill)
-- Add a Sewing Kit(+) to another player's Hand.
-
-Box of Chocolates (Skill)
-- Upgrade ALL cards in another player's Hand.
-
-Slap For All (Attack)
-- Deal 6 damage. Deals 4(6) additional damage for each allied player, pet or Minion on your team.
-
-Rare
-
-Herd (Skill)
-- (Delicate 2.) Create a Leather Minion for ALL players. Exhaust.
-
-Infinite Patches (Power)
-- At the start of each turn, ALL players add a Patch(+) to their Hand.

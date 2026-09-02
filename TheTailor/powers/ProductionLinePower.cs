@@ -25,16 +25,23 @@ namespace TheTailor.Powers
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/productionLine.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/productionLine.png";
         public override PowerType Type => PowerType.Buff;
-        public override PowerStackType StackType => PowerStackType.Single;
+        public override PowerStackType StackType => PowerStackType.Counter;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
 
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
             if (Owner == player.Creature)
             {
-                if (await TailorMinionCmd.AddMinion<MinionLinen>(choiceContext, player))
+                for (int i = 0; i < Amount; i++)
                 {
-                    Flash();
+                    if (await TailorMinionCmd.AddMinion<MinionLinen>(choiceContext, player))
+                    {
+                        Flash();
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }

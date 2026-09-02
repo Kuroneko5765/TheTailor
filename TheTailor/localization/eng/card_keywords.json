@@ -13,13 +13,13 @@
     "THETAILOR-LEATHERMINION.title": "Leather Minion",
     "THETAILOR-LEATHERMINION.description": "[gold]6 HP[/gold]. Takes unblocked attack damage for you.",
     "THETAILOR-LINENMINION.title": "Linen Minion",
-    "THETAILOR-LINENMINION.description": "[gold]5 HP[/gold]. Takes unblocked attack damage for you. When hit, applies 2 [gold]Vulnerable[/gold] to its attacker.",
+    "THETAILOR-LINENMINION.description": "[gold]5 HP[/gold]. Takes unblocked attack damage for you.\nWhen hit, applies 2 [gold]Vulnerable[/gold] to its attacker.",
     "THETAILOR-COTTONMINION.title": "Cotton Minion",
-    "THETAILOR-COTTONMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you. At the end of your turn, heals you for 1 HP and takes 1 damage.",
+    "THETAILOR-COTTONMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you.\nAt the end of your turn, heals you for 1 HP and takes 1 damage.",
     "THETAILOR-DENIMMINION.title": "Denim Minion",
-    "THETAILOR-DENIMMINION.description": "[gold]7 HP[/gold]. Takes unblocked attack damage for you. When hit, grants you 1 [gold]Strength[/gold].",
+    "THETAILOR-DENIMMINION.description": "[gold]7 HP[/gold]. Takes unblocked attack damage for you.\nWhen hit, grants you 1 [gold]Strength[/gold].",
     "THETAILOR-SILKMINION.title": "Silk Minion",
-    "THETAILOR-SILKMINION.description": "[gold]1 HP[/gold]. Takes unblocked attack damage for you. At the start of your turn, grants you 2 [gold]Dexterity[/gold] this turn.",
+    "THETAILOR-SILKMINION.description": "[gold]1 HP[/gold]. Takes unblocked attack damage for you.\nAt the start of your turn, grants you 2 [gold]Dexterity[/gold] this turn.",
     "THETAILOR-WOOLMINION.title": "Wool Minion",
-    "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you. Your first attack each turn applies 1 [gold]Weak[/gold]."
+    "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you.\nYour first attack each turn applies 1 [gold]Weak[/gold]."
 }
