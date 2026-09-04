@@ -40,6 +40,7 @@ namespace TheTailor.Powers
             }
         }
 
+        /*
         public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
         {
             if (player != Owner.Player)
@@ -51,5 +52,6 @@ namespace TheTailor.Powers
                 await CardCmd.Exhaust(choiceContext, item);
             }
         }
+        */
     }
 }

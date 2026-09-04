@@ -29,7 +29,6 @@ namespace TheTailor.Cards.Uncommon
     [Pool(typeof(TheTailorCardPool))]
     public class SewingCircle() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
-        public override int MaxUpgradeLevel => 99999;
         protected override bool HasEnergyCostX => true;
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sewingCircleBeta.png";

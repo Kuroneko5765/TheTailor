@@ -33,7 +33,7 @@ namespace TheTailor.Cards.Token
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/patch.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/patch.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/patchBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2m, ValueProp.Move), new DamageVar(2m, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(1m, ValueProp.Move), new DamageVar(2m, ValueProp.Move), new CardsVar(1)];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -52,7 +52,7 @@ namespace TheTailor.Cards.Token
         protected override void OnUpgrade()
         {
             DynamicVars.Damage.UpgradeValueBy(2m);
-            DynamicVars.Block.UpgradeValueBy(2m);
+            DynamicVars.Block.UpgradeValueBy(1m);
         }
 
         public static async Task<CardModel?> CreateInHand(Player owner, ICombatState combatState)
