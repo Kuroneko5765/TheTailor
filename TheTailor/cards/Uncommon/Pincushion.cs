@@ -24,37 +24,35 @@ using BaseLib.Extensions;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Cards;
 using Godot;
+using TheTailor.Cards.Common;
+using TheTailor.Powers;
 
-namespace TheTailor.Cards.Rare
+namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Pincushion() : CustomCardModel(1, CardType.Skill, CardRarity.Rare, TargetType.Self), IOnStitchEffect
+    public class Pincushion() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pincushionBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Replay", 1)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Stitch)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new DynamicVar("Hits", 2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PinprickPower>(), HoverTipFactory.FromPower<PincushionPower>()];
 
-        public async void OnStitch(CardModel card, CardModel stitchedCard)
+        protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            if (card == this && IsMutable && stitchedCard != null)
-            {
-                stitchedCard.BaseReplayCount += DynamicVars["Replay"].IntValue;
-            }
-        }
-        public async void OnUnstitch(CardModel card)
-        {
-            StitchCardModifier? cardStitch = this.GetModifier<StitchCardModifier>();
-            if (card == this && IsMutable && cardStitch != null && cardStitch.StitchedCard != null)
-            {
-                cardStitch.StitchedCard.BaseReplayCount -= DynamicVars["Replay"].IntValue;
-            }
+            await PowerCmd.Apply<PinprickPower>(choiceContext, cardPlay.Target, 1, Owner.Creature, this);
+            await PowerCmd.Apply<PincushionPower>(choiceContext, cardPlay.Target, 1, Owner.Creature, this);
+            await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
+                .FromCard(this, cardPlay)
+                .WithHitCount(DynamicVars["Hits"].IntValue)
+                .Targeting(cardPlay.Target)
+                .WithHitFx("vfx/vfx_attack_slash")
+                .Execute(choiceContext);
         }
 
         protected override void OnUpgrade()
         {
-            EnergyCost.UpgradeBy(-1);
+            DynamicVars.Damage.UpgradeValueBy(2);
         }
     }
 }

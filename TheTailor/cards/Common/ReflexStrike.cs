@@ -38,13 +38,13 @@ using BaseLib.Extensions;
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class ReflexStrike() : CustomCardModel(0, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+    public class ReflexStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Strike };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/reflexStrike.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/reflexStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new CardsVar(1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move), new CardsVar(1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -53,19 +53,24 @@ namespace TheTailor.Cards.Common
                 .Targeting(cardPlay.Target)
                 .WithHitFx("vfx/vfx_attack_blunt", null, "blunt_attack.mp3")
                 .Execute(choiceContext);
-            CardPile pile = PileType.Hand.GetPile(Owner);
-            CardModel cardModel = Owner.RunState.Rng.CombatCardSelection.NextItem(pile.Cards);
-            if (cardModel != null)
-            {
-                await CardCmd.Exhaust(choiceContext, cardModel);
-            }
-
             await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
+        }
+
+        public override async Task AfterCardExhausted(PlayerChoiceContext choiceContext, CardModel card, bool causedByEthereal)
+        {
+            if (card.Owner == Owner && !causedByEthereal)
+            {
+                CardPile pile = PileType.Hand.GetPile(Owner);
+                if (pile.Cards.Contains(this))
+                {
+                    await CardCmd.AutoPlay(choiceContext, this, null);
+                }
+            }
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(3);
+            DynamicVars.Damage.UpgradeValueBy(4);
         }
     }
 }

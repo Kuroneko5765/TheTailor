@@ -32,6 +32,7 @@ namespace TheTailor.Cards.Common
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/pinprick.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/pinprickBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3m, ValueProp.Move), new BlockVar(1m, ValueProp.Unpowered), new DynamicVar("Hits", 2)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<PinprickPower>()];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
@@ -46,7 +47,7 @@ namespace TheTailor.Cards.Common
 
         protected override void OnUpgrade()
         {
-            DynamicVars.Damage.UpgradeValueBy(2m);
+            DynamicVars["Hits"].UpgradeValueBy(1);
         }
     }
 }

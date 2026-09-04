@@ -29,7 +29,7 @@ namespace TheTailor.Powers
         public override string? CustomPackedIconPath => "res://TheTailor/images/powers/powderKegSmall.png";
         public override string? CustomBigIconPath => "res://TheTailor/images/powers/powderKeg.png";
         public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/powderKeg.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(Keywords.LeatherMinion)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.BurlapMinion)];
         public override PowerType Type => PowerType.Buff;
         public override PowerStackType StackType => PowerStackType.Counter;
 

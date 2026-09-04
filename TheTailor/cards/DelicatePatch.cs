@@ -26,9 +26,15 @@ using MinionLib.Minion;
 using HarmonyLib;
 using TheTailor.Powers;
 using BaseLib.Extensions;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MinionLib.Utilities.BetterExtraArgs;
+using Godot;
 
 namespace TheTailor.Cards
 {
+    /// <summary>
+    ///     Decrements Delicate on card play and Exhausts cards when it reaches 0
+    /// </summary>
     [HarmonyPatch]
     internal static class DelicatePatch
     {
@@ -51,6 +57,29 @@ namespace TheTailor.Cards
                     await CardCmd.Exhaust(choiceContext, cardPlay.Card);
                 }
             }
+        }
+    }
+
+    /// <summary>
+    ///     Hides the 'Exhaust' keyword when a card has Delicate
+    /// </summary>
+    [HarmonyPatch]
+    internal static class DelicateHideExhaustPatch
+    {
+        [HarmonyPatch(typeof(CardModel), "GetDescriptionForPile", argumentTypes: [typeof(PileType), typeof(CardModel.DescriptionPreviewType), typeof(Creature)])]
+        internal static string Postfix(string __result, PileType pileType, DescriptionPreviewType previewType, Creature? target, CardModel __instance)
+        {
+            if (__instance.DynamicVars.ContainsKey("Delicate") && __instance.DynamicVars["Delicate"].BaseValue > -999 && __instance.Keywords.Contains(CardKeyword.Exhaust))
+            {
+                string exhaustString = "\n" + CardKeyword.Exhaust.GetCardText();
+                int exhaustStringIndex = __result.Find(exhaustString);
+                if (exhaustStringIndex > -1)
+                {
+                    __result = __result.Remove(exhaustStringIndex, exhaustString.Length);
+                }
+            }
+
+            return __result;
         }
     }
 }

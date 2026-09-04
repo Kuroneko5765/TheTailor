@@ -113,9 +113,14 @@ namespace TheTailor.Cards
     internal static class StitchRemovePatch
     {
         [HarmonyPatch(typeof(AbstractModel), "AfterCardChangedPiles")]
-        internal static async void Postfix(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
+        internal static async void Postfix(CardModel card, PileType oldPileType, AbstractModel? clonedBy, AbstractModel __instance)
         {
             if (card == null || card.Pile == null)
+            {
+                return;
+            }
+
+            if (card != __instance)
             {
                 return;
             }

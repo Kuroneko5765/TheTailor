@@ -28,7 +28,7 @@ using TheTailor.Cards.Token;
 namespace TheTailor.Cards.Multiplayer.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class BoxOfChocolates() : CustomCardModel(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
+    public class BoxOfChocolates() : CustomCardModel(0, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {
         public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/boxOfChocolatesBeta.png";

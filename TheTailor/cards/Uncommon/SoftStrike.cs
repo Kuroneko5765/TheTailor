@@ -31,14 +31,14 @@ using TheTailor.Powers;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class SoftStrike() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+    public class SoftStrike() : CustomCardModel(0, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion, CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/softStrike.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/softStrike.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/softStrikeBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion), HoverTipFactory.FromPower<WeakPower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new DynamicVar("Weaken", 1)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(TheTailor.Keywords.WoolMinion), HoverTipFactory.FromPower<WeakPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4m, ValueProp.Move), new DynamicVar("Weaken", 1), new DynamicVar("Delicate", 2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

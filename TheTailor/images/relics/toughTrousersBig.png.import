@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwksf2otg1xv6"
-path="res://.godot/imported/riposteBeta.png-22fbf3d2c9d0acd1912160fea6e26d01.ctex"
+uid="uid://bkouynpa4pb67"
+path="res://.godot/imported/toughTrousersBig.png-74ea0b955a77e73b20e95dd7930832fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheTailor/images/card_portraits/riposteBeta.png"
-dest_files=["res://.godot/imported/riposteBeta.png-22fbf3d2c9d0acd1912160fea6e26d01.ctex"]
+source_file="res://TheTailor/images/relics/toughTrousersBig.png"
+dest_files=["res://.godot/imported/toughTrousersBig.png-74ea0b955a77e73b20e95dd7930832fb.ctex"]
 
 [params]
 

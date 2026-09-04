@@ -35,11 +35,13 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/coordinationBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(4, ValueProp.Move), new DynamicVar("Hits", 3)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(3, ValueProp.Move), new DynamicVar("Hits", 3)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.BurlapMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            await TailorMinionCmd.TriggerMinionAbility<MinionDenim>(choiceContext, cardPlay.Player, TailorMinionCmd.MinionTriggerType.All);
+            int strengthTotal = TailorMinionCmd.GetMinionCount<MinionDenim>(Owner) + TailorMinionCmd.GetMinionCount<MinionBurlap>(Owner);
+            await PowerCmd.Apply<StrengthPower>(choiceContext, Owner.Creature, strengthTotal, Owner.Creature, this, false);
 
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)

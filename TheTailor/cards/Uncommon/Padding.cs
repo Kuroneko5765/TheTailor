@@ -31,29 +31,28 @@ namespace TheTailor.Cards.Uncommon
     [Pool(typeof(TheTailorCardPool))]
     public class Padding() : CustomCardModel(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
     {
+        public override bool GainsBlock => true;
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/paddingBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
-        public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate), HoverTipFactory.FromKeyword(TheTailor.Keywords.BurlapMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(2, ValueProp.Move), new DynamicVar("Delicate", 2)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-
-            IReadOnlyList<Creature> hittableEnemies = CombatState.HittableEnemies;
-            int enemycount = Math.Min(hittableEnemies.Count(), 3);
-
-            for (int i = 0; i < enemycount; i++)
-            {
-                await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
-            }
+            
+            await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionBurlap>(choiceContext, Owner, true);
+            await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(choiceContext, Owner, true);
         }
 
         protected override void OnUpgrade()
         {
-            AddKeyword(CardKeyword.Innate);
+            DynamicVars.Block.UpgradeValueBy(3);
+            DynamicVars["Delicate"].UpgradeValueBy(1);
+            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

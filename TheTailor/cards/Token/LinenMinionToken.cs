@@ -33,7 +33,7 @@ namespace TheTailor.Cards.Token
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/linenMinionTokenBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/linenMinionTokenBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/linenMinionTokenBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("ChoiceIndex", -1)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("ChoiceIndex", -1), new DynamicVar("Health", 0), new DynamicVar("HealthPluralize", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {

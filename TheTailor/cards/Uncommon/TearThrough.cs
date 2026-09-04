@@ -29,13 +29,13 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class WhatsInside() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
+    public class TearThrough() : CustomCardModel(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         protected override HashSet<CardTag> CanonicalTags => new HashSet<CardTag> { CardTag.Minion };
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/whatsInsideBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.CottonMinion)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/tearThroughBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/tearThroughBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/tearThroughBeta.png";
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.BurlapMinion)];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(7, ValueProp.Move)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -53,7 +53,7 @@ namespace TheTailor.Cards.Uncommon
                 {
                     if (accessor.Pets[i].Monster is TailorMinion)
                     {
-                        await TailorMinionCmd.ReplaceMinion<MinionCotton>(choiceContext, cardPlay.Card.Owner, i, false, true);
+                        await TailorMinionCmd.ReplaceMinion<MinionBurlap>(choiceContext, cardPlay.Card.Owner, i, false, true);
                         break;
                     }
                 }

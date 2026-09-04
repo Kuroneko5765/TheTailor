@@ -27,23 +27,23 @@ using TheTailor.Character;
 namespace TheTailor.Cards.Uncommon
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Loom() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
+    public class HeavyDuty() : CustomCardModel(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/loomBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LinenMinion), HoverTipFactory.FromPower<VulnerablePower>()];
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("VulnBonus", 25)];
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/heavyDutyBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/heavyDutyBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/heavyDutyBeta.png";
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Strength", 1)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
             await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-            await PowerCmd.Apply<LoomPower>(choiceContext, Owner.Creature, DynamicVars["VulnBonus"].BaseValue, Owner.Creature, this, false);
+            await PowerCmd.Apply<HeavyDutyPower>(choiceContext, Owner.Creature, DynamicVars["Strength"].IntValue, Owner.Creature, this, false);
         }
 
         protected override void OnUpgrade()
         {
-            DynamicVars["VulnBonus"].UpgradeValueBy(25);
+            AddKeyword(CardKeyword.Innate);
         }
     }
 }

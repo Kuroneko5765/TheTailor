@@ -48,5 +48,9 @@ namespace TheTailor
         [CustomEnum("CottonMinion")]
         [KeywordProperties(AutoKeywordPosition.Before)]
         public static CardKeyword CottonMinion;
+
+        [CustomEnum("BurlapMinion")]
+        [KeywordProperties(AutoKeywordPosition.Before)]
+        public static CardKeyword BurlapMinion;
     }
 }

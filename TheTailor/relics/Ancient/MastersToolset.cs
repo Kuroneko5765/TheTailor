@@ -28,26 +28,23 @@ namespace TheTailor.Relics.Ancient
         {
             for (int i = 0; i < 2; i++)
             {
-                int random = Owner.RunState.Rng.CombatCardGeneration.NextInt(6);
+                int random = Owner.RunState.Rng.CombatCardGeneration.NextInt(5);
 
                 switch (random)
                 {
                     case 0:
-                        await TailorMinionCmd.AddOrReplaceMinion<MinionLeather>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, true, withTriggers: 1);
                         break;
                     case 1:
-                        await TailorMinionCmd.AddOrReplaceMinion<MinionLinen>(new ThrowingPlayerChoiceContext(), Owner, true);
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(new ThrowingPlayerChoiceContext(), Owner, true, withTriggers: 1);
                         break;
                     case 2:
-                        await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(new ThrowingPlayerChoiceContext(), Owner, true);
-                        break;
-                    case 3:
                         await TailorMinionCmd.AddOrReplaceMinion<MinionSilk>(new ThrowingPlayerChoiceContext(), Owner, true);
                         break;
-                    case 4:
-                        await TailorMinionCmd.AddOrReplaceMinion<MinionCotton>(new ThrowingPlayerChoiceContext(), Owner, true);
+                    case 3:
+                        await TailorMinionCmd.AddOrReplaceMinion<MinionBurlap>(new ThrowingPlayerChoiceContext(), Owner, true);
                         break;
-                    case 5:
+                    case 4:
                         await TailorMinionCmd.AddOrReplaceMinion<MinionWool>(new ThrowingPlayerChoiceContext(), Owner, true);
                         break;
                 }

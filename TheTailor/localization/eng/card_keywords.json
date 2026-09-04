@@ -21,5 +21,7 @@
     "THETAILOR-SILKMINION.title": "Silk Minion",
     "THETAILOR-SILKMINION.description": "[gold]1 HP[/gold]. Takes unblocked attack damage for you.\nAt the start of your turn, grants you 2 [gold]Dexterity[/gold] this turn.",
     "THETAILOR-WOOLMINION.title": "Wool Minion",
-    "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you.\nYour first attack each turn applies 1 [gold]Weak[/gold]."
+    "THETAILOR-WOOLMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you.\nYour first attack each turn applies 1 [gold]Weak[/gold].",
+    "THETAILOR-BURLAPMINION.title": "Burlap Minion",
+    "THETAILOR-BURLAPMINION.description": "[gold]3 HP[/gold]. Takes unblocked attack damage for you.\nAt the start of your turn, grants you 2 [gold]Strength[/gold] this turn."
 }

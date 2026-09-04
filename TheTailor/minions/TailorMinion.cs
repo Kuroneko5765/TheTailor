@@ -31,11 +31,16 @@ namespace TheTailor.Minions
     public abstract class TailorMinion : CustomMinionModel
     {
         public override string? HurtSfx => "res://TheTailor/audio/clothHit1.ogg";
-        public override string CustomDeathSfx => "res://TheTailor/audio/clothRip1.ogg";
-        public override string DeathSfx => "res://TheTailor/audio/clothRip1.ogg";
-        public override bool HasDeathSfx => true;
         public override float DeathAnimLengthOverride => 0.8f;
         public override float HpBarSizeReduction => 12f;
+
+        public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
+        {
+            if (creature.Monster == this)
+            {
+                SoundEffects.MinionDeath.Play();
+            }
+        }
     }
 
     /// <summary>

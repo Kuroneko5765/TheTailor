@@ -22,6 +22,7 @@ using TheTailor.Cards;
 using TheTailor.Character;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Uncommon
 {
@@ -36,9 +37,9 @@ namespace TheTailor.Cards.Uncommon
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.Premium), HoverTipFactory.FromPower<VigorPower>()];
         public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Unplayable, CardKeyword.Retain];
 
-        public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+        public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
         {
-            if (side == CombatSide.Player)
+            if (side == CombatSide.Player && combatState.RoundNumber > 1)
             {
                 foreach (Creature creature in participants)
                 {

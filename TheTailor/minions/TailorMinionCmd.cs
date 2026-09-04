@@ -65,7 +65,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Adds a minion.
         /// </summary>
-        public static async Task<bool> AddMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int maxHpOverride = 0) where T : MinionModel
+        public static async Task<bool> AddMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int maxHpOverride = 0, int withTriggers = 0) where T : MinionModel
         {
             if (CanMinionBeAdded(owner))
             {
@@ -76,6 +76,14 @@ namespace TheTailor.Minions
                 }
 
                 await PutOstyAtBack(playerChoiceContext, owner);
+
+                if (withTriggers > 0 && result != null)
+                {
+                    for (int i = 0; i < withTriggers; i++)
+                    {
+                        await TriggerMinionAbility<TailorMinion>(playerChoiceContext, owner, MinionTriggerType.First, result.Monster as TailorMinion);
+                    }
+                }
 
                 return true;
             }
@@ -88,7 +96,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Adds a minion. If too many exist, prompts the player to select one for replacing. Returns true if the minion was added
         /// </summary>
-        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0) where T : TailorMinion
+        public static async Task<bool> AddOrReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, bool canSkip, int maxHpOverride = 0, int withTriggers = 0) where T : TailorMinion
         {
             if (!CanMinionBeAdded(owner))
             {
@@ -99,7 +107,7 @@ namespace TheTailor.Minions
                     return false;
                 }
 
-                if (await ReplaceMinion<T>(playerChoiceContext, owner, replaceIndex, maxHpOverride: maxHpOverride))
+                if (await ReplaceMinion<T>(playerChoiceContext, owner, replaceIndex, maxHpOverride: maxHpOverride, withTriggers: withTriggers))
                 {
                     return true;
                 }
@@ -114,6 +122,14 @@ namespace TheTailor.Minions
 
                 await PutOstyAtBack(playerChoiceContext, owner);
 
+                if (withTriggers > 0 && result != null)
+                {
+                    for (int i = 0; i < withTriggers; i++)
+                    {
+                        await TriggerMinionAbility<TailorMinion>(playerChoiceContext, owner, MinionTriggerType.First, result.Monster as TailorMinion);
+                    }
+                }
+
                 return true;
             }
 
@@ -123,7 +139,7 @@ namespace TheTailor.Minions
         /// <summary>
         ///     Replaces a minion in their current position. Set convert to true to retain its max HP for the new minion
         /// </summary>
-        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false, bool first = false, int maxHpOverride = 0) where T : MinionModel
+        public static async Task<bool> ReplaceMinion<T>(PlayerChoiceContext playerChoiceContext, Player owner, int replaceIndex, bool convert = false, bool first = false, int maxHpOverride = 0, int withTriggers = 0) where T : MinionModel
         {
             PetsOrderAccessor accessor = new PetsOrderAccessor(owner);
 
@@ -154,6 +170,14 @@ namespace TheTailor.Minions
                 PetOrderSnapshotManager.TakeSnapshot(owner);
                 
                 await PutOstyAtBack(playerChoiceContext, owner);
+
+                if (withTriggers > 0)
+                {
+                    for (int i = 0; i < withTriggers; i++)
+                    {
+                        await TriggerMinionAbility<TailorMinion>(playerChoiceContext, owner, MinionTriggerType.First, newMinion.Monster as TailorMinion);
+                    }
+                }
 
                 if (convert)
                 {
@@ -189,36 +213,56 @@ namespace TheTailor.Minions
                             cm = ModelDb.Card<LeatherMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         case MinionCotton:
                             cm = ModelDb.Card<CottonMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         case MinionDenim:
                             cm = ModelDb.Card<DenimMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         case MinionLinen:
                             cm = ModelDb.Card<LinenMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         case MinionSilk:
                             cm = ModelDb.Card<SilkMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         case MinionWool:
                             cm = ModelDb.Card<WoolMinionToken>().ToMutable();
                             cm.Owner = owner;
                             cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
+                            choices.Add(cm);
+                            break;
+                        case MinionBurlap:
+                            cm = ModelDb.Card<BurlapMinionToken>().ToMutable();
+                            cm.Owner = owner;
+                            cm.DynamicVars["ChoiceIndex"].BaseValue = accessor.Pets.IndexOf(minion);
+                            cm.DynamicVars["Health"].BaseValue = minion.CurrentHp;
+                            cm.DynamicVars["HealthPluralize"].BaseValue = 2;
                             choices.Add(cm);
                             break;
                         default:
@@ -307,14 +351,13 @@ namespace TheTailor.Minions
 
                     if (creature.Monster is MinionLinen)
                     {
-                        Creature creature1 = player.RunState.Rng.CombatTargets.NextItem(player.Creature.CombatState?.HittableEnemies ?? Array.Empty<Creature>());
-                        if (creature1 != null)
+                        foreach (Creature creatureTarget in player.Creature.CombatState.Enemies)
                         {
-                            await PowerCmd.Apply<VulnerablePower>(choiceContext, creature1, 2, player.Creature, null);
+                            await PowerCmd.Apply<VulnerablePower>(choiceContext, creatureTarget, 2, player.Creature, null);
                             await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                             await Cmd.Wait(0.2f);
-                            if (minionTriggerType != MinionTriggerType.All) { break; }
                         }
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
                     }
                     else if (creature.Monster is MinionCotton)
                     {
@@ -340,6 +383,13 @@ namespace TheTailor.Minions
                     else if (creature.Monster is MinionSilk)
                     {
                         await PowerCmd.Apply<SilkDexterityPower>(choiceContext, player.Creature, 2m, creature, null);
+                        await CreatureCmd.TriggerAnim(creature, "cast", 0f);
+                        await Cmd.Wait(0.2f);
+                        if (minionTriggerType != MinionTriggerType.All) { break; }
+                    }
+                    else if (creature.Monster is MinionBurlap)
+                    {
+                        await PowerCmd.Apply<BurlapStrengthPower>(choiceContext, player.Creature, 2m, creature, null);
                         await CreatureCmd.TriggerAnim(creature, "cast", 0f);
                         await Cmd.Wait(0.2f);
                         if (minionTriggerType != MinionTriggerType.All) { break; }
@@ -486,6 +536,10 @@ namespace TheTailor.Minions
             else if (typeof(T) == typeof(MinionCotton))
             {
                 ret = new LocString("monsters", "THETAILOR-MINION_COTTON.name").GetRawText();
+            }
+            else if (typeof(T) == typeof(MinionBurlap))
+            {
+                ret = new LocString("monsters", "THETAILOR-MINION_BURLAP.name").GetRawText();
             }
 
             return ret;

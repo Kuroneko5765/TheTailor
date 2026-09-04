@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1dq2vkwlimf3"
-path="res://.godot/imported/whatsInsideBeta.png-939afbdd61ef569bd82e4a1ecdd54edc.ctex"
+uid="uid://bygjdl2cngtei"
+path="res://.godot/imported/heavyDuty.png-78782453ebdbfa2d0283e3c4c5af3245.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TheTailor/images/card_portraits/whatsInsideBeta.png"
-dest_files=["res://.godot/imported/whatsInsideBeta.png-939afbdd61ef569bd82e4a1ecdd54edc.ctex"]
+source_file="res://TheTailor/images/powers/heavyDuty.png"
+dest_files=["res://.godot/imported/heavyDuty.png-78782453ebdbfa2d0283e3c4c5af3245.ctex"]
 
 [params]
 

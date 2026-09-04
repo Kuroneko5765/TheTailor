@@ -24,7 +24,9 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -57.0
+offset_top = 3.0
 offset_right = 57.0
+offset_bottom = 3.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
@@ -45,20 +47,20 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.012222e-05, 0.0034223795, -0.0011179447)
 
 [node name="Skeleton3D" parent="Visuals/CharBox/SubViewportContainer/SubViewport/Node3D/minionLeatherAnim/Armature" index="0"]
-bones/0/position = Vector3(-1.51723, -0.6859043, 2.9999998)
-bones/0/rotation = Quaternion(0.00019311176, -6.118324e-05, -0.6158031, 0.78790003)
-bones/0/scale = Vector3(1.009829, 1.0098293, 1)
-bones/1/rotation = Quaternion(6.6057684e-05, 7.0774615e-05, 0.051976424, 0.9986483)
-bones/2/rotation = Quaternion(-4.8728536e-05, 1.7777582e-05, -0.7668983, 0.6417687)
-bones/3/rotation = Quaternion(-0.00015718017, -1.4621465e-05, 0.12024415, 0.99274445)
-bones/4/position = Vector3(-1.5190408, -0.68590444, 3)
-bones/4/rotation = Quaternion(0.9360706, 0.3518124, 2.2480368e-08, 1.0436351e-07)
-bones/5/rotation = Quaternion(-1.6338208e-07, -2.0593074e-08, 0.6229166, 0.78228825)
-bones/8/position = Vector3(1.1736935, -1.1874777, 3.0050642)
+bones/0/position = Vector3(-1.4837865, -0.6362613, 2.9999998)
+bones/0/rotation = Quaternion(0.0002472305, -7.348355e-05, -0.6136424, 0.78958404)
+bones/0/scale = Vector3(1.000085, 1.000085, 1)
+bones/1/rotation = Quaternion(0.00010724956, 8.379883e-05, 0.022239607, 0.99975276)
+bones/2/rotation = Quaternion(-6.601175e-05, 5.412412e-05, -0.7558989, 0.65468854)
+bones/3/rotation = Quaternion(-0.0001650394, -1.4822426e-05, 0.13319519, 0.9910899)
+bones/4/position = Vector3(-1.4991884, -0.6202924, 3)
+bones/4/rotation = Quaternion(0.95029324, 0.31135643, 6.4523067e-09, 1.00842634e-07)
+bones/5/rotation = Quaternion(-1.5379526e-07, -1.8663126e-08, 0.57453233, 0.81848186)
+bones/8/position = Vector3(1.059985, -1.1874777, 3.0050642)
 
 [node name="ShadowSprite" type="Sprite2D" parent="Visuals"]
 y_sort_enabled = true
-position = Vector2(5.9604645e-08, -61)
+position = Vector2(5.9604645e-08, -61.000004)
 scale = Vector2(0.61249995, 0.61249995)
 texture = ExtResource("3_s2om0")
 

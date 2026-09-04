@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://drgvykru5gh6g"]
+
+[ext_resource type="Script" uid="uid://d0s2e1ft3qrmr" path="res://TheTailor/nodes/TailorNMinionVisuals.cs" id="1_dybsl"]
+[ext_resource type="Texture2D" uid="uid://b8dv51k2jd3qy" path="res://TheTailor/images/minions/minionBurlap_placeholder.png" id="2_dybsl"]
+
+[node name="MinionCotton" type="Node2D"]
+script = ExtResource("1_dybsl")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -56.0
+offset_top = -114.0
+offset_right = 56.0
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -44)
+
+[node name="Visuals" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -60.000008)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_dybsl")
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -160)

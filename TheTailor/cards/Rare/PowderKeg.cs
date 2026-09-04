@@ -33,7 +33,7 @@ namespace TheTailor.Cards.Rare
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/powderKegBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/powderKegBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/powderKegBeta.png";
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.LeatherMinion), HoverTipFactory.FromKeyword(TheTailor.Keywords.BurlapMinion)];
         protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Unpowered)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

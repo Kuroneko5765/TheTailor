@@ -17,12 +17,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 
 namespace TheTailor.Powers
 {
-    public sealed class DenimStrengthPower : CustomTemporaryPowerModel
+    public sealed class CheeseStrengthPower : CustomTemporaryPowerModel
     {
-        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/denimStrengthSmall.png";
-        public override string? CustomBigIconPath => "res://TheTailor/images/powers/denimStrength.png";
-        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/denimStrength.png";
-        public override AbstractModel OriginModel => ModelDb.Monster<MinionDenim>();
+        public override string? CustomPackedIconPath => "res://TheTailor/images/powers/cheeseStrengthSmall.png";
+        public override string? CustomBigIconPath => "res://TheTailor/images/powers/cheeseStrength.png";
+        public override string? CustomBigBetaIconPath => "res://TheTailor/images/powers/cheeseStrength.png";
+        public override AbstractModel OriginModel => ModelDb.Monster<MinionBurlap>(); // TODO: cheese minion
         public override PowerModel InternallyAppliedPower => ModelDb.Power<StrengthPower>();
         protected override Func<PlayerChoiceContext, Creature, decimal, Creature?, CardModel?, bool, Task> ApplyPowerFunc => PowerCmd.Apply<StrengthPower>;
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];

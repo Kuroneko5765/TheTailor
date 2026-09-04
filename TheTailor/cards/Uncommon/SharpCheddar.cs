@@ -35,16 +35,17 @@ using MegaCrit.Sts2.Core.Nodes.Vfx;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Combat;
 using BaseLib.Extensions;
+using TheTailor.Powers;
 
 namespace TheTailor.Cards.Common
 {
     [Pool(typeof(TheTailorCardPool))]
-    public class Riposte() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+    public class SharpCheddar() : CustomCardModel(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
         public override bool GainsBlock => true;
-        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
-        public override string? PortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
-        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/riposteBeta.png";
+        public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sharpCheddarBeta.png";
+        public override string? PortraitPath => "res://TheTailor/images/card_portraits/sharpCheddarBeta.png";
+        public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sharpCheddarBeta.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(4, ValueProp.Move), new DynamicVar("Vigor", 4)];
         protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VigorPower>()];
 

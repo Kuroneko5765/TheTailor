@@ -23,7 +23,7 @@ namespace TheTailor.Character
         public override Color DialogueColor => Color;
         public override VfxColor SpeechBubbleColor => VfxColor.Purple;
         public override CharacterGender Gender => CharacterGender.Masculine;
-        public override int StartingHp => 60;
+        public override int StartingHp => 65;
 
         public override string CustomVisualPath => "res://TheTailor/scenes/char/tailor.tscn";
         public override string CustomRestSiteAnimPath => "res://TheTailor/scenes/rest_site/tailor_rest_site.tscn";

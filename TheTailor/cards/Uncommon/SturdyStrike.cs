@@ -34,12 +34,11 @@ namespace TheTailor.Cards.Uncommon
         public override string? CustomPortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
         public override string? PortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
         public override string? BetaPortraitPath => "res://TheTailor/images/card_portraits/sturdyStrikeBeta.png";
-        protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("Delicate", 2), new DamageVar(9, ValueProp.Move)];
-        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion), HoverTipFactory.FromKeyword(CardKeyword.Exhaust), HoverTipFactory.FromKeyword(TheTailor.Keywords.Delicate)];
+        protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
+        protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(TheTailor.Keywords.DenimMinion)];
 
         protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
         {
-            ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
             await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
                 .FromCard(this, cardPlay)
                 .Targeting(cardPlay.Target)
@@ -47,13 +46,12 @@ namespace TheTailor.Cards.Uncommon
                 .Execute(choiceContext);
 
             await TailorMinionCmd.AddOrReplaceMinion<MinionDenim>(choiceContext, Owner, true);
+            EnergyCost.UpgradeBy(1);
         }
 
         protected override void OnUpgrade()
         {
             DynamicVars.Damage.UpgradeValueBy(5);
-            DynamicVars["Delicate"].UpgradeValueBy(1);
-            RemoveKeyword(CardKeyword.Exhaust);
         }
     }
 }

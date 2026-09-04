@@ -19,12 +19,12 @@ using MegaCrit.Sts2.Core.Commands;
 namespace TheTailor.Relics.Common
 {
     [Pool(typeof(TheTailorRelicPool))]
-    public class HeavyDuty : CustomRelicModel
+    public class ToughTrousers : CustomRelicModel
     {
         public override RelicRarity Rarity => RelicRarity.Common;
-        public override string PackedIconPath => "res://TheTailor/images/relics/heavyDuty.png";
-        protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/heavyDutyOutline.png";
-        protected override string BigIconPath => "res://TheTailor/images/relics/heavyDutyBig.png";
+        public override string PackedIconPath => "res://TheTailor/images/relics/toughTrousers.png";
+        protected override string PackedIconOutlinePath => "res://TheTailor/images/relics/toughTrousersOutline.png";
+        protected override string BigIconPath => "res://TheTailor/images/relics/toughTrousersBig.png";
         protected override IEnumerable<DynamicVar> CanonicalVars => [new HealVar(1)];
 
         public override async Task AfterCreatureAddedToCombat(Creature creature)
