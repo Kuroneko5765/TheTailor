@@ -11,15 +11,17 @@
     "THETAILOR-PREMIUM.description": "可以[gold]升级[/gold]无限次。",
 
     "THETAILOR-LEATHERMINION.title": "皮革仆从",
-    "THETAILOR-LEATHERMINION.description": "[gold]6生命值[/gold]。为你抵挡未被格挡的伤害。",
+    "THETAILOR-LEATHERMINION.description": "[gold]6点生命值[/gold]。为你抵挡未被格挡的伤害。",
     "THETAILOR-LINENMINION.title": "亚麻仆从",
-    "THETAILOR-LINENMINION.description": "[gold]5生命值[/gold]。为你抵挡未被格挡的伤害。被击中时，给予攻击者2层[gold]易伤[/gold]。",
+    "THETAILOR-LINENMINION.description": "[gold]5点生命值[/gold]。为你抵挡未被格挡的伤害。\n被击中时，给予攻击者2层[gold]易伤[/gold]。",
     "THETAILOR-COTTONMINION.title": "棉布仆从",
-    "THETAILOR-COTTONMINION.description": "[gold]3生命值[/gold]。为你抵挡未被格挡的伤害。在你的回合结束时，为你回复1点生命，自身受到1点伤害。",
+    "THETAILOR-COTTONMINION.description": "[gold]3点生命值[/gold]。为你抵挡未被格挡的伤害。\n在你的回合结束时，为你回复1点生命，自身受到1点伤害。",
     "THETAILOR-DENIMMINION.title": "牛仔布仆从",
-    "THETAILOR-DENIMMINION.description": "[gold]7生命值[/gold]。为你抵挡未被格挡的伤害。被击中时，给予你1点[gold]力量[/gold]。",
+    "THETAILOR-DENIMMINION.description": "[gold]7点生命值[/gold]。为你抵挡未被格挡的伤害。\n被击中时，给予你1点[gold]力量[/gold]。",
     "THETAILOR-SILKMINION.title": "丝绸仆从",
-    "THETAILOR-SILKMINION.description": "[gold]1生命值[/gold]。为你抵挡未被格挡的伤害。在你的回合开始时，在本回合给予你2点[gold]敏捷[/gold]。",
+    "THETAILOR-SILKMINION.description": "[gold]1点生命值[/gold]。为你抵挡未被格挡的伤害。\n在你的回合开始时，在本回合给予你2点[gold]敏捷[/gold]。",
     "THETAILOR-WOOLMINION.title": "羊毛仆从",
-    "THETAILOR-WOOLMINION.description": "[gold]3生命值[/gold]。为你抵挡未被格挡的伤害。你每回合的第一次攻击给予1层[gold]虚弱[/gold]。"
+    "THETAILOR-WOOLMINION.description": "[gold]3点生命值[/gold]。为你抵挡未被格挡的伤害。\n你每回合的第一次攻击给予1层[gold]虚弱[/gold]。",
+    "THETAILOR-BURLAPMINION.title": "粗麻布仆从",
+    "THETAILOR-BURLAPMINION.description": "[gold]3点生命值[/gold]。为你抵挡未被格挡的伤害。\n在你的回合开始时，在本回合给予你2点[gold]力量[/gold]。"
 }
